@@ -11,18 +11,8 @@
         android:layout_height="wrap_content"
         app:title="복지 혜택"
         app:menu="@menu/menu" />
-
-    <TableLayout
-        android:layout_below="@id/toolbar"
-        android:id="@+id/tablelayout"
-        android:layout_width="match_parent"
-        android:layout_height="200dp">
-
-
-
-    </TableLayout>
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_below="@id/tablelayout"
+        android:layout_below="@id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

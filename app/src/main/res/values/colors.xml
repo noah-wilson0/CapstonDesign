@@ -2,4 +2,6 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="editTextTint">#F2E1E1</color>
+    <color name="hintColor">#808080</color>
 </resources>
