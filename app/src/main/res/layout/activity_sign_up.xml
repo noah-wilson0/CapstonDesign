@@ -280,31 +280,37 @@
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:id="@+id/singleHousehold_CHK"
                     android:text="1인가구" />
 
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:id="@+id/disabledPerson_CHK"
                     android:text="장애인" />
 
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:id="@+id/nkDefector_CHK"
                     android:text="북한이탈자주민" />
 
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:id="@+id/multiFamily_CHK"
                     android:text="다문화가정" />
 
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:id="@+id/singleFamily_CHK"
                     android:text="한부모가정" />
 
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:id="@+id/military_CHK"
                     android:text="국가보훈대상" />
 
 
