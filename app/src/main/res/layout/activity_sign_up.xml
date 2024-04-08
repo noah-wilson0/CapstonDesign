@@ -18,98 +18,103 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="50dp"
             android:orientation="vertical">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_marginBottom="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/idSesstion_TV"
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="아이디 : "
-                android:textSize="20sp"
-                app:layout_constraintEnd_toStartOf="@+id/inputID_ET"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_marginBottom="10dp">
 
-            <EditText
-                android:id="@+id/inputID_ET"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/editTextTint"
-                android:layout_marginEnd="5dp"
-                android:inputType="text"
-                android:maxLines="1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/idSesstion_TV"
-                app:layout_constraintTop_toTopOf="@+id/idSesstion_TV" />
+                <TextView
+                    android:id="@+id/idSesstion_TV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="아이디 : "
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/inputID_ET"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/idHint_TV"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:text="아이디는 영문과 특수문자를 섞어서 최소 8자리입니다."
-                android:textColor="@color/hintColor"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/inputID_ET" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <EditText
+                    android:id="@+id/inputID_ET"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:backgroundTint="@color/editTextTint"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/idSesstion_TV"
+                    app:layout_constraintTop_toTopOf="@+id/idSesstion_TV" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_marginBottom="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/psSesstion_TV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="비민번호 : "
-                android:textSize="20sp"
-                app:layout_constraintEnd_toStartOf="@+id/inputPS_ET"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:id="@+id/inputPS_ET"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="5dp"
-                android:inputType="text"
-                android:maxLines="1"
-                android:backgroundTint="@color/editTextTint"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/psSesstion_TV"
-                app:layout_constraintTop_toTopOf="@+id/psSesstion_TV" />
-
-            <TextView
-                android:id="@+id/psHint_TV"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="아이디는 영문과 특수문자를 섞어서 최소 8자리입니다."
-                android:textAlignment="center"
-                android:textColor="@color/hintColor"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/inputPS_ET" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/idHint_TV"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="아이디는 영문, 특수문자, 숫자를 섞어서 최소 8자리입니다."
+                    android:textAlignment="center"
+                    android:textColor="@color/hintColor"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/inputID_ET" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_marginBottom="20dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp">
+
+                <TextView
+                    android:id="@+id/psSesstion_TV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="비민번호 : "
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/inputPS_ET"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/inputPS_ET"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:backgroundTint="@color/editTextTint"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/psSesstion_TV"
+                    app:layout_constraintTop_toTopOf="@+id/psSesstion_TV" />
+
+                <TextView
+                    android:id="@+id/psHint_TV"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="비밀번호는 영문, 특수문자, 숫자를 섞어서 최소 8자리입니다."
+                    android:textAlignment="center"
+                    android:textColor="@color/hintColor"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/inputPS_ET" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp">
 
                 <TextView
                     android:id="@+id/namrSesstion_TV"
@@ -117,6 +122,7 @@
                     android:layout_height="wrap_content"
                     android:text="이름 : "
                     android:textSize="20sp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toStartOf="@+id/inputName_ET"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -126,9 +132,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
+                    android:backgroundTint="@color/editTextTint"
                     android:inputType="text"
                     android:maxLines="1"
-                    android:backgroundTint="@color/editTextTint"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/namrSesstion_TV"
                     app:layout_constraintTop_toTopOf="@+id/namrSesstion_TV" />
@@ -137,7 +143,7 @@
                     android:id="@+id/nameHint_TV"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="아이디는 영문과 특수문자를 섞어서 최소 8자리입니다."
+                    android:text="한국인이 아니신 경우 first name을 입력해주세요."
                     android:textAlignment="center"
                     android:textColor="@color/hintColor"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -146,50 +152,11 @@
                     app:layout_constraintTop_toBottomOf="@+id/inputName_ET" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_marginBottom="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/jobSesstion_TV"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="직업 : "
-                    android:textSize="20sp"
-                    app:layout_constraintEnd_toStartOf="@+id/inputJob_ET"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <EditText
-                    android:id="@+id/inputJob_ET"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="5dp"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:backgroundTint="@color/editTextTint"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/jobSesstion_TV"
-                    app:layout_constraintTop_toTopOf="@+id/jobSesstion_TV" />
-
-                <TextView
-                    android:id="@+id/jobHint_TV"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="아이디는 영문과 특수문자를 섞어서 최소 8자리입니다."
-                    android:textAlignment="center"
-                    android:textColor="@color/hintColor"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/inputJob_ET" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_marginBottom="20dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp">
 
                 <TextView
                     android:id="@+id/avgIncomeSesstion_TV"
@@ -197,6 +164,7 @@
                     android:layout_height="wrap_content"
                     android:text="연 평균 소득 : "
                     android:textSize="20sp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toStartOf="@+id/inputAvgIncomeSesstion_ET"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -206,9 +174,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
+                    android:backgroundTint="@color/editTextTint"
                     android:inputType="text"
                     android:maxLines="1"
-                    android:backgroundTint="@color/editTextTint"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/avgIncomeSesstion_TV"
                     app:layout_constraintTop_toTopOf="@+id/avgIncomeSesstion_TV" />
@@ -227,9 +195,9 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_marginBottom="20dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp">
 
                 <TextView
                     android:id="@+id/familyStructureSesstion_TV"
@@ -237,6 +205,7 @@
                     android:layout_height="wrap_content"
                     android:text="가족 관계 : "
                     android:textSize="20sp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toStartOf="@+id/familyStructureSesstion_ET"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -246,18 +215,18 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
+                    android:backgroundTint="@color/editTextTint"
                     android:inputType="text"
                     android:maxLines="1"
-                    android:backgroundTint="@color/editTextTint"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/familyStructureSesstion_TV"
                     app:layout_constraintTop_toTopOf="@+id/familyStructureSesstion_TV" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_marginBottom="20dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp">
 
                 <TextView
                     android:id="@+id/residenceeSesstion_TV"
@@ -265,6 +234,7 @@
                     android:layout_height="wrap_content"
                     android:text="거주 지역 : "
                     android:textSize="20sp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toStartOf="@+id/residenceSesstion_ET"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -274,14 +244,99 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
+                    android:backgroundTint="@color/editTextTint"
                     android:inputType="text"
                     android:maxLines="1"
-                    android:backgroundTint="@color/editTextTint"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/residenceeSesstion_TV"
                     app:layout_constraintTop_toTopOf="@+id/residenceeSesstion_TV" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
+                <TextView
+                    android:id="@+id/residenceIncomeHint_TV"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="예시) 사상구, 김해시, 창원, 서울,충청남도(충남) 등등"
+                    android:textAlignment="center"
+                    android:textColor="@color/hintColor"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/residenceSesstion_ET" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="특이 사항"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="horizontal"
+                android:columnCount="2"
+                android:rowCount="2">
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1인가구" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="장애인" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="북한이탈자주민" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="다문화가정" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="한부모가정" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="국가보훈대상" />
+
+
+            </GridLayout>
+
+            <LinearLayout
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                android:weightSum="2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:id="@+id/cancel_BTN"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="9dp"
+                    android:layout_marginEnd="17dp"
+                    android:backgroundTint="@color/editTextTint"
+                    android:text="취소"
+                    android:layout_weight="1"
+                    android:textColor="@color/black" />
+
+                <Button
+                    android:id="@+id/signUp_BTN"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/editTextTint"
+                    android:text="회원가입"
+                    android:layout_weight="1"
+                    android:textColor="@color/black" />
+            </LinearLayout>
 
         </LinearLayout>
 
