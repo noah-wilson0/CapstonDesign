@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="sorting_criteria">
+        <item>전체(맞춤)</item>
+        <item>생활안정</item>
+        <item>주거·자립</item>
+        <item>보육·교육</item>
+        <item>고용·창업</item>
+        <item>보건·의료</item>
+        <item>행정·안전</item>
+        <item>임신·출산</item>
+        <item>문화·환경</item>
+        <item>농림축산어업</item>
+    </string-array>
+</resources>
