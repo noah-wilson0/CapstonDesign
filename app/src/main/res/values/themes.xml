@@ -11,7 +11,8 @@
         <item name="android:divider">@color/hintColor</item> <!-- divider 색 -->
         <item name="android:dividerHeight">1dp</item> <!-- divider 높이 -->
         <item name="android:overlapAnchor">false</item> <!-- false  드랍다운 메뉴가 스피너 아래로 고정. -->
-        <item name="dropDownListViewStyle">@style/SpinnerTheme</item>
+<!--        <item name="dropDownListViewStyle">@style/SpinnerTheme</item>-->
+        <item name="dropDownListViewStyle">@style/SpinnerDivideStyle</item>
     </style>
 
 </resources>
