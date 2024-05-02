@@ -229,7 +229,7 @@
                 android:layout_marginBottom="20dp">
 
                 <TextView
-                    android:id="@+id/residenceeSesstion_TV"
+                    android:id="@+id/residenceSesstion_TV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="거주 지역 : "
@@ -248,8 +248,8 @@
                     android:inputType="text"
                     android:maxLines="1"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/residenceeSesstion_TV"
-                    app:layout_constraintTop_toTopOf="@+id/residenceeSesstion_TV" />
+                    app:layout_constraintStart_toEndOf="@+id/residenceSesstion_TV"
+                    app:layout_constraintTop_toTopOf="@+id/residenceSesstion_TV" />
 
                 <TextView
                     android:id="@+id/residenceIncomeHint_TV"

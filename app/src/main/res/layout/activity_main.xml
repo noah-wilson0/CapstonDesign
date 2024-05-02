@@ -11,10 +11,74 @@
         android:layout_height="wrap_content"
         app:title="복지 혜택"
         app:menu="@menu/menu" />
-    <androidx.recyclerview.widget.RecyclerView
+    <LinearLayout
+        android:id="@+id/subToolbar"
         android:layout_below="@id/toolbar"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Spinner
+                android:id="@+id/mainListSelectSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="0dp"
+                android:spinnerMode="dropdown"
+                android:dropDownWidth="match_parent"
+                android:background="@drawable/background_spinner_option"
+                style="@style/SpinnerDivideStyle"
+                android:layout_marginLeft="10dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:weightSum="8"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_weight="5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/main_sort"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="전체" />
+            <TextView
+                android:text="|"
+                android:layout_marginRight="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/k_alphabet_sort"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="가나다" />
+            <TextView
+                android:text="|"
+                android:layout_marginRight="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/views_sort"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="조회수" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/subToolbar"
+        android:layout_marginTop="5dp">
 
 
     </androidx.recyclerview.widget.RecyclerView>
