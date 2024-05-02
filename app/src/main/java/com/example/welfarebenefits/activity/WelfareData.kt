@@ -1,4 +1,4 @@
-package com.example.welfarebenefits
+package com.example.welfarebenefits.activity
 
 data class WelfareData (
     val userType:String,             //사용자구분

@@ -13,29 +13,29 @@
         android:theme="@style/Base.Theme.WelfareBenefits"
         tools:targetApi="31">
         <activity
-            android:name=".Search"
+            android:name=".activity.Search"
             android:exported="false">
         </activity>
         <activity
-            android:name=".UserInfo"
+            android:name=".activity.UserInfo"
             android:exported="false" />
         <activity
-            android:name=".bookmark_list"
+            android:name=".activity.bookmark_list"
             android:exported="false" />
         <activity
-            android:name=".alertList"
+            android:name=".activity.alertList"
             android:exported="false" />
         <activity
-            android:name=".subList"
+            android:name=".activity.subList"
             android:exported="false" />
         <activity
-            android:name=".SignUp"
+            android:name=".activity.SignUp"
             android:exported="false" />
         <activity
-            android:name=".LogIn"
+            android:name=".activity.LogIn"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

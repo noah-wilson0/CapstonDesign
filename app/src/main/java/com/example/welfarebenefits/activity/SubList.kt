@@ -1,7 +1,8 @@
-package com.example.welfarebenefits
+package com.example.welfarebenefits.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.welfarebenefits.R
 
 class subList : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
