@@ -34,7 +34,7 @@
         app:layout_constraintTop_toBottomOf="@+id/id_ET" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/loginbutton"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
@@ -55,7 +55,7 @@
         android:textColor="@color/warningColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/text"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/loginbutton" />
 
     <TextView
         android:id="@+id/text"
