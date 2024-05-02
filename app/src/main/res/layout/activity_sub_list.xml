@@ -39,34 +39,28 @@
         android:text="서비스 목적요약\n.\n."
         android:layout_below="@id/textView2"/>
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tableLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_below="@id/textView3"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="horizontal">
+    <com.google.android.material.tabs.TabItem
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="주요정보"/>
+    <com.google.android.material.tabs.TabItem
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="신청방법"/>
 
-        <Button
-            android:id="@+id/button1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="주요내용"
-            android:backgroundTint="@color/editTextTint"
-            android:layout_marginRight="20dp"/>
-
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/editTextTint"
-            android:text="신청방법" />
-    </LinearLayout>
+    </com.google.android.material.tabs.TabLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/linearLayout"
+        android:layout_below="@id/tableLayout"
         android:layout_marginTop="-2dp">
 
         <LinearLayout
