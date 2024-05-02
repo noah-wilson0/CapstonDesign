@@ -1,8 +1,7 @@
-package com.example.welfarebenefits
+package com.example.welfarebenefits.activity
 
 import android.graphics.Typeface
 import android.os.Bundle
-import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
@@ -10,6 +9,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import com.example.welfarebenefits.R
 import com.example.welfarebenefits.databinding.ActivityMainBinding
 
 

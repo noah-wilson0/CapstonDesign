@@ -1,4 +1,4 @@
-package com.example.welfarebenefits
+package com.example.welfarebenefits.activity
 
 import android.R
 import android.os.Bundle
