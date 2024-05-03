@@ -30,7 +30,8 @@
             android:exported="false" />
         <activity
             android:name=".activity.SignUpActivity"
-            android:exported="false" />
+            android:exported="false" >
+        </activity>
         <activity
             android:name=".activity.LogInActivity"
             android:exported="true">

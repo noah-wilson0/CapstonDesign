@@ -1,5 +1,6 @@
 package com.example.welfarebenefits.activity
 
+import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.view.MenuItem
@@ -11,7 +12,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.example.welfarebenefits.R
 import com.example.welfarebenefits.databinding.ActivityMainBinding
-
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
+/*
+    회원탈퇴기능도 추가해야 된다-0504
+ */
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     private var mBinding: ActivityMainBinding?=null
@@ -21,6 +26,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         mBinding= ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.logout.setOnClickListener {
+            Firebase.auth.signOut()
+            intent= Intent(this,LogInActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
 
         val sortingCriteriaArray = resources.getStringArray(R.array.sorting_criteria)
         binding.toolbar.setOnMenuItemClickListener(object : Toolbar.OnMenuItemClickListener {

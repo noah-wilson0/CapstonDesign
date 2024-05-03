@@ -19,6 +19,7 @@ class SignUpActivity : AppCompatActivity() {
         val intent=Intent(this,LogInActivity::class.java)
 
         binding.submit.setOnClickListener {
+
             var success:Boolean=SignUp(this,binding).signUp()
             when (success) {
                 true -> {

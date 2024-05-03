@@ -8,13 +8,14 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import android.content.Intent
+import com.example.welfarebenefits.util.LogIn
 import com.example.welfarebenefits.util.ShowAlertDialog
+import com.example.welfarebenefits.util.ShowAlertDialogListener
 
 class LogInActivity : AppCompatActivity() {
     private var mBinding:ActivityLogInBinding?=null
     private val binding get() = mBinding!!
     private lateinit var auth: FirebaseAuth
-    var userId:String=""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding= ActivityLogInBinding.inflate(layoutInflater)
@@ -23,8 +24,6 @@ class LogInActivity : AppCompatActivity() {
 
         binding.loginbutton.setOnClickListener {
             when {
-                //회원이 아닌경우 처리문 추가하기
-
                 binding.idET.text.toString().isBlank()&&binding.idET.text.toString().isNullOrEmpty() -> {
                     ShowAlertDialog(this,"로그인","아이디를 입력해 주세요!","확인").showAlertDialog()
                 }
@@ -32,13 +31,11 @@ class LogInActivity : AppCompatActivity() {
                     ShowAlertDialog(this,"로그인","비밀번호를 입력해 주세요!","확인").showAlertDialog()
                 }
                 binding.idET.text.toString().isNotBlank()&&binding.passwdET.text.toString().isNotBlank() ->{
-                    //로그인 처리 로직 구현
-
-                    finish()
+                    LogIn().logIn(this,binding)
                 }
                 else -> {
-                    finish()
                     Log.e("LOGIN","로그인 오류 발생")
+                    finish()
                 }
             }
         }
@@ -53,7 +50,7 @@ class LogInActivity : AppCompatActivity() {
 
     }
 
-    //다음에 앱을 실행하면 메인화면으로 넘어가게해야됨
+    //게스트 사용자는 어느 기능까지 해줄건지 고민하기 허용되는 권한에 따라 db를 추가해야할듯
     private fun guestLogin() {
         val user=auth.currentUser
         if (user != null) {

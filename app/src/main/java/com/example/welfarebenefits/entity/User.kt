@@ -7,5 +7,5 @@ data class User (
     var avgIncome:String,
     var familyStructure:String,
     var residence:String,
-    var significant: List<String>
+    var significant: List<String>,
 )
