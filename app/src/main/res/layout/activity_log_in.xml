@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.LogIn">
+    tools:context=".activity.LogInActivity">
 
     <EditText
         android:id="@+id/id_ET"
@@ -46,7 +46,7 @@
         app:layout_constraintTop_toBottomOf="@+id/passwd_ET" />
 
     <TextView
-        android:id="@+id/singin_TV"
+        android:id="@+id/singUp_TV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -63,8 +63,8 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="11dp"
         android:text="아직 회원이 아니신가요?"
-        app:layout_constraintBaseline_toBaselineOf="@+id/singin_TV"
-        app:layout_constraintEnd_toStartOf="@+id/singin_TV"
+        app:layout_constraintBaseline_toBaselineOf="@+id/singUp_TV"
+        app:layout_constraintEnd_toStartOf="@+id/singUp_TV"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -77,7 +77,7 @@
         android:text="게스트로 로그인시 맞춤형 정보를\n 확일하 실 수 없습니다."
         android:textColor="@color/warningColor"
         app:layout_constraintBottom_toTopOf="@+id/gestLogIn"
-        app:layout_constraintEnd_toEndOf="@+id/singin_TV" />
+        app:layout_constraintEnd_toEndOf="@+id/singUp_TV" />
 
     <TextView
         android:id="@+id/gestLogIn"

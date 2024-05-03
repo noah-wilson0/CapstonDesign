@@ -4,7 +4,6 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbar"
-    android:background="@color/editTextTint"
     app:title="복지 혜택"
     app:menu="@menu/menu">
 </androidx.appcompat.widget.Toolbar>

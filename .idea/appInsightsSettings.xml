@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.example.welfarebenefits" />
+                  <option name="mobileSdkAppId" value="1:411681553261:android:9b9ed02ea518ffd268f864" />
+                  <option name="projectId" value="capstondesigndb" />
+                  <option name="projectNumber" value="411681553261" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
