@@ -25,7 +25,6 @@ class NewUser() {
             .addOnCompleteListener(context as Activity) { task ->
                 if (task.isSuccessful) {
                     Log.d("signup", "signInWithEmail:success")
-                    val user = auth.currentUser
 
                 } else {
                     Log.e("signup", "signInWithEmail:failure")

@@ -25,7 +25,7 @@ class SignUp (val signUpActivity: SignUpActivity, private val binding: ActivityS
             binding.familyStructureSesstionET.text.toString().trim(),
             binding.residenceSesstionET.text.toString().trim(),
             CheckedTextExtractor(
-                listOf(
+                mutableListOf(
                     binding.singleHouseholdCHK,
                     binding.disabledPersonCHK,
                     binding.northKoreaDefectorCHK,

@@ -14,7 +14,7 @@
         android:icon="@drawable/alert"
         android:title="alert"/>
     <item
-        android:id="@+id/profileImage"
+        android:id="@+id/userInfoImage"
         app:showAsAction="always"
         android:enabled="true"
         android:icon="@drawable/info"
