@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.welfarebenefits.databinding.ActivityLogInBinding
 import com.example.welfarebenefits.util.LogIn
 import com.example.welfarebenefits.util.ShowAlertDialog
+import com.example.welfarebenefits.util.ShowAlertDialogListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -40,10 +41,26 @@ class LogInActivity : AppCompatActivity() {
         }
 
         binding.singUpTV.setOnClickListener {
-            Log.e("singUpTV","singUpTV클릭함")
-            val intent=Intent(this,SignUpActivity::class.java)
-            startActivity(intent)
-            finish()
+            val currentUser = auth.currentUser
+            if (currentUser != null) { //프로그램 개선 안: 가입한 계정을 파기하고 다시 회원가입하고 싶은 경우
+                ShowAlertDialog(this,"로그인",
+                    "이미 가입된 사용자입니다. 이미 가입한 계정으로 로그인해주세요",
+                   "확인",
+                    listener =object :
+                ShowAlertDialogListener{
+                        override fun onPositiveButtonClicked() {
+
+                        }
+                        override fun onNegativeButtonClicked() {
+
+                        }
+                })
+            }
+            else {
+                val intent = Intent(this, SignUpActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
         }
         binding.gestLogIn.setOnClickListener{ guestLogin() }
 
