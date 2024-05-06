@@ -13,7 +13,7 @@ import androidx.appcompat.widget.Toolbar
 import com.example.welfarebenefits.R
 import com.example.welfarebenefits.databinding.ActivityMainBinding
 import com.example.welfarebenefits.entity.User
-import com.example.welfarebenefits.util.JsonConverter
+import com.example.welfarebenefits.util.ActivityStarter
 import com.example.welfarebenefits.util.OnUserInfoClickListener
 import com.example.welfarebenefits.util.ToolbarMenuItemClickListener
 import com.google.firebase.Firebase
@@ -61,16 +61,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     }
 
                     R.id.userInfoImage -> {
-//                        val user: User = ToolbarMenuItemClickListener().onUserInfoImageClicked()
-//                        val intent= Intent(this@MainActivity, UserInfoActivity::class.java)
-//                        intent.putExtra("user", user)
-//                        intent.putExtra("user", user.id) //인텐트는 객체를  넘길수 없나? =>정답 시리얼 객체나 Parcelable 인터페이스를 구현한 객체여야한다.
-//                        startActivity(intent)
-//                        ToJSon.startNextActivity(this@MainActivity,user)
                         val listener = ToolbarMenuItemClickListener()
                         listener.setOnUserInfoClickListener(object : OnUserInfoClickListener {
                             override fun onUserInfoClick(user: User) {
-                                JsonConverter.startNextActivity(this@MainActivity,user)
+                                ActivityStarter.startNextActivity(this@MainActivity,user)
                             }
                         })
                         listener.onUserInfoImageClicked()

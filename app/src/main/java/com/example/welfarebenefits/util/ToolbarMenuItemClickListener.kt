@@ -24,7 +24,6 @@ class ToolbarMenuItemClickListener():ToolbarMenuItemClickListeners,OnUserInfoCli
 
 
     override fun onUserInfoImageClicked() {
-//         var user: User=User("0","0","0","0","0","0", mutableListOf("0"))
         database = Firebase.database.reference
         var user:User
         database.child("id1").get().addOnCompleteListener { task ->
