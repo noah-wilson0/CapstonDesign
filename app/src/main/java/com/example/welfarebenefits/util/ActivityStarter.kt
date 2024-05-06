@@ -10,7 +10,6 @@ import com.example.welfarebenefits.entity.User
 class ActivityStarter {
     companion object {
         fun startNextActivity(activity: Activity, user: User) {
-
             val userJson = JsonConverter().userToJson(user)
             val intent = Intent(activity, UserInfoActivity::class.java)
             intent.putExtra("user", userJson)

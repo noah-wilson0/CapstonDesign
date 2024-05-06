@@ -29,11 +29,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private val binding get() = mBinding!!
     private lateinit var database: DatabaseReference
+    private var id:String=""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding= ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        var intent=Intent()
+        intent=getIntent()
+        id= intent.getStringExtra("id")!!
 
         //임시 로그아웃 구현
         binding.logout.setOnClickListener {
@@ -67,7 +71,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                                 ActivityStarter.startNextActivity(this@MainActivity,user)
                             }
                         })
-                        listener.onUserInfoImageClicked()
+                        listener.onUserInfoImageClicked(id)
                         return true
                     }
 

@@ -21,6 +21,7 @@ class LogIn() {
                 if (task.isSuccessful) {
                     Log.e("LOGIN", "signInWithEmail:success")
                     val intent = Intent(activity, MainActivity::class.java)
+                    intent.putExtra("id",binding.idET.text.toString().trim())
                     activity.startActivity(intent)
 
                 } else {

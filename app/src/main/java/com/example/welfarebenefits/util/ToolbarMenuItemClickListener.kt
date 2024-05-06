@@ -23,10 +23,10 @@ class ToolbarMenuItemClickListener():ToolbarMenuItemClickListeners,OnUserInfoCli
 
 
 
-    override fun onUserInfoImageClicked() {
+    override fun onUserInfoImageClicked(id:String) {
         database = Firebase.database.reference
         var user:User
-        database.child("id1").get().addOnCompleteListener { task ->
+        database.child(id).get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val dataSnapshot = task.result
                 if (dataSnapshot.exists()) {
@@ -43,14 +43,13 @@ class ToolbarMenuItemClickListener():ToolbarMenuItemClickListeners,OnUserInfoCli
                     if (significantData is List<*>) {
                         significant.addAll(significantData as List<String>)
                     }
-//                    user=User(id,password,name,avgIncome,familyStructure,residence,significant)
                     user = User(id, password, name, avgIncome, familyStructure, residence, significant)
                     onUserInfoClickListener?.onUserInfoClick(user)
 
                 }
             } else {
                 Firebase.auth.signOut()
-                Log.w("TAG", "Failed to get data", task.exception)
+                Log.w("TAG", "db에서 데이터 가져오기 실패", task.exception)
 
             }
         }
