@@ -14,11 +14,12 @@ class LogIn() {
     private lateinit var auth: FirebaseAuth
     fun logIn(activity: Activity,binding: ActivityLogInBinding,){
         auth = Firebase.auth
-        val currentUser = auth.currentUser
-        if (currentUser != null) {
-            Log.e("LOGIN","이미 로그인한 유저")
-        }
-        else{
+//        val currentUser = auth.currentUser
+//        if (currentUser != null) {
+//            Log.e("LOGIN","이미 로그인한 유저")
+//            Log.e("LOGIN",currentUser.toString())
+//        }
+//        else{
             val email:String=activity.resources.getString(R.string.makeEmailTemplate)
             Log.e("LOGIN",binding.idET.text.toString()+email)
             auth.signInWithEmailAndPassword(binding.idET.text.toString().trim()+email, binding.passwdET.text.toString().trim())
@@ -44,6 +45,6 @@ class LogIn() {
                             }).showAlertDialog()
                     }
                 }
-        }
+//        }
     }
 }

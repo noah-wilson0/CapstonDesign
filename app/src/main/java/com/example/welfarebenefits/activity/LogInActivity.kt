@@ -1,16 +1,15 @@
 package com.example.welfarebenefits.activity
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import com.example.welfarebenefits.databinding.ActivityLogInBinding
+import com.example.welfarebenefits.util.LogIn
+import com.example.welfarebenefits.util.ShowAlertDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import android.content.Intent
-import com.example.welfarebenefits.util.LogIn
-import com.example.welfarebenefits.util.ShowAlertDialog
-import com.example.welfarebenefits.util.ShowAlertDialogListener
 
 class LogInActivity : AppCompatActivity() {
     private var mBinding:ActivityLogInBinding?=null
@@ -41,7 +40,7 @@ class LogInActivity : AppCompatActivity() {
         }
 
         binding.singUpTV.setOnClickListener {
-            Log.e("LOGIN","문제")
+            Log.e("singUpTV","singUpTV클릭함")
             val intent=Intent(this,SignUpActivity::class.java)
             startActivity(intent)
             finish()

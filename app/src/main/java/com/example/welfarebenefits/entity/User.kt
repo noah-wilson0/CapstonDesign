@@ -1,7 +1,5 @@
 package com.example.welfarebenefits.entity
 
-import java.io.Serializable
-
 data class User(
     var id:String,
     var password:String,
@@ -10,4 +8,4 @@ data class User(
     var familyStructure:String,
     var residence:String,
     var significant: MutableList<String?>
-):Serializable
+)
