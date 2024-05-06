@@ -1,6 +1,5 @@
 package com.example.welfarebenefits.activity
 
-import android.R
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
@@ -8,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.welfarebenefits.databinding.ActivitySearchBinding
 
 
-class Search : AppCompatActivity() {
+class SearchActivity : AppCompatActivity() {
     private var mBinding:ActivitySearchBinding?=null
     private  val binding get() = mBinding!!
 
@@ -22,7 +21,7 @@ class Search : AppCompatActivity() {
                 // 검색 버튼을 눌렀을 때 호출되는 콜백
                 // 여기에서 입력된 query를 이용하여 검색 결과를 처리할 수 있습니다.
                 // 처리 후 true를 반환하여 이벤트 처리가 완료되었음을 알려줍니다.
-                Toast.makeText(this@Search,query,Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@SearchActivity,query,Toast.LENGTH_SHORT).show()
                 return true
             }
 

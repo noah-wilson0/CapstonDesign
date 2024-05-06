@@ -211,7 +211,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"/>
                     <TextView
-                        android:id="@+id/sensitive_info"
+                        android:id="@+id/significant_info"
                         android:layout_weight="1"
                         android:maxLines="1"
                         android:text="1인가구"
@@ -223,19 +223,22 @@
             </LinearLayout>
 
         </ScrollView>
-        <TextView
-            android:id="@+id/mosaic_tv_info"
-            android:background="@color/hintColor"
-            android:alpha="0.953"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-        <TextView
-            android:gravity="center"
-            android:textColor="@color/black"
-            android:textSize="32sp"
-            android:text="로그인 하시겠습니까?"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+
+<!--            <TextView-->
+<!--                android:id="@+id/mosaic_tv_info"-->
+<!--                android:background="@color/hintColor"-->
+<!--                android:alpha="0.953"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"/>-->
+<!--            <TextView-->
+<!--                android:gravity="center"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textSize="32sp"-->
+<!--                android:text="로그인 하시겠습니까?"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"/>-->
+
+
 
     </FrameLayout>
 

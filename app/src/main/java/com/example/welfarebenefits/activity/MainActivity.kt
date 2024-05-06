@@ -1,5 +1,6 @@
 package com.example.welfarebenefits.activity
 
+import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.view.MenuItem
@@ -11,18 +12,41 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.example.welfarebenefits.R
 import com.example.welfarebenefits.databinding.ActivityMainBinding
+import com.example.welfarebenefits.entity.User
+import com.example.welfarebenefits.util.ActivityStarter
+import com.example.welfarebenefits.util.OnUserInfoClickListener
+import com.example.welfarebenefits.util.ToolbarMenuItemClickListener
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
+import com.google.firebase.database.DatabaseReference
 
+/*
+    회원탈퇴기능도 추가해야 된다-0504
+ */
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     private var mBinding: ActivityMainBinding?=null
+
     private val binding get() = mBinding!!
+    private lateinit var database: DatabaseReference
+    private var id:String=""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding= ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        var intent=Intent()
+        intent=getIntent()
+        id= intent.getStringExtra("id")!!
 
-        val sortingCriteriaArray = resources.getStringArray(R.array.sorting_criteria)
+        //임시 로그아웃 구현
+        binding.logout.setOnClickListener {
+            Firebase.auth.signOut()
+            intent= Intent(this,LogInActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
         binding.toolbar.setOnMenuItemClickListener(object : Toolbar.OnMenuItemClickListener {
             override fun onMenuItemClick(item: MenuItem): Boolean {
                 return when (item.itemId) {
@@ -40,10 +64,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                         return true
                     }
 
-                    R.id.profileImage -> {
-                        // 프로필 이미지를 클릭한 경우의 동작
-                        Toast.makeText(this@MainActivity, "프로필 이미지를 클릭했습니다.", Toast.LENGTH_SHORT)
-                            .show()
+                    R.id.userInfoImage -> {
+                        val listener = ToolbarMenuItemClickListener()
+                        listener.setOnUserInfoClickListener(object : OnUserInfoClickListener {
+                            override fun onUserInfoClick(user: User) {
+                                ActivityStarter.startNextActivity(this@MainActivity,user)
+                            }
+                        })
+                        listener.onUserInfoImageClicked(id)
                         return true
                     }
 
@@ -51,8 +79,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
         })
-
-
+        val sortingCriteriaArray = resources.getStringArray(R.array.sorting_criteria)
         var spinnerAdapter =
             ArrayAdapter(this@MainActivity, android.R.layout.simple_spinner_item, sortingCriteriaArray)
         binding.mainListSelectSpinner.adapter = spinnerAdapter
@@ -110,4 +137,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
 
+
 }
+
+
