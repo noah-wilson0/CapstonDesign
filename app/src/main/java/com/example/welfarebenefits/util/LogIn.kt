@@ -1,7 +1,6 @@
 package com.example.welfarebenefits.util
 
 import android.app.Activity
-import android.content.Intent
 import android.util.Log
 import com.example.welfarebenefits.R
 import com.example.welfarebenefits.activity.MainActivity
@@ -20,9 +19,7 @@ class LogIn() {
             .addOnCompleteListener(activity) { task ->
                 if (task.isSuccessful) {
                     Log.e("LOGIN", "signInWithEmail:success")
-                    val intent = Intent(activity, MainActivity::class.java)
-                    intent.putExtra("id",binding.idET.text.toString().trim())
-                    activity.startActivity(intent)
+                    ActivityStarter.startNextActivity(activity,MainActivity::class.java,binding.idET.text.toString().trim())
 
                 } else {
                     Log.e("LOGIN", "signInWithEmail:failure", task.exception)

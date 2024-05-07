@@ -76,6 +76,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                             override fun onUserInfoClick(user: User) {
                                 ActivityStarter.startNextActivity(this@MainActivity,UserInfoActivity::class.java,user)
                             }
+
+                            override fun onUserInfoClick(id: String) {
+                                ActivityStarter.startNextActivity(this@MainActivity,UserInfoActivity::class.java,id)
+                            }
                         })
                         listener.onUserInfoImageClicked(id)
                         return true

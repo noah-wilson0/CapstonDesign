@@ -224,19 +224,20 @@
 
         </ScrollView>
 
-<!--            <TextView-->
-<!--                android:id="@+id/mosaic_tv_info"-->
-<!--                android:background="@color/hintColor"-->
-<!--                android:alpha="0.953"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"/>-->
-<!--            <TextView-->
-<!--                android:gravity="center"-->
-<!--                android:textColor="@color/black"-->
-<!--                android:textSize="32sp"-->
-<!--                android:text="로그인 하시겠습니까?"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"/>-->
+            <TextView
+                android:id="@+id/mosaic_background_info"
+                android:background="@color/hintColor"
+                android:alpha="0.953"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+            <TextView
+                android:id="@+id/mosaic_textview_info"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="32sp"
+                android:text="로그인 하시겠습니까?"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
 
 
 
