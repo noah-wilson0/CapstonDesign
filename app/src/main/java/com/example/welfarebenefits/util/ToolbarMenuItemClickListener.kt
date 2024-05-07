@@ -24,33 +24,49 @@ class ToolbarMenuItemClickListener():ToolbarMenuItemClickListeners,OnUserInfoCli
 
 
     override fun onUserInfoImageClicked(id:String) {
-        database = Firebase.database.reference
-        var user:User
-        database.child(id).get().addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                val dataSnapshot = task.result
-                if (dataSnapshot.exists()) {
-                    val userData = dataSnapshot.value as HashMap<String, *>
+        if(id=="guest"){
+            onUserInfoClickListener?.onUserInfoClick(id)
+            Log.e("onUserInfoImageClicked", "게스트 이벤트")
+        }
+        else {
+            Log.e("onUserInfoImageClicked", "회원 정보 보기 이벤트 시작")
+            database = Firebase.database.reference
+            var user: User
+            database.child(id).get().addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val dataSnapshot = task.result
+                    if (dataSnapshot.exists()) {
+                        val userData = dataSnapshot.value as HashMap<String, *>
 
-                    val id = userData["id"] as String?:""
-                    val password = userData["password"]as String?:""
-                    val name = userData["name"]as String?:""
-                    val avgIncome = userData["avgIncome"]as String?:""
-                    val familyStructure = userData["familyStructure"]as String?:""
-                    val residence = userData["residence"]as String?:""
-                    val significantData= userData["significant"]  //[1인가구, 국가보훈대상] =List
-                    val significant = mutableListOf<String?>()  // 혹은 원하는 타입으로 선언
-                    if (significantData is List<*>) {
-                        significant.addAll(significantData as List<String>)
+                        val id = userData["id"] as String ?: ""
+                        val password = userData["password"] as String ?: ""
+                        val name = userData["name"] as String ?: ""
+                        val avgIncome = userData["avgIncome"] as String ?: ""
+                        val familyStructure = userData["familyStructure"] as String ?: ""
+                        val residence = userData["residence"] as String ?: ""
+                        val significantData = userData["significant"]  //[1인가구, 국가보훈대상] =List
+                        val significant = mutableListOf<String?>()  // 혹은 원하는 타입으로 선언
+                        if (significantData is List<*>) {
+                            significant.addAll(significantData as List<String>)
+                        }
+                        user = User(
+                            id,
+                            password,
+                            name,
+                            avgIncome,
+                            familyStructure,
+                            residence,
+                            significant
+                        )
+                        Log.e("onUserInfoImageClicked", "User객체 생성완료")
+                        onUserInfoClickListener?.onUserInfoClick(user)
+
                     }
-                    user = User(id, password, name, avgIncome, familyStructure, residence, significant)
-                    onUserInfoClickListener?.onUserInfoClick(user)
+                } else {
+                    Firebase.auth.signOut()
+                    Log.e("TAG", "db에서 데이터 가져오기 실패", task.exception)
 
                 }
-            } else {
-                Firebase.auth.signOut()
-                Log.w("TAG", "db에서 데이터 가져오기 실패", task.exception)
-
             }
         }
     }
@@ -60,6 +76,9 @@ class ToolbarMenuItemClickListener():ToolbarMenuItemClickListeners,OnUserInfoCli
     }
 
     override fun onUserInfoClick(user: User) {
+
+    }
+    override fun onUserInfoClick(id: String) {
 
     }
 

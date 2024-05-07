@@ -4,4 +4,5 @@ import com.example.welfarebenefits.entity.User
 
 interface OnUserInfoClickListener {
     fun onUserInfoClick(user: User)
+    fun onUserInfoClick(id: String)
 }

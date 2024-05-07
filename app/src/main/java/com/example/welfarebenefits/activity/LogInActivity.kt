@@ -33,6 +33,7 @@ class LogInActivity : AppCompatActivity() {
                 }
                 binding.idET.text.toString().isNotBlank()&&binding.passwdET.text.toString().isNotBlank() ->{
                     LogIn().logIn(this,binding)
+//                    finish()
                 }
                 else -> {
                     Log.e("LOGIN","로그인 오류 발생")

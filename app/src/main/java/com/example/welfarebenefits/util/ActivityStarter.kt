@@ -18,6 +18,11 @@ class ActivityStarter {
             val intent = Intent(activity, nextActivity)
             activity.startActivity(intent)
         }
+        fun startNextActivity(activity: Activity,nextActivity:Class<*>,id:String){
+            val intent = Intent(activity, nextActivity)
+            intent.putExtra("id",id)
+            activity.startActivity(intent)
+        }
 
     }
 }
