@@ -3,6 +3,7 @@ package com.example.welfarebenefits.activity
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
@@ -37,8 +38,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(binding.root)
         var intent=Intent()
         intent=getIntent()
-        id= intent.getStringExtra("id")!!
-
+        if(intent.getStringExtra("id").isNullOrEmpty()){
+            id="guest"
+        }
+        else{
+            id= intent.getStringExtra("id")!!
+        }
+        Log.e("MAIN",id)
         //임시 로그아웃 구현
         binding.logout.setOnClickListener {
             Firebase.auth.signOut()
@@ -68,7 +74,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                         val listener = ToolbarMenuItemClickListener()
                         listener.setOnUserInfoClickListener(object : OnUserInfoClickListener {
                             override fun onUserInfoClick(user: User) {
-                                ActivityStarter.startNextActivity(this@MainActivity,user)
+                                ActivityStarter.startNextActivity(this@MainActivity,UserInfoActivity::class.java,user)
                             }
                         })
                         listener.onUserInfoImageClicked(id)

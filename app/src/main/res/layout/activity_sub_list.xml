@@ -46,14 +46,14 @@
         android:layout_below="@id/summary_TV"
         android:gravity="center"
         android:orientation="horizontal">
-    <com.google.android.material.tabs.TabItem
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="주요정보"/>
-    <com.google.android.material.tabs.TabItem
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="신청방법"/>
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="주요정보"/>
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="신청방법"/>
 
     </com.google.android.material.tabs.TabLayout>
 

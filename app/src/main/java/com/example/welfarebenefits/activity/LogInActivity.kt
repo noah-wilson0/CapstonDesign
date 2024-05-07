@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.welfarebenefits.databinding.ActivityLogInBinding
+import com.example.welfarebenefits.util.ActivityStarter
 import com.example.welfarebenefits.util.LogIn
 import com.example.welfarebenefits.util.ShowAlertDialog
 import com.example.welfarebenefits.util.ShowAlertDialogListener
@@ -57,8 +58,7 @@ class LogInActivity : AppCompatActivity() {
                 })
             }
             else {
-                val intent = Intent(this, SignUpActivity::class.java)
-                startActivity(intent)
+                ActivityStarter.startNextActivity(this,SignUpActivity::class.java)
                 finish()
             }
         }
@@ -77,8 +77,7 @@ class LogInActivity : AppCompatActivity() {
             auth.signInAnonymously()
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
-                        val intent = Intent(this, MainActivity::class.java);
-                        startActivity(intent)
+                        ActivityStarter.startNextActivity(this, MainActivity::class.java)
                         finish()
 
                     } else {
