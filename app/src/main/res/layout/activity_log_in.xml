@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".activity.LogInActivity">
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="80dp"
+        android:text="복지 혜택"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/id_ET"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <EditText
         android:id="@+id/id_ET"
         android:layout_width="0dp"
@@ -15,8 +27,8 @@
         android:layout_marginEnd="40dp"
         android:backgroundTint="@color/editTextTint"
         android:hint="아이디 입력"
-        android:maxLines="1"
         android:inputType="text"
+        android:maxLines="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -31,8 +43,8 @@
         android:layout_marginEnd="40dp"
         android:backgroundTint="@color/editTextTint"
         android:hint="비밀번호 입력"
-        android:maxLines="1"
         android:inputType="textPassword"
+        android:maxLines="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/id_ET" />
