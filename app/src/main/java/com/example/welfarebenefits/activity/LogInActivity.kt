@@ -20,8 +20,8 @@ class LogInActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         mBinding= ActivityLogInBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        auth = Firebase.auth
 
+        auth = Firebase.auth
         binding.loginbutton.setOnClickListener {
             when {
                 binding.idET.text.toString().isBlank()&&binding.idET.text.toString().isNullOrEmpty() -> {

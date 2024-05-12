@@ -11,15 +11,19 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.welfarebenefits.R
+import com.example.welfarebenefits.adapter.RecyclerViewAdapter
 import com.example.welfarebenefits.databinding.ActivityMainBinding
 import com.example.welfarebenefits.entity.User
+import com.example.welfarebenefits.entity.WelfareData
 import com.example.welfarebenefits.util.ActivityStarter
+import com.example.welfarebenefits.util.CallBackWelfareData
+import com.example.welfarebenefits.util.FirebaseWelfareData
 import com.example.welfarebenefits.util.OnUserInfoClickListener
 import com.example.welfarebenefits.util.ToolbarMenuItemClickListener
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
-import com.google.firebase.database.DatabaseReference
 
 /*
     회원탈퇴기능도 추가해야 된다-0504
@@ -27,9 +31,8 @@ import com.google.firebase.database.DatabaseReference
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     private var mBinding: ActivityMainBinding?=null
-
+//    private lateinit var recyclerViewAdapter: RecyclerViewAdapter
     private val binding get() = mBinding!!
-    private lateinit var database: DatabaseReference
     private var id:String=""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -114,6 +117,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         binding.kAlphabetSort.setOnClickListener(this)
         binding.viewsSort.setOnClickListener(this)
 
+        FirebaseWelfareData().getWelfareData(object : CallBackWelfareData {
+            override fun getWelfareData(welfareDataList: List<WelfareData>) {
+                Log.e("MainActivity", "Received welfare data: ${welfareDataList.size} items")
+                val recyclerViewAdapter = RecyclerViewAdapter(welfareDataList)
+                binding.recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
+                binding.recyclerView.adapter = recyclerViewAdapter
+            }
+        })
 
 
     }

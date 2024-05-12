@@ -9,6 +9,6 @@ data class WelfareData (
     val serviceCategory:String,      //서비스분야
     val selectionCriteria:String,    //선정기준
     val applicationDeadline:String,  //신청기한
-    val applicationMethod:String,    //신청 방법
-    val supportContent:String        //지원 내용
+    val applicationMethod:String,    //신청방법
+    val supportContent:String        //지원내용
 )
