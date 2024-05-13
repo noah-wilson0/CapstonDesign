@@ -5,9 +5,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.SignUpActivity">
+    <LinearLayout
+        android:id="@+id/title"
+        app:layout_constraintBottom_toTopOf="@+id/ScrollViewlayout"
+        tools:layout_editor_absoluteX="126dp"
+        android:orientation="horizontal"
+        android:layout_marginBottom="20dp"
+        android:background="@color/indian_pink"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="4dp"
+            android:text="복지 혜택"
+            android:textColor="@color/black"
+            android:textSize="40sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
 
     <ScrollView
-        android:id="@+id/linearLayout"
+        android:id="@+id/ScrollViewlayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="30dp"
@@ -16,8 +37,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/title"
         app:layout_constraintVertical_bias="1.0">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -257,64 +279,66 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/residenceSesstion_ET" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="특이 사항"
                 android:textSize="30sp"
                 android:textStyle="bold" />
+
             <GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:orientation="horizontal"
                 android:columnCount="2"
+                android:orientation="horizontal"
                 android:rowCount="2">
 
                 <CheckBox
+                    android:id="@+id/singleHousehold_CHK"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/singleHousehold_CHK"
                     android:text="1인가구" />
 
                 <CheckBox
+                    android:id="@+id/disabledPerson_CHK"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/disabledPerson_CHK"
                     android:text="장애인" />
 
                 <CheckBox
+                    android:id="@+id/northKoreaDefector_CHK"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/northKoreaDefector_CHK"
                     android:text="북한이탈자주민" />
 
                 <CheckBox
+                    android:id="@+id/multiFamily_CHK"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/multiFamily_CHK"
                     android:text="다문화가정" />
 
                 <CheckBox
+                    android:id="@+id/singleFamily_CHK"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/singleFamily_CHK"
                     android:text="한부모가정" />
 
                 <CheckBox
+                    android:id="@+id/military_CHK"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/military_CHK"
                     android:text="국가보훈대상" />
 
 
             </GridLayout>
 
             <LinearLayout
-                android:layout_gravity="center"
-                android:weightSum="2"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:weightSum="2">
 
                 <Button
                     android:id="@+id/cancel"
@@ -322,18 +346,18 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="9dp"
                     android:layout_marginEnd="17dp"
+                    android:layout_weight="1"
                     android:backgroundTint="@color/editTextTint"
                     android:text="취소"
-                    android:layout_weight="1"
                     android:textColor="@color/black" />
 
                 <Button
                     android:id="@+id/submit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:backgroundTint="@color/editTextTint"
                     android:text="회원가입"
-                    android:layout_weight="1"
                     android:textColor="@color/black" />
             </LinearLayout>
 

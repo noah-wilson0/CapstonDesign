@@ -2,6 +2,7 @@ package com.example.welfarebenefits.util
 
 
 import android.util.Log
+import com.example.welfarebenefits.activity.LogInActivity
 import com.example.welfarebenefits.activity.SignUpActivity
 import com.example.welfarebenefits.databinding.ActivitySignUpBinding
 import com.example.welfarebenefits.entity.User
@@ -11,18 +12,24 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
 
+
+
 class SignUp (val signUpActivity: SignUpActivity, private val binding: ActivitySignUpBinding){
     private lateinit var auth: FirebaseAuth
-    private  var success=false
 
-    fun signUp():Boolean{
+    fun signUp(){
         auth = Firebase.auth
         val currentUser = auth.currentUser
         if (currentUser != null) {
             Log.e("signUp","이미 로그인한 유저:회원가입 불가능")
+            ShowAlertDialog(
+                signUpActivity,
+                "회원가입",
+                "이미 가입된 사용자입니다. 이미 가입한 계정으로 로그인해주세요",
+                "확인"
+            ).showAlertDialog()
         }
         else {
-            success=true
             val user: User = User(
                 binding.inputIDET.text.toString().trim(),
                 binding.inputPSET.text.toString().trim(),
@@ -43,11 +50,37 @@ class SignUp (val signUpActivity: SignUpActivity, private val binding: ActivityS
                 ).getCheckedTexts()
             )
             Log.e("SignUp", "회원가입 진행")
-            NewUser().writeDatabaseNewUser(user)
-            NewUser().addNewUserAccount(user, signUpActivity)
-        }
-        return success
 
+            NewUser().addNewUserAccount(user, signUpActivity, object : NewUser.OnUserAccountAddedListener {
+                override fun onUserAccountAdded() {
+                    // 회원가입이 성공한 경우에만 데이터베이스에 사용자 데이터를 추가
+                    NewUser().writeDatabaseNewUser(user)
+                    ShowAlertDialog(signUpActivity,
+                        "회원가입",
+                        "회원가입이 완료되었습니다!",
+                        "확인",
+                        listener = object : ShowAlertDialogListener {
+                            override fun onPositiveButtonClicked() {
+                               ActivityStarter.startNextActivity(signUpActivity,LogInActivity::class.java)
+                            }
+
+                            override fun onNegativeButtonClicked() {
+
+                            }
+                        }).showAlertDialog()
+                }
+                override fun onUserAccountAddFailed() {
+                    // 회원가입 실패한 경우
+                    ShowAlertDialog(
+                        signUpActivity,
+                        "회원가입",
+                        "이미 사용중인 아이디입니다.",
+                        "확인"
+                    ).showAlertDialog()
+                }
+            })
+
+        }
     }
 
 

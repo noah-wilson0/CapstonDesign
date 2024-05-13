@@ -8,7 +8,6 @@ import com.example.welfarebenefits.databinding.ActivityLogInBinding
 import com.example.welfarebenefits.util.ActivityStarter
 import com.example.welfarebenefits.util.LogIn
 import com.example.welfarebenefits.util.ShowAlertDialog
-import com.example.welfarebenefits.util.ShowAlertDialogListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -21,8 +20,8 @@ class LogInActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         mBinding= ActivityLogInBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        auth = Firebase.auth
 
+        auth = Firebase.auth
         binding.loginbutton.setOnClickListener {
             when {
                 binding.idET.text.toString().isBlank()&&binding.idET.text.toString().isNullOrEmpty() -> {
@@ -43,22 +42,16 @@ class LogInActivity : AppCompatActivity() {
         }
 
         binding.singUpTV.setOnClickListener {
+            Log.e("LogInActivity","회원가입하기 클릭")
             val currentUser = auth.currentUser
-            if (currentUser != null) { //프로그램 개선 안: 가입한 계정을 파기하고 다시 회원가입하고 싶은 경우
+            if (currentUser != null) {
+                Log.e("LogInActivity","이미 회원가입한 사용자")
                 ShowAlertDialog(this,"로그인",
                     "이미 가입된 사용자입니다. 이미 가입한 계정으로 로그인해주세요",
-                   "확인",
-                    listener =object :
-                ShowAlertDialogListener{
-                        override fun onPositiveButtonClicked() {
-
-                        }
-                        override fun onNegativeButtonClicked() {
-
-                        }
-                })
+                    "확인").showAlertDialog()
             }
             else {
+                Log.e("LogInActivity","SignUpActivity로 이동")
                 ActivityStarter.startNextActivity(this,SignUpActivity::class.java)
                 finish()
             }
