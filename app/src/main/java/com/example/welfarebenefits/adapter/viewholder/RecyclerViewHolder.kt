@@ -9,7 +9,6 @@ class RecyclerViewHolder(private  val binding: RecyclerviewItemBinding): Recycle
     fun bind(welfareData: WelfareData) {
         binding.titleTV.text = welfareData.serviceName
         binding.descriptionTV.text = welfareData.serviceSummary
-        binding.category.text = welfareData.userType
     }
 
 
