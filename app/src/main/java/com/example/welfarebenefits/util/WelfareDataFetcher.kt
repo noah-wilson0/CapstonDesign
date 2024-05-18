@@ -7,7 +7,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.database
 
 
-class FirebaseWelfareData {
+class WelfareDataFetcher {
     private lateinit var database: DatabaseReference
     fun getWelfareData(callback:CallBackWelfareData) {
         var welfareDataList: MutableList<WelfareData> = mutableListOf()
@@ -35,23 +35,6 @@ class FirebaseWelfareData {
 
                     }
                 }
-//                    for(dataSnapshotChild  in dataSnapshot.children) {
-//                        Log.e("FirebaseWelfareData",dataSnapshotChild.toString())
-//                        var welfareDataSnapshot = dataSnapshotChild.value as HashMap<String, *>
-//                        val welfareData = WelfareData(
-//                            welfareDataSnapshot["상세조회URL"] as String ?: "",
-//                            welfareDataSnapshot["서비스ID"] as String ?: "",
-//                            welfareDataSnapshot["서비스명"] as String ?: "",
-//                            welfareDataSnapshot["서비스목적요약"] as String ?: "",
-//                            welfareDataSnapshot["선정기준"] as String ?: "",
-//                            welfareDataSnapshot["신청기한"] as String ?: "",
-//                            welfareDataSnapshot["신청방법"] as String ?: "",
-//                            welfareDataSnapshot["지원내용"] as String ?: ""
-//                        )
-//                        welfareDataList.add(welfareData)
-//                    }
-//                }
-//                Log.e("FirebaseWelfareDataList", welfareDataList.toString())
                     callback.getWelfareData(welfareDataList.toList())
                 } else { // 실패햇을 경우 처리하기
                     Log.e("TAG", "db에서 데이터 가져오기 실패", task.exception)

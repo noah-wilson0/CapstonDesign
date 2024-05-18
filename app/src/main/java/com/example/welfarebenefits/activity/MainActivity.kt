@@ -19,9 +19,9 @@ import com.example.welfarebenefits.entity.User
 import com.example.welfarebenefits.entity.WelfareData
 import com.example.welfarebenefits.util.ActivityStarter
 import com.example.welfarebenefits.util.CallBackWelfareData
-import com.example.welfarebenefits.util.FirebaseWelfareData
 import com.example.welfarebenefits.util.OnUserInfoClickListener
 import com.example.welfarebenefits.util.ToolbarMenuItemClickListener
+import com.example.welfarebenefits.util.WelfareDataFetcher
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 
@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         if(intent.getStringExtra("id").isNullOrEmpty()){
             id="guest"
         }
+
         else{
             id= intent.getStringExtra("id")!!
         }
@@ -117,7 +118,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         binding.kAlphabetSort.setOnClickListener(this)
         binding.viewsSort.setOnClickListener(this)
 
-        FirebaseWelfareData().getWelfareData(object : CallBackWelfareData {
+        WelfareDataFetcher().getWelfareData(object : CallBackWelfareData {
             override fun getWelfareData(welfareDataList: List<WelfareData>) {
                 Log.e("MainActivity", "Received welfare data: ${welfareDataList.size} items")
                 val recyclerViewAdapter = RecyclerViewAdapter(welfareDataList)

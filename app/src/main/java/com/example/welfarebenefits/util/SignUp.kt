@@ -17,7 +17,7 @@ import com.google.firebase.ktx.Firebase
 class SignUp (val signUpActivity: SignUpActivity, private val binding: ActivitySignUpBinding){
     private lateinit var auth: FirebaseAuth
 
-    fun signUp(){
+    fun signUp(gender:String){
         auth = Firebase.auth
         val currentUser = auth.currentUser
         if (currentUser != null) {
@@ -30,20 +30,29 @@ class SignUp (val signUpActivity: SignUpActivity, private val binding: ActivityS
             ).showAlertDialog()
         }
         else {
+            val name:String=UserInfoValidator().validateName(binding.inputNameET.text.toString().trim())
+            val avgIncome=UserInfoValidator().validateAvgIncome(binding.inputAvgIncomeSesstionET.text.toString().trim())
+
+
+
             val user: User = User(
-                binding.inputIDET.text.toString().trim(),
-                binding.inputPSET.text.toString().trim(),
-                binding.inputNameET.text.toString().trim(),
-                binding.inputAvgIncomeSesstionET.text.toString().trim(),
-                binding.familyStructureSesstionET.text.toString().trim(),
-                binding.residenceSesstionET.text.toString().trim(),
-                CheckedTextExtractor(
+                id = binding.inputIDET.text.toString().trim(),
+                password = binding.inputPSET.text.toString().trim(),
+                name = name,
+                gender = gender,
+                avgIncome = avgIncome,
+                residence = binding.residenceTV.text.toString().trim(),
+                significant =  CheckedTextExtractor(
                     mutableListOf(
                         binding.singleHouseholdCHK,
+                        binding.singleFamilyCHK,
+                        binding.multiChildFamilyCHK,
+                        binding.childbirth,
+                        binding.multiFamilyCHK,
                         binding.disabledPersonCHK,
                         binding.northKoreaDefectorCHK,
-                        binding.multiFamilyCHK,
-                        binding.singleFamilyCHK,
+                        binding.jobseeker,
+                        binding.jobless,
                         binding.militaryCHK
                     ),
                     binding

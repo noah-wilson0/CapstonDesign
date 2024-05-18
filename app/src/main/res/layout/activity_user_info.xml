@@ -161,16 +161,16 @@
                     android:layout_height="50dp">
                     <TextView
                         android:layout_weight="4"
-                        android:text="가족 관계:"
+                        android:text="성별:"
                         android:textStyle="bold"
                         android:textColor="@color/black"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"/>
                     <TextView
-                        android:id="@+id/familyStructure_info"
+                        android:id="@+id/gender_info"
                         android:layout_weight="1"
                         android:maxLines="1"
-                        android:text="개인"
+                        android:text="중성"
                         android:textColor="@color/black"
                         android:layout_marginStart="10dp"
                         android:layout_width="match_parent"
