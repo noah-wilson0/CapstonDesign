@@ -109,7 +109,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
                     android:backgroundTint="@color/editTextTint"
-                    android:inputType="text"
+                    android:inputType="textPassword"
                     android:maxLines="1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/psSesstion_TV"
@@ -228,7 +228,7 @@
                     android:id="@+id/avgIncomeSesstion_TV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="연 평균 소득 : "
+                    android:text="월 급여 : "
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toStartOf="@+id/inputAvgIncomeSesstion_ET"
@@ -241,7 +241,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
                     android:backgroundTint="@color/editTextTint"
-                    android:inputType="text"
+                    android:inputType="number"
+                    android:digits="0123456789,"
                     android:maxLines="1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/avgIncomeSesstion_TV"
@@ -251,7 +252,7 @@
                     android:id="@+id/avgIncomeHint_TV"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="연평균 소득을 천만원 단위로 입력해주세요. (예: 2000만원)"
+                    android:text="월 급여를 입력해주세요. (예: 3,000,000)"
                     android:textAlignment="center"
                     android:textColor="@color/hintColor"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -260,6 +261,46 @@
                     app:layout_constraintTop_toBottomOf="@+id/inputAvgIncomeSesstion_ET" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp">
+
+                <TextView
+                    android:id="@+id/householdSize_TV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="가구원 수 : "
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/householdSize_ET"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/householdSize_ET"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:backgroundTint="@color/editTextTint"
+                    android:inputType="number"
+                    android:digits="0123456"
+                    android:maxLines="1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/householdSize_TV"
+                    app:layout_constraintTop_toTopOf="@+id/householdSize_TV" />
+                <TextView
+                    android:id="@+id/householdSizeHint_TV"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="가구원 수를 입력해주세요.(예시:4인)"
+                    android:textAlignment="center"
+                    android:textColor="@color/hintColor"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/householdSize_ET" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"

@@ -139,7 +139,7 @@
                     android:layout_height="50dp">
                     <TextView
                         android:layout_weight="4"
-                        android:text="연 평균 소득:"
+                        android:text="월 급여:"
                         android:textStyle="bold"
                         android:textColor="@color/black"
                         android:layout_width="match_parent"
@@ -149,6 +149,28 @@
                         android:layout_weight="1"
                         android:maxLines="1"
                         android:text="4665만원"
+                        android:textColor="@color/black"
+                        android:layout_marginStart="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:weightSum="5"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
+                    <TextView
+                        android:layout_weight="4"
+                        android:text="가구원 수:"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+                    <TextView
+                        android:id="@+id/householdSize_info"
+                        android:layout_weight="1"
+                        android:maxLines="1"
+                        android:text="1인"
                         android:textColor="@color/black"
                         android:layout_marginStart="10dp"
                         android:layout_width="match_parent"
