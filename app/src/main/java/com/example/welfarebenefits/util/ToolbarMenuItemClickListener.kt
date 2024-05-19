@@ -41,8 +41,8 @@ class ToolbarMenuItemClickListener():ToolbarMenuItemClickListeners,OnUserInfoCli
                         val id = userData["id"] as String ?: ""
                         val password = userData["password"] as String ?: ""
                         val name = userData["name"] as String ?: ""
+                        val gender = userData["gender"] as String ?: ""
                         val avgIncome = userData["avgIncome"] as String ?: ""
-                        val familyStructure = userData["familyStructure"] as String ?: ""
                         val residence = userData["residence"] as String ?: ""
                         val significantData = userData["significant"]  //[1인가구, 국가보훈대상] =List
                         val significant = mutableListOf<String?>()  // 혹은 원하는 타입으로 선언
@@ -50,13 +50,13 @@ class ToolbarMenuItemClickListener():ToolbarMenuItemClickListeners,OnUserInfoCli
                             significant.addAll(significantData as List<String>)
                         }
                         user = User(
-                            id,
-                            password,
-                            name,
-                            avgIncome,
-                            familyStructure,
-                            residence,
-                            significant
+                            id=id,
+                            password=password,
+                            name=name,
+                            avgIncome=avgIncome,
+                            gender=gender,
+                            residence=residence,
+                            significant=significant
                         )
                         Log.e("onUserInfoImageClicked", "User객체 생성완료")
                         onUserInfoClickListener?.onUserInfoClick(user)

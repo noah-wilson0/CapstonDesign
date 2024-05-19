@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.welfarebenefits.databinding.ActivityLogInBinding
 import com.example.welfarebenefits.util.ActivityStarter
 import com.example.welfarebenefits.util.LogIn
+
 import com.example.welfarebenefits.util.ShowAlertDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth

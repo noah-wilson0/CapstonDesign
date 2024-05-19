@@ -5,15 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.SignUpActivity">
+
     <LinearLayout
         android:id="@+id/title"
-        app:layout_constraintBottom_toTopOf="@+id/ScrollViewlayout"
-        tools:layout_editor_absoluteX="126dp"
-        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:background="@color/indian_pink"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/ScrollViewlayout"
+        tools:layout_editor_absoluteX="126dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -168,6 +169,55 @@
                     app:layout_constraintTop_toBottomOf="@+id/inputName_ET" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp">
+
+                <TextView
+                    android:id="@+id/gender_TV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="성별 : "
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/gender_layout"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:id="@+id/gender_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/gender_TV"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <RadioGroup
+                        android:id="@+id/radiogroup"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/male"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="남성" />
+
+                        <RadioButton
+                            android:id="@+id/female"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="여성" />
+                    </RadioGroup>
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -201,7 +251,7 @@
                     android:id="@+id/avgIncomeHint_TV"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="연평균 소득을 입력해주세요. (예: 2000만원)"
+                    android:text="연평균 소득을 천만원 단위로 입력해주세요. (예: 2000만원)"
                     android:textAlignment="center"
                     android:textColor="@color/hintColor"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -210,34 +260,6 @@
                     app:layout_constraintTop_toBottomOf="@+id/inputAvgIncomeSesstion_ET" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp">
-
-                <TextView
-                    android:id="@+id/familyStructureSesstion_TV"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="가족 관계 : "
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toStartOf="@+id/familyStructureSesstion_ET"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <EditText
-                    android:id="@+id/familyStructureSesstion_ET"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="5dp"
-                    android:backgroundTint="@color/editTextTint"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/familyStructureSesstion_TV"
-                    app:layout_constraintTop_toTopOf="@+id/familyStructureSesstion_TV" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -251,33 +273,31 @@
                     android:text="거주 지역 : "
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    app:layout_constraintEnd_toStartOf="@+id/residenceSesstion_ET"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/residenceTV"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <EditText
-                    android:id="@+id/residenceSesstion_ET"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="5dp"
-                    android:backgroundTint="@color/editTextTint"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/residenceSesstion_TV"
-                    app:layout_constraintTop_toTopOf="@+id/residenceSesstion_TV" />
-
                 <TextView
-                    android:id="@+id/residenceIncomeHint_TV"
+                    android:id="@+id/residenceTV"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="예시) 사상구, 김해시, 창원, 서울,충청남도(충남) 등등"
+                    android:hint="거주지를 선택하시오."
                     android:textAlignment="center"
-                    android:textColor="@color/hintColor"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/residenceSelectBTN"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/residenceSelectBTN"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/editTextTint"
+                    android:text="거주지 선택"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/residenceSesstion_ET" />
+                    app:layout_constraintTop_toTopOf="parent" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
@@ -302,6 +322,30 @@
                     android:text="1인가구" />
 
                 <CheckBox
+                    android:id="@+id/singleFamily_CHK"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="한부모가정" />
+
+                <CheckBox
+                    android:id="@+id/multiChildFamily_CHK"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="다자녀가구" />
+
+                <CheckBox
+                    android:id="@+id/multiFamily_CHK"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="다문화가정" />
+
+                <CheckBox
+                    android:id="@+id/childbirth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="출산" />
+
+                <CheckBox
                     android:id="@+id/disabledPerson_CHK"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -314,16 +358,17 @@
                     android:text="북한이탈자주민" />
 
                 <CheckBox
-                    android:id="@+id/multiFamily_CHK"
+                    android:id="@+id/jobseeker"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="다문화가정" />
+                    android:text="구직자" />
 
                 <CheckBox
-                    android:id="@+id/singleFamily_CHK"
+                    android:id="@+id/jobless"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="한부모가정" />
+                    android:text="실업자" />
+
 
                 <CheckBox
                     android:id="@+id/military_CHK"
