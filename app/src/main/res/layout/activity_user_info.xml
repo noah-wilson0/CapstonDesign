@@ -206,6 +206,25 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/residenc_info"
                         android:layout_marginTop="12dp"
+                        android:text="가구원 수"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/householdSizeInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/residenc_info"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="12dp"
+                        android:text="0 명"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/householdSizeInfo"
+                        android:layout_marginTop="12dp"
                         android:text="연 평균 수입"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -214,7 +233,7 @@
                         android:id="@+id/avgIncome_info"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/residenc_info"
+                        android:layout_below="@id/householdSizeInfo"
                         android:layout_alignParentRight="true"
                         android:layout_marginTop="12dp"
                         android:text="0000 만원"
@@ -286,7 +305,8 @@
             android:text="로그인 하시겠습니까?"
             android:textColor="@color/black"
             android:textSize="32sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:visibility="invisible"/>
 
         <TextView
             android:id="@+id/mosaic_textview_info"
