@@ -1,45 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".activity.SignUpActivity">
 
-    <LinearLayout
-        android:id="@+id/title"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_height="50dp"
         android:background="@color/indian_pink"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/ScrollViewlayout"
-        tools:layout_editor_absoluteX="126dp">
+        android:padding="8dp"
+        android:elevation="15dp">
+
+        <ImageView
+            android:id="@+id/back_arrowImg_info"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/arrow_back_24" />
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="4dp"
+            android:layout_height="34dp"
+            android:layout_centerHorizontal="true"
             android:text="복지 혜택"
             android:textColor="@color/black"
-            android:textSize="40sp"
-            android:textStyle="bold" />
-    </LinearLayout>
+            android:textSize="24dp"
+            android:textStyle="bold"/>
 
+    </RelativeLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:textSize="32dp"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:text="회원가입"/>
 
     <ScrollView
         android:id="@+id/ScrollViewlayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_margin="30dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/title"
-        app:layout_constraintVertical_bias="1.0">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="30dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -294,6 +299,7 @@
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/editTextTint"
                     android:text="거주지 선택"
+                    android:textColor="@color/black"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -410,4 +416,4 @@
 
     </ScrollView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

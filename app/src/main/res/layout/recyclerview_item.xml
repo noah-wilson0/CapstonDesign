@@ -1,50 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="100dp">
-
-    <TextView
-        android:id="@+id/description_TV"
-        android:layout_width="0dp"
-        android:layout_height="46dp"
-        android:layout_marginStart="37dp"
-        android:layout_marginTop="11dp"
-        android:layout_marginEnd="42dp"
-        android:text="테스트유치원에 다니는 만 3~5세 아동에게 유아학비, 방과후과정비 등 지원"
-        app:layout_constraintEnd_toEndOf="@+id/category"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_TV" />
-
-    <ImageView
-        android:id="@+id/bookmark"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="24dp"
-        android:src="@drawable/bookmark"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    android:layout_height="100dp"
+    android:background="@color/white"
+    android:elevation="20dp"
+    android:padding="14dp"
+    android:layout_marginBottom="4dp">
 
     <TextView
         android:id="@+id/title_TV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="테스트유아학비 (누리과정) 지원"
-        app:layout_constraintStart_toStartOf="@+id/description_TV"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_alignParentStart="true"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:text="테스트유아학비 (누리과정) 지원" />
+
+    <TextView
+        android:id="@+id/description_TV"
+        android:layout_width="330dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_TV"
+        android:layout_marginTop="8dp"
+        android:text="테스트유치원에 다니는 만 3~5세 아동에게 유아학비, 방과후과정비 등 지원" />
+
+    <ImageView
+        android:id="@+id/bookmark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/bookmark" />
+
 
     <TextView
         android:id="@+id/category"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
         android:text="개인"
-        android:textColor="#A9A9A9"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textColor="#A9A9A9" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

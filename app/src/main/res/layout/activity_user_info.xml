@@ -8,237 +8,287 @@
     android:orientation="vertical"
     tools:context=".activity.alertList">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="50dp"
+        android:background="@color/indian_pink"
+        android:elevation="15dp"
+        android:padding="8dp">
 
         <ImageView
             android:id="@+id/back_arrowImg_info"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="9dp"
-            android:layout_marginEnd="93dp"
-            android:layout_marginBottom="9dp"
-            android:src="@drawable/arrow_back_24"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/infoImg_info"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_alignParentStart="true"
+            android:src="@drawable/arrow_back_24" />
 
         <TextView
-            android:id="@+id/title_tv_info"
             android:layout_width="wrap_content"
             android:layout_height="34dp"
-            android:layout_marginEnd="135dp"
-            android:text="내 정보 관리"
+            android:layout_centerHorizontal="true"
+            android:text=" 내 정보 관리"
+            android:textColor="@color/black"
             android:textSize="24dp"
             android:textStyle="bold"
-            android:textColor="@color/black"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/infoImg_info"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:drawableStart="@drawable/info"/>
 
-        <ImageView
-            android:id="@+id/infoImg_info"
-            android:layout_width="34dp"
-            android:layout_height="34dp"
-            android:layout_marginTop="7dp"
-            android:layout_marginEnd="9dp"
-            android:layout_marginBottom="7dp"
-            android:src="@drawable/info"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/title_tv_info"
-            app:layout_constraintStart_toEndOf="@+id/back_arrowImg_info"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <ScrollView
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <LinearLayout
-                android:layout_gravity="center"
-                android:layout_margin="50dp"
-                android:orientation="vertical"
+
+            <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-                <LinearLayout
-                    android:weightSum="5"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp">
-                    <TextView
-                        android:layout_weight="4"
-                        android:text="아이디:"
-                        android:textStyle="bold"
-                        android:textColor="@color/black"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
-                    <TextView
-                        android:id="@+id/id_info"
-                        android:layout_weight="1"
-                        android:maxLines="1"
-                        android:text="WelfareBenefit"
-                        android:textColor="@color/black"
-                        android:layout_marginStart="10dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:weightSum="5"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp">
-                    <TextView
-                        android:layout_weight="4"
-                        android:text="비밀번호:"
-                        android:textStyle="bold"
-                        android:textColor="@color/black"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
-                    <TextView
 
-                        android:id="@+id/password_info"
-                        android:layout_weight="1"
-                        android:maxLines="1"
-                        android:text="WelfareBenefit"
-                        android:textColor="@color/black"
-                        android:layout_marginStart="10dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:weightSum="5"
-                    android:orientation="horizontal"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp">
-                    <TextView
-                        android:layout_weight="4"
-                        android:text="이름:"
-                        android:textStyle="bold"
-                        android:textColor="@color/black"
+                    android:layout_height="wrap_content"
+                    android:padding="56dp">
+
+                    <com.google.android.material.bottomnavigation.BottomNavigationView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent" />
+
+                    <ImageView
+                        android:id="@+id/faceImage"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_alignParentStart="true"
+                        android:src="@drawable/info" />
+
                     <TextView
                         android:id="@+id/name_info"
-                        android:layout_weight="1"
-                        android:maxLines="1"
-                        android:text="복지좋아"
-                        android:textColor="@color/black"
-                        android:layout_marginStart="10dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:weightSum="5"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp">
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:text="성 이 름"
+                        android:textAlignment="center"
+                        android:textSize="32sp"
+                        android:textStyle="bold" />
+
                     <TextView
-                        android:layout_weight="4"
-                        android:text="연 평균 소득:"
-                        android:textStyle="bold"
-                        android:textColor="@color/black"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@id/name_info"
+                        android:layout_marginLeft="16dp"
+                        android:layout_toRightOf="@id/name_info"
+                        android:text="님"
+                        android:textSize="28sp" />
+
                     <TextView
-                        android:id="@+id/avgIncome_info"
-                        android:layout_weight="1"
-                        android:maxLines="1"
-                        android:text="4665만원"
-                        android:textColor="@color/black"
-                        android:layout_marginStart="10dp"
+                        android:id="@+id/hello"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/name_info"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="12dp"
+                        android:text="반갑습니다!"
+                        android:textSize="20sp" />
+
+                    <View
+                        android:id="@+id/line"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:weightSum="5"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp">
+                        android:layout_height="1dp"
+                        android:layout_below="@id/hello"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@color/black" />
+
                     <TextView
-                        android:layout_weight="4"
-                        android:text="성별:"
-                        android:textStyle="bold"
-                        android:textColor="@color/black"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/line"
+                        android:layout_marginTop="12dp"
+                        android:text="아이디"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/id_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/line"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="12dp"
+                        android:text="welfareBenefits"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/id_info"
+                        android:layout_marginTop="12dp"
+                        android:text="비밀번호"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/password_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/id_info"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="12dp"
+                        android:text="welfareBenefits"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/password_info"
+                        android:layout_marginTop="20dp"
+                        android:text="성별"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
                     <TextView
                         android:id="@+id/gender_info"
-                        android:layout_weight="1"
-                        android:maxLines="1"
-                        android:text="중성"
-                        android:textColor="@color/black"
-                        android:layout_marginStart="10dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:weightSum="5"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp">
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/password_info"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginRight="6dp"
+                        android:background="@drawable/round"
+                        android:padding="8dp"
+                        android:text="남/여"
+                        android:textSize="20sp" />
+
                     <TextView
-                        android:layout_weight="4"
-                        android:text="거주 지역:"
-                        android:textStyle="bold"
-                        android:textColor="@color/black"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/gender_info"
+                        android:layout_marginTop="12dp"
+                        android:text="나이"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/age_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/gender_info"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="12dp"
+                        android:text="24 살"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/age_info"
+                        android:layout_marginTop="12dp"
+                        android:text="거주지"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
                     <TextView
                         android:id="@+id/residenc_info"
-                        android:layout_weight="1"
-                        android:maxLines="1"
-                        android:text="서울특별시 영등포구 여의동로 330"
-                        android:textColor="@color/black"
-                        android:layout_marginStart="10dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:weightSum="5"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp">
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/age_info"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="12dp"
+                        android:text="부산광역시 사상구"
+                        android:textSize="20sp" />
+
                     <TextView
-                        android:layout_weight="4"
-                        android:text="특이사항:"
-                        android:textStyle="bold"
-                        android:textColor="@color/black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/residenc_info"
+                        android:layout_marginTop="12dp"
+                        android:text="연 평균 수입"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/avgIncome_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/residenc_info"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="12dp"
+                        android:text="0000 만원"
+                        android:textSize="20sp" />
+
+                    <View
+                        android:id="@+id/line2"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="3dp"
+                        android:layout_below="@id/avgIncome_info"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@drawable/dottedline" />
+
+                    <TextView
+                        android:id="@+id/significant"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/line2"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="4dp"
+                        android:text="추가 정보"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
                     <TextView
                         android:id="@+id/significant_info"
-                        android:layout_weight="1"
-                        android:maxLines="1"
-                        android:text="1인가구"
-                        android:textColor="@color/black"
-                        android:layout_marginStart="10dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
-                </LinearLayout>
-            </LinearLayout>
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/significant"
+                        android:layout_marginTop="12dp"
+                        android:text="독립유공자 \n다자녀"
+                        android:textSize="20sp" />
 
-        </ScrollView>
+                </RelativeLayout>
 
-            <TextView
-                android:id="@+id/mosaic_background_info"
-                android:background="@color/hintColor"
-                android:alpha="0.953"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-            <TextView
-                android:id="@+id/mosaic_textview_info"
-                android:gravity="center"
-                android:textColor="@color/black"
-                android:textSize="32sp"
-                android:text="로그인 하시겠습니까?"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+            </ScrollView>
 
+            <Button
+                android:id="@+id/updateInfo_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="24dp"
+                android:backgroundTint="@color/editTextTint"
+                android:text="회원정보수정"
+                android:textSize="24sp"
+                android:textColor="@color/black" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@id/updateInfo_btn"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="24dp"
+                android:backgroundTint="@color/editTextTint"
+                android:text="로그아웃"
+                android:textSize="24sp"
+                android:textColor="@color/warningColor" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/mosaic_background_info"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#C0808080"
+            android:gravity="center"
+            android:text="로그인 하시겠습니까?"
+            android:textColor="@color/black"
+            android:textSize="32sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/mosaic_textview_info"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
 
     </FrameLayout>
