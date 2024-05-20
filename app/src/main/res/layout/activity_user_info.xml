@@ -120,6 +120,7 @@
                         android:textSize="20sp" />
 
                     <TextView
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/id_info"
@@ -127,6 +128,7 @@
                         android:text="비밀번호"
                         android:textSize="20sp"
                         android:textStyle="bold" />
+
 
                     <TextView
                         android:id="@+id/password_info"
@@ -139,6 +141,7 @@
                         android:textSize="20sp" />
 
                     <TextView
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/password_info"

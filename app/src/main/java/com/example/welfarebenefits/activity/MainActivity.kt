@@ -16,6 +16,7 @@ import com.example.welfarebenefits.R
 import com.example.welfarebenefits.adapter.RecyclerViewAdapter
 import com.example.welfarebenefits.databinding.ActivityMainBinding
 import com.example.welfarebenefits.entity.User
+import com.example.welfarebenefits.entity.WelfareCategoryMap
 import com.example.welfarebenefits.entity.WelfareData
 import com.example.welfarebenefits.util.ActivityStarter
 import com.example.welfarebenefits.util.CallBackWelfareData
@@ -100,12 +101,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         binding.mainListSelectSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                // 선택된 아이템의 위치(position)에 대한 처리를 여기에 추가.
                 val selectedItem = sortingCriteriaArray[position]
-                // 선택된 아이템에 대한 이벤트 추가
+                Log.e("MainActivitymainListSelectSpinner",selectedItem)
+                val recyclerViewAdapter = WelfareCategoryMap.getCategoryMap(selectedItem)
+                    ?.let { RecyclerViewAdapter(it) }
+                Log.e("MainActivitymainListSelectSpinner", recyclerViewAdapter?.itemCount.toString())
+                recyclerViewAdapter?.notifyDataSetChanged()
+                binding.recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
+                binding.recyclerView.adapter = recyclerViewAdapter
 
-                //예시
-                Toast.makeText(this@MainActivity, selectedItem, Toast.LENGTH_SHORT).show()
+
 
             }
 

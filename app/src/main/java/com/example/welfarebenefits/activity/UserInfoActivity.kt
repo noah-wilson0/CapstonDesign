@@ -38,6 +38,7 @@ class UserInfoActivity : AppCompatActivity() {
             binding.nameInfo.text = user.name
             binding.genderInfo.text=user.gender
             binding.avgIncomeInfo.text = user.avgIncome
+            binding.householdSizeInfo.text=user.household
             binding.residencInfo.text = user.residence
             binding.significantInfo.text = user.significant.joinToString(", ")
         }
