@@ -1,109 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="48dp"
     tools:context=".activity.LogInActivity">
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
         android:layout_marginBottom="80dp"
         android:text="복지 혜택"
         android:textSize="40sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/id_ET"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/id_ET"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="301dp"
-        android:layout_marginEnd="40dp"
+        android:layout_below="@id/textView"
+        android:layout_centerHorizontal="true"
         android:backgroundTint="@color/editTextTint"
         android:hint="아이디 입력"
         android:inputType="text"
-        android:maxLines="1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:maxLines="1" />
 
     <EditText
         android:id="@+id/passwd_ET"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="7dp"
-        android:layout_marginEnd="40dp"
+        android:layout_below="@id/id_ET"
+        android:layout_centerHorizontal="true"
         android:backgroundTint="@color/editTextTint"
         android:hint="비밀번호 입력"
         android:inputType="textPassword"
-        android:maxLines="1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/id_ET" />
+        android:maxLines="1" />
 
     <Button
         android:id="@+id/loginbutton"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/passwd_ET"
+        android:layout_marginTop="8dp"
         android:backgroundTint="@color/editTextTint"
         android:text="로그인"
         android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwd_ET" />
-
-    <TextView
-        android:id="@+id/singUp_TV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="9dp"
-        android:text="회원가입하기"
-        android:textColor="@color/warningColor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/text"
-        app:layout_constraintTop_toBottomOf="@+id/loginbutton" />
+        android:textColor="@color/black" />
 
     <TextView
         android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="11dp"
-        android:text="아직 회원이 아니신가요?"
-        app:layout_constraintBaseline_toBaselineOf="@+id/singUp_TV"
-        app:layout_constraintEnd_toStartOf="@+id/singUp_TV"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/loginbutton"
+        android:layout_marginTop="10dp"
+        android:text="로그인으로 개인 맞춤 복지 서비스 \n조회 및 알람 기능을 이용하실 수 있습니다."
+        android:textAlignment="center"/>
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1.5dp"
+        android:layout_below="@id/text"
+        android:background="#1A000000"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="12dp"/>
 
     <TextView
-        android:id="@+id/guestLoginNotificationTextView"
+        android:id="@+id/singUp_TV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="17dp"
-        android:layout_marginBottom="38dp"
-        android:text="게스트로 로그인시 맞춤형 정보를\n 확일하 실 수 없습니다."
-        android:textColor="@color/warningColor"
-        app:layout_constraintBottom_toTopOf="@+id/gestLogIn"
-        app:layout_constraintEnd_toEndOf="@+id/singUp_TV" />
+        android:layout_below="@id/line"
+        android:layout_toLeftOf="@id/verticalline"
+        android:text="회원가입하기"
+        android:textSize="16sp" />
+
+    <View
+        android:id="@+id/verticalline"
+        android:layout_width="1dp"
+        android:layout_height="30dp"
+        android:layout_below="@id/line"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:background="#1A000000" />
 
     <TextView
         android:id="@+id/gestLogIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="26dp"
-        android:layout_marginBottom="72dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/line"
+        android:layout_toRightOf="@id/verticalline"
         android:text="게스트 로그인"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/guestLoginNotificationTextView" />
+        android:textSize="16sp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <View
+        android:id="@+id/line2"
+        android:layout_width="match_parent"
+        android:layout_height="1.5dp"
+        android:layout_below="@id/verticalline"
+        android:background="#1A000000"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:id="@+id/guestLoginNotificationTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/line2"
+        android:text="게스트로 로그인시 복지 정보를 열람할 수 있으나\n 맞춤 정보를 제공할 수 없습니다."
+        android:textAlignment="center"
+        android:textColor="@color/warningColor" />
+
+</RelativeLayout>
