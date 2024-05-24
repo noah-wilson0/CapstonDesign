@@ -5,13 +5,6 @@ class UserInfoValidator {
     fun validateName(name:String):String{
         return removeNonKoreanAndAlphabet(name)
     }
-    fun validateAvgIncome(avgIncome:String):String{
-        val avgIncome=removeNonNumeric(avgIncome)
-        return avgIncome.replace(",","")
-    }
-    fun validateHouseHoldSize(houseHoldSize:String):String{
-        return removeNonNumeric(houseHoldSize)
-    }
 
     private fun removeNonNumeric(input: String): String { //숫자빼고 모두 삭제
         return input.replace(Regex("[^0-9]"), "")
