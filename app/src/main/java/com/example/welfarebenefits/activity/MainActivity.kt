@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.welfarebenefits.R
 import com.example.welfarebenefits.adapter.RecyclerViewAdapter
 import com.example.welfarebenefits.databinding.ActivityMainBinding
+
 import com.example.welfarebenefits.entity.User
 import com.example.welfarebenefits.entity.WelfareCategoryMap
 import com.example.welfarebenefits.entity.WelfareData
@@ -26,9 +27,6 @@ import com.example.welfarebenefits.util.WelfareDataFetcher
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 
-/*
-    회원탈퇴기능도 추가해야 된다-0504
- */
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     private var mBinding: ActivityMainBinding?=null
@@ -69,6 +67,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     }
 
                     R.id.alertImage -> {
+
                         // 알림 이미지를 클릭한 경우의 동작
                         Toast.makeText(this@MainActivity, "알림 이미지를 클릭했습니다.", Toast.LENGTH_SHORT)
                             .show()
