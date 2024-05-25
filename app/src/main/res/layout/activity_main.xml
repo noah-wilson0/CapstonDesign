@@ -36,8 +36,8 @@
                 style="@style/SpinnerDivideStyle"
                 android:layout_marginLeft="10dp" />
             <Button
-                android:id="@+id/logout"
-                android:text="로그아웃"
+                android:id="@+id/alerm"
+                android:text="알림발생기"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         </LinearLayout>

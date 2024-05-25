@@ -1,13 +1,11 @@
 package com.example.welfarebenefits.activity
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.welfarebenefits.databinding.ActivityLogInBinding
 import com.example.welfarebenefits.util.ActivityStarter
 import com.example.welfarebenefits.util.LogIn
-
 import com.example.welfarebenefits.util.ShowAlertDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -33,7 +31,6 @@ class LogInActivity : AppCompatActivity() {
                 }
                 binding.idET.text.toString().isNotBlank()&&binding.passwdET.text.toString().isNotBlank() ->{
                     LogIn().logIn(this,binding)
-//                    finish()
                 }
                 else -> {
                     Log.e("LOGIN","로그인 오류 발생")
@@ -53,8 +50,7 @@ class LogInActivity : AppCompatActivity() {
             }
             else {
                 Log.e("LogInActivity","SignUpActivity로 이동")
-                ActivityStarter.startNextActivity(this,SignUpActivity::class.java)
-                finish()
+                ActivityStarter.startNextActivityNotFinish(this,SignUpActivity::class.java)
             }
         }
         binding.gestLogIn.setOnClickListener{ guestLogin() }
@@ -65,16 +61,12 @@ class LogInActivity : AppCompatActivity() {
     private fun guestLogin() {
         val user=auth.currentUser
         if (user != null) {
-            val intent = Intent(this, MainActivity::class.java);
-            startActivity(intent)
-            finish()
+            ActivityStarter.startNextActivity(this,MainActivity::class.java)
         } else {
             auth.signInAnonymously()
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
                         ActivityStarter.startNextActivity(this, MainActivity::class.java)
-                        finish()
-
                     } else {
                         Log.e("GUESTLOGIN","익명 로그인 실패")
                     }
