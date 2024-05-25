@@ -31,8 +31,6 @@ class SignUp (val signUpActivity: SignUpActivity, private val binding: ActivityS
         }
         else {
             val name:String=UserInfoValidator().validateName(binding.inputNameET.text.toString().trim())
-            val avgIncome=UserInfoValidator().validateAvgIncome(binding.inputAvgIncomeSesstionET.text.toString().trim())
-            val houseHoldSize=UserInfoValidator().validateHouseHoldSize(binding.householdSizeET.text.toString().trim())
 
 
             val user: User = User(
@@ -40,8 +38,6 @@ class SignUp (val signUpActivity: SignUpActivity, private val binding: ActivityS
                 password = binding.inputPSET.text.toString().trim(),
                 name = name,
                 gender = gender,
-                avgIncome = avgIncome,
-                household = houseHoldSize,
                 residence = binding.residenceTV.text.toString().trim(),
                 significant =  CheckedTextExtractor(
                     mutableListOf(

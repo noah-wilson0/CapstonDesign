@@ -42,8 +42,6 @@ class ToolbarMenuItemClickListener():ToolbarMenuItemClickListeners,OnUserInfoCli
                         val password = userData["password"] as String ?: ""
                         val name = userData["name"] as String ?: ""
                         val gender = userData["gender"] as String ?: ""
-                        val avgIncome = userData["avgIncome"] as String ?: ""
-                        val household = userData["household"] as String ?: ""
                         val residence = userData["residence"] as String ?: ""
                         val significantData = userData["significant"]  //[1인가구, 국가보훈대상] =List
                         val significant = mutableListOf<String?>()  // 혹은 원하는 타입으로 선언
@@ -54,8 +52,6 @@ class ToolbarMenuItemClickListener():ToolbarMenuItemClickListeners,OnUserInfoCli
                             id=id,
                             password=password,
                             name=name,
-                            avgIncome=avgIncome,
-                            household = household,
                             gender=gender,
                             residence=residence,
                             significant=significant

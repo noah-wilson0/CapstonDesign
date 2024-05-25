@@ -56,16 +56,6 @@ class SignUpActivity : AppCompatActivity(), CitysSelectedListener {
                 gender.isEmpty() ->{
                     ShowAlertDialog(this, "회원가입", "성별을 선택해 주세요!", "확인").showAlertDialog()
                 }
-                binding.inputAvgIncomeSesstionET.text.toString()
-                    .isBlank() && binding.inputAvgIncomeSesstionET.text.toString()
-                    .isNullOrEmpty() -> {
-                    ShowAlertDialog(this, "회원가입", "연 평균 소득을 입력해 주세요!", "확인").showAlertDialog()
-                }
-                binding.householdSizeET.text.toString()
-                    .isBlank() && binding.inputAvgIncomeSesstionET.text.toString()
-                    .isNullOrEmpty() -> {
-                    ShowAlertDialog(this, "회원가입", "가구원 수를 입력해 주세요!", "확인").showAlertDialog()
-                }
                 binding.residenceTV.text.toString()
                     .isBlank() && binding.residenceTV.text.toString().isNullOrEmpty() -> {
                     ShowAlertDialog(this, "회원가입", "거주지역을 입력해 주세요!", "확인").showAlertDialog()
@@ -75,22 +65,9 @@ class SignUpActivity : AppCompatActivity(), CitysSelectedListener {
                         && binding.inputPSET.text.toString().isNotBlank()
                         && binding.inputNameET.text.toString().isNotBlank()
                         && gender.isNotEmpty()
-                        && binding.inputAvgIncomeSesstionET.text.toString().isNotBlank()
                         && binding.residenceTV.text.toString().isNotBlank() -> {
                             if (UserInfoValidator().containsOnlyKoreanAndAlphabet(binding.inputNameET.text.toString().trim())) {
-                                if(UserInfoValidator().containsOnlyNumericAndSpecial(binding.inputAvgIncomeSesstionET.text.toString().trim())) {
-                                    if(UserInfoValidator().containsOnlyNumeric(binding.householdSizeET.text.toString().trim())){
-                                        SignUp(this, binding).signUp(gender)
-                                    }
-                                    else{
-                                        ShowAlertDialog(this, "회원가입", "가구원 수를 입력하세요.", "확인").showAlertDialog()
-                                    }
-                                }
-                                else{
-                                    ShowAlertDialog(this, "회원가입", "연평균 소득을 입력하세요.\n" +
-                                            " 예시: 연봉 3000만원일 경우 '3000'을 입력하고, 연봉이 3억3천만원일 경우 '33000'을 입력하세요", "확인").showAlertDialog()
-                                }
-
+                                SignUp(this, binding).signUp(gender)
                             }
                             else{
                                 ShowAlertDialog(this, "회원가입", "이름에 특수문자와 숫자는 입력할 수 없습니다!", "확인").showAlertDialog()
