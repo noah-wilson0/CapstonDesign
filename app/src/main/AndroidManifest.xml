@@ -26,7 +26,7 @@
             android:name=".activity.alertList"
             android:exported="false" />
         <activity
-            android:name=".activity.subList"
+            android:name=".activity.SubListActivity"
             android:exported="false" />
         <activity
             android:name=".activity.SignUpActivity"
