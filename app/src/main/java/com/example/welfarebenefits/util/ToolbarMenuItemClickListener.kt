@@ -32,7 +32,7 @@ class ToolbarMenuItemClickListener():ToolbarMenuItemClickListeners,OnUserInfoCli
             Log.e("onUserInfoImageClicked", "회원 정보 보기 이벤트 시작")
             database = Firebase.database.reference
             var user: User
-            database.child(id).get().addOnCompleteListener { task ->
+            database.child(id).child("UserInfo").get().addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val dataSnapshot = task.result
                     if (dataSnapshot.exists()) {

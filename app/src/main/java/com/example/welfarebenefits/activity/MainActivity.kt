@@ -26,7 +26,7 @@ import com.example.welfarebenefits.entity.User
 import com.example.welfarebenefits.entity.WelfareCategoryMap
 import com.example.welfarebenefits.entity.WelfareData
 import com.example.welfarebenefits.util.ActivityStarter
-import com.example.welfarebenefits.util.Alerm
+import com.example.welfarebenefits.util.AlarmTest
 import com.example.welfarebenefits.util.CallBackWelfareData
 import com.example.welfarebenefits.util.OnUserInfoClickListener
 import com.example.welfarebenefits.util.ToolbarMenuItemClickListener
@@ -39,9 +39,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private var mBinding: ActivityMainBinding?=null
     private val NOTIFICATION_PERMISSION_REQUEST_CODE = 1
 
-    //    private lateinit var recyclerViewAdapter: RecyclerViewAdapter
+
     private val binding get() = mBinding!!
     private var id:String=""
+    private lateinit var welfareDataList:List<WelfareData>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,7 +62,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         requestNotificationPermission()
         binding.alerm.setOnClickListener {
             Log.e("MAIN","알림시작")
-            Alerm(this).deliverNotification()
+            AlarmTest(id,this).deliverNotification(welfareDataList[(welfareDataList.indices).random()])
         }
 
         binding.toolbar.setOnMenuItemClickListener(object : Toolbar.OnMenuItemClickListener {
@@ -133,6 +134,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             override fun getWelfareData(welfareDataList: List<WelfareData>) {
                 Log.e("MainActivity", "Received welfare data: ${welfareDataList.size} items")
                 val recyclerViewAdapter = RecyclerViewAdapter(welfareDataList)
+                this@MainActivity.welfareDataList=welfareDataList
                 binding.recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
                 binding.recyclerView.adapter = recyclerViewAdapter
             }

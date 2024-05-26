@@ -60,7 +60,7 @@ class SignUp (val signUpActivity: SignUpActivity, private val binding: ActivityS
             NewUser().addNewUserAccount(user, signUpActivity, object : NewUser.OnUserAccountAddedListener {
                 override fun onUserAccountAdded() {
                     // 회원가입이 성공한 경우에만 데이터베이스에 사용자 데이터를 추가
-                    NewUser().writeDatabaseNewUser(user)
+                    NewUser().writeDatabaseNewUser(user,signUpActivity)
                     ShowAlertDialog(signUpActivity,
                         "회원가입",
                         "회원가입이 완료되었습니다!",
