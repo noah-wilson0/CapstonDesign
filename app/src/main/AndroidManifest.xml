@@ -20,7 +20,7 @@
             android:name=".activity.UserInfoActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.bookmark_list"
+            android:name=".activity.Bookmark_listActivity"
             android:exported="false" />
         <activity
             android:name=".activity.alertList"

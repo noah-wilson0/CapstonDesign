@@ -264,9 +264,9 @@
             android:id="@+id/mosaic_background_info"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#C0808080"
+            android:background="#E0808080"
             android:gravity="center"
-            android:text="로그인 하시겠습니까?"
+            android:text="게스트 로그인 사용중\n 사용자 정보를 보기 위해선\n로그인 해야합니다."
             android:textColor="@color/black"
             android:textSize="32sp"
             android:textStyle="bold"/>

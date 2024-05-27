@@ -8,5 +8,6 @@ data class WelfareData (
     val selectionCriteria:String,    //선정기준
     val applicationDeadline:String,  //신청기한
     val applicationMethod:String,    //신청방법
-    val supportContent:String        //지원내용
+    val supportContent:String,       //지원내용
+    //val agencyName:String            //소관기관명
 )

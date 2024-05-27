@@ -28,12 +28,12 @@
         android:maxLines="2"
         android:text="테스트유치원에 다니는 만 3~5세 아동에게 유아학비, 방과후과정비 등 지원" />
 
-    <ImageView
+    <Button
         android:id="@+id/bookmark"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         android:layout_alignParentRight="true"
-        android:src="@drawable/bookmark" />
+        android:background="@drawable/bookmark" />
 
 
     <TextView
