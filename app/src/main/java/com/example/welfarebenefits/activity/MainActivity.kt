@@ -31,11 +31,12 @@ import com.example.welfarebenefits.util.CallBackWelfareData
 import com.example.welfarebenefits.util.OnUserInfoClickListener
 import com.example.welfarebenefits.util.ToolbarMenuItemClickListener
 import com.example.welfarebenefits.util.WelfareDataFetcher
+import com.example.welfarebenefits.adapter.OnItemClickListener
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 
 
-class MainActivity : AppCompatActivity(), View.OnClickListener {
+class MainActivity : AppCompatActivity(), View.OnClickListener, OnItemClickListener {
     private var mBinding: ActivityMainBinding?=null
     private val NOTIFICATION_PERMISSION_REQUEST_CODE = 1
 
@@ -112,7 +113,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 val selectedItem = sortingCriteriaArray[position]
                 Log.e("MainActivitymainListSelectSpinner",selectedItem)
                 val recyclerViewAdapter = WelfareCategoryMap.getCategoryMap(selectedItem)
-                    ?.let { RecyclerViewAdapter(it) }
+                    ?.let { RecyclerViewAdapter(it, this@MainActivity) }
                 Log.e("MainActivitymainListSelectSpinner", recyclerViewAdapter?.itemCount.toString())
                 recyclerViewAdapter?.notifyDataSetChanged()
                 binding.recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
@@ -133,14 +134,36 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         WelfareDataFetcher().getWelfareData(object : CallBackWelfareData {
             override fun getWelfareData(welfareDataList: List<WelfareData>) {
                 Log.e("MainActivity", "Received welfare data: ${welfareDataList.size} items")
+
                 val recyclerViewAdapter = RecyclerViewAdapter(welfareDataList)
                 this@MainActivity.welfareDataList=welfareDataList
+
                 binding.recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
                 binding.recyclerView.adapter = recyclerViewAdapter
             }
         })
 
 
+    }
+    override fun onItemClick(position: Int) {
+        val clickedItem = binding.recyclerView.adapter?.let { adapter ->
+            if (adapter is RecyclerViewAdapter) {
+                adapter.getItem(position)
+            } else null
+        }
+        clickedItem?.let {
+            val intent = Intent(this, SubListActivity::class.java).apply {
+                putExtra("SERVICE_URL", it.detailURL)
+                putExtra("SERVICE_ID", it.serviceID)
+                putExtra("SERVICE_NAME", it.serviceName)
+                putExtra("SERVICE_SUMMARY", it.serviceSummary)
+                putExtra("SERVICE_CRITERIA", it.selectionCriteria)
+                putExtra("SERVICE_DEADLINE", it.applicationDeadline)
+                putExtra("SERVICE_METHOD", it.applicationMethod)
+                putExtra("SERVICE_CONTENT", it.supportContent)
+            }
+            startActivity(intent)
+        }
     }
 
         override fun onClick(v: View?) {
@@ -217,6 +240,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             )
         }
     }
+
 
 
 }

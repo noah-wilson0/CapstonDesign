@@ -11,19 +11,21 @@
 
     <TextView
         android:id="@+id/title_TV"
-        android:layout_width="wrap_content"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:textStyle="bold"
         android:textSize="16sp"
+        android:maxLines="1"
         android:text="테스트유아학비 (누리과정) 지원" />
 
     <TextView
         android:id="@+id/description_TV"
-        android:layout_width="330dp"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/title_TV"
+        android:layout_alignParentBottom="true"
         android:layout_marginTop="8dp"
+        android:maxLines="2"
         android:text="테스트유치원에 다니는 만 3~5세 아동에게 유아학비, 방과후과정비 등 지원" />
 
     <ImageView
