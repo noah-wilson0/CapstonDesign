@@ -43,7 +43,7 @@ class NewUser() {
     }
     fun writeDatabaseNewUser(user:User,context: Context) {
         database = Firebase.database.reference
-        database.child(user.id).child("UserInfo").setValue(user)
+        database.child(user.id).child(context.getString(R.string.UserInfo)).setValue(user)
         database.child(user.id).child(context.getString(R.string.alarm)).setValue(mutableListOf(""))
     }
 

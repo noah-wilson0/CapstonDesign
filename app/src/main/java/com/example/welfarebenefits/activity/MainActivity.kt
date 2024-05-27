@@ -131,7 +131,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, OnItemClickListe
         binding.mainSort.setOnClickListener(this)
         binding.kAlphabetSort.setOnClickListener(this)
         binding.viewsSort.setOnClickListener(this)
-        WelfareDataFetcher().getWelfareData(object : CallBackWelfareData {
+        WelfareDataFetcher().getWelfareData(this,id,object : CallBackWelfareData {
             override fun getWelfareData(welfareDataList: List<WelfareData>) {
                 Log.e("MainActivity", "Received welfare data: ${welfareDataList.size} items")
 
