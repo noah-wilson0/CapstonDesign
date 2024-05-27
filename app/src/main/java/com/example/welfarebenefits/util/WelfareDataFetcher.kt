@@ -14,7 +14,7 @@ class WelfareDataFetcher {
         database = FirebaseDatabase.getInstance().reference
 
         // Step 1: Get user info including residence, gender, and significant
-        database.child("id1").child("UserInfo").get().addOnCompleteListener { task ->
+        database.child("id2").child("UserInfo").get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val snapshot = task.result
                 if (snapshot.exists()) {
