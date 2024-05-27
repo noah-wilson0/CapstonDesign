@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">welfareBenefits</string>
     <string name="makeEmailTemplate">\@gmail.com</string>
+    <string name="alarm">alarm</string>
 </resources>

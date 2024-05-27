@@ -1,5 +1,6 @@
 package com.example.welfarebenefits.entity
 
+
 data class WelfareData (
     val detailURL:String,            //상세조회URL
     val serviceID:String,            //서비스ID

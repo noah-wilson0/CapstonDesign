@@ -1,12 +1,17 @@
 package com.example.welfarebenefits.activity
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.welfarebenefits.databinding.ActivityUserInfoBinding
+import com.example.welfarebenefits.util.ActivityStarter
 import com.example.welfarebenefits.util.JsonConverter
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 
 
 /*
@@ -42,8 +47,15 @@ class UserInfoActivity : AppCompatActivity() {
         }
 
         binding.backArrowImgInfo.setOnClickListener {
-            var  data=Intent(this,MainActivity::class.java)
-            startActivity(data)
+            ActivityStarter.startNextActivityNotFinish(this,MainActivity::class.java)
+        }
+        binding.logout.setOnClickListener {
+            Firebase.auth.signOut()
+            val sharedPreferences:SharedPreferences=getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+            val editor=sharedPreferences.edit()
+            editor.clear()
+            editor.commit()
+            ActivityStarter.startNextActivity(this,LogInActivity::class.java)
         }
 
 

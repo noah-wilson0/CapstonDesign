@@ -1,6 +1,8 @@
 package com.example.welfarebenefits.util
 
 import android.app.Activity
+import android.content.Context
+import android.content.SharedPreferences
 import android.util.Log
 import com.example.welfarebenefits.R
 import com.example.welfarebenefits.activity.MainActivity
@@ -17,14 +19,17 @@ class LogIn {
         val emailTemplate: String = activity.resources.getString(R.string.makeEmailTemplate)
         val fullEmail = binding.idET.text.toString().trim() + emailTemplate
         val password = binding.passwdET.text.toString().trim()
-
+        val sharedPreferences: SharedPreferences = activity.getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        val userId:String= binding.idET.text.toString().trim()
         Log.e("LOGIN", fullEmail)
-
         auth.signInWithEmailAndPassword(fullEmail, password)
             .addOnCompleteListener(activity) { task ->
                 if (task.isSuccessful) {
                     Log.e("LOGIN", "signInWithEmail:success")
-                    ActivityStarter.startNextActivity(activity, MainActivity::class.java, binding.idET.text.toString().trim())
+                    editor.putString("userId", userId)
+                    editor.apply()
+                    ActivityStarter.startNextActivity(activity, MainActivity::class.java, userId)
                 } else {
                     Log.e("LOGIN", "signInWithEmail:failure", task.exception)
                     handleLoginFailure(activity, binding)

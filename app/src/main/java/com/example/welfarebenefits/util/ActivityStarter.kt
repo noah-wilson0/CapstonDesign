@@ -13,16 +13,33 @@ class ActivityStarter {
             val intent = Intent(activity, nextActivity)
             intent.putExtra("user", userJson)
             activity.startActivity(intent)
+            activity.finish()
         }
         fun startNextActivity(activity: Activity,nextActivity:Class<*>){
             val intent = Intent(activity, nextActivity)
             activity.startActivity(intent)
+            activity.finish()
         }
         fun startNextActivity(activity: Activity,nextActivity:Class<*>,id:String){
             val intent = Intent(activity, nextActivity)
             intent.putExtra("id",id)
             activity.startActivity(intent)
+            activity.finish()
         }
-
+        fun startNextActivityNotFinish(activity: Activity,nextActivity:Class<*>, user: User) {
+            val userJson = JsonConverter().userToJson(user)
+            val intent = Intent(activity, nextActivity)
+            intent.putExtra("user", userJson)
+            activity.startActivity(intent)
+        }
+        fun startNextActivityNotFinish(activity: Activity,nextActivity:Class<*>){
+            val intent = Intent(activity, nextActivity)
+            activity.startActivity(intent)
+        }
+        fun startNextActivityNotFinish(activity: Activity,nextActivity:Class<*>,id:String){
+            val intent = Intent(activity, nextActivity)
+            intent.putExtra("id",id)
+            activity.startActivity(intent)
+        }
     }
 }
