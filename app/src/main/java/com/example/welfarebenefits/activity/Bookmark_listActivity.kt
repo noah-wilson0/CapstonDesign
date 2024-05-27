@@ -63,6 +63,6 @@ class Bookmark_listActivity : AppCompatActivity(), OnItemClickListener {
     }
 
     override fun onButtonClick(position: Int) {
-        TODO("Not yet implemented")
+
     }
 }
