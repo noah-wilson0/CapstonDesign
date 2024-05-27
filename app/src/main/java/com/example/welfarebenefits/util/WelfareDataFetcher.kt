@@ -1,6 +1,8 @@
 package com.example.welfarebenefits.util
 
+import android.content.Context
 import android.util.Log
+import com.example.welfarebenefits.R
 import com.example.welfarebenefits.entity.WelfareCategoryMap
 import com.example.welfarebenefits.entity.WelfareData
 import com.google.firebase.database.DatabaseReference
@@ -10,11 +12,11 @@ import com.google.firebase.database.FirebaseDatabase
 class WelfareDataFetcher {
     private lateinit var database: DatabaseReference
 
-    fun getWelfareData(callback: CallBackWelfareData) {
+    fun getWelfareData(context: Context,id:String, callback: CallBackWelfareData) {
         database = FirebaseDatabase.getInstance().reference
 
         // Step 1: Get user info including residence, gender, and significant
-        database.child("id2").child("UserInfo").get().addOnCompleteListener { task ->
+        database.child(id).child(context.getString(R.string.UserInfo)).get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val snapshot = task.result
                 if (snapshot.exists()) {
