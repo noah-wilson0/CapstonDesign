@@ -3,6 +3,7 @@ package com.example.welfarebenefits.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
 import com.example.welfarebenefits.adapter.viewholder.RecyclerViewHolder
 import com.example.welfarebenefits.databinding.RecyclerviewItemBinding
@@ -22,6 +23,8 @@ class RecyclerViewAdapter(private val welfareDataList:List<WelfareData>, private
         return welfareDataList[position]
     }
 
+
+
     override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
         val currentItem = welfareDataList[position]
 
@@ -31,10 +34,13 @@ class RecyclerViewAdapter(private val welfareDataList:List<WelfareData>, private
         holder.itemView.setOnClickListener {
             listener.onItemClick(position)
         }
+        holder.bookmarkBtn.setOnClickListener{
+
+        }
     }
 
 }
 interface OnItemClickListener {
     fun onItemClick(position: Int)
+    fun onButtonClick(position: Int)
 }
-

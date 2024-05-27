@@ -67,7 +67,8 @@ fun main() {
                     if(jsonObject["선정기준"].isJsonNull) "" else jsonObject["선정기준"].asString,
                     jsonObject["신청기한"].asString,
                     jsonObject["신청방법"].asString,
-                    jsonObject["지원내용"].asString
+                    jsonObject["지원내용"].asString,
+                    //(if(jsonObject["소관기관유형"].asString.equals("중앙행정기관")) jsonObject["소관기관유형"].asString else jsonObject["소관기관명"].asString)
                 )
                 serviceName = jsonObject["서비스명"].asString        // key값 저장
                 serviceCategory = jsonObject["서비스분야"].asString
@@ -140,7 +141,7 @@ fun main() {
     val outputArray = arrayOf(livingStabilityJsons,residenceJsons,childcareJsons,employmentJsons,medicalJsons,administrationJsons,pregnancyJsons,protectionJsons,cultureJsons)
     val fileNameArray = arrayOf("생활안정","주거·자립","보육·교육","고용·창업","보건·의료","행정·안전","임신·출산","보호·돌봄","문화·환경")
     for(i in 0..outputArray.size-1){
-        val path = "C:\\Users\\Hanseo\\Desktop\\welfareDataFullEX.json"
+        val path = "C:\\Users\\Hanseo\\Desktop\\welfareDataFullEXx.json"
         val file = File(path)
         val bufferedWriter = BufferedWriter(FileWriter(file,true))
         bufferedWriter.write(gson.toJson(outputArray[i]))

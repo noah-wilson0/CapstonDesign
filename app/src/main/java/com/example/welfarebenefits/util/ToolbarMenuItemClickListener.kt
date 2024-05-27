@@ -12,9 +12,34 @@ class ToolbarMenuItemClickListener():ToolbarMenuItemClickListeners,OnUserInfoCli
 
     private lateinit var database: DatabaseReference
     private var onUserInfoClickListener: OnUserInfoClickListener? = null
+    private var onBookmarkClickListener: OnBookmarkClickListener? = null
 
     override fun onSearchImageClicked() {
 
+    }
+
+    override fun onBookmarkImageClicked(id: String) {
+        if(id=="guest"){
+            onBookmarkClickListener?.onBookmarkClick(id)
+            Log.e("onUserInfoImageClicked", "게스트 이벤트")
+        }
+        else{
+            database = Firebase.database.reference
+            database.child(id).child("bookmark").get().addOnCompleteListener { task->
+                if(task.isSuccessful){
+                    val dataSnapshot = task.result
+                    if(dataSnapshot.exists()){
+                        val bookmarkList = dataSnapshot.value as Array<*>
+                        Log.e("onBookmarkImageClicked", "북마크 어레이 생성완료")
+                        onBookmarkClickListener?.onBookmarkClick(bookmarkList)
+                    }
+                }
+                else{
+                    Firebase.auth.signOut()
+                    Log.e("TAG", "db에서 데이터 가져오기 실패", task.exception)
+                }
+            }
+        }
     }
 
     override fun onAlertImageClicked() {
@@ -71,6 +96,10 @@ class ToolbarMenuItemClickListener():ToolbarMenuItemClickListeners,OnUserInfoCli
 
     fun setOnUserInfoClickListener(listener: OnUserInfoClickListener) {
         this.onUserInfoClickListener = listener
+    }
+
+    fun setOnBookmarkClickListener(listener: OnBookmarkClickListener){
+        this.onBookmarkClickListener = listener
     }
 
     override fun onUserInfoClick(user: User) {

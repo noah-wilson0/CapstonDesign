@@ -8,6 +8,7 @@ import android.view.View
 import com.google.android.material.tabs.TabLayout
 import com.example.welfarebenefits.R
 import com.example.welfarebenefits.databinding.ActivitySubListBinding
+import com.example.welfarebenefits.util.JsonConverter
 
 class SubListActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySubListBinding
@@ -15,18 +16,19 @@ class SubListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySubListBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        binding.servicenameTV.text = intent.getStringExtra("SERVICE_NAME")
-        binding.summaryTV.text = intent.getStringExtra("SERVICE_SUMMARY")
-        if(intent.getStringExtra("SERVICE_CRITERIA").equals("")){
+        val dataString = intent.getStringExtra("data")
+        val dataJson = JsonConverter().jsonToData(dataString!!)
+        binding.servicenameTV.text = dataJson.serviceName
+        binding.summaryTV.text = dataJson.serviceSummary
+        if(dataJson.selectionCriteria.equals("")){
             binding.criterionTV.text = "지원 내용 참조"
         }else{
-            binding.criterionTV.text = intent.getStringExtra("SERVICE_CRITERIA")
+            binding.criterionTV.text = dataJson.selectionCriteria
         }
-        binding.contentTV.text = intent.getStringExtra("SERVICE_CONTENT")
-        binding.methodTV.text = intent.getStringExtra("SERVICE_METHOD")
-        binding.urlTV.text = intent.getStringExtra("SERVICE_URL")
-        binding.termTV.text = intent.getStringExtra("SERVICE_DEADLINE")
+        binding.contentTV.text = dataJson.supportContent
+        binding.methodTV.text = dataJson.applicationMethod
+        binding.urlTV.text = dataJson.detailURL
+        binding.termTV.text = dataJson.applicationDeadline
 
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
@@ -49,9 +51,10 @@ class SubListActivity : AppCompatActivity() {
         })
 
         binding.urlTV.setOnClickListener{
-            val intent2 = Intent(Intent.ACTION_VIEW);
-            intent2.setData(Uri.parse(intent.getStringExtra("SERVICE_URL")));
-            startActivity(intent2);
+            val urlPath = dataJson.detailURL
+            val intent2 = Intent(Intent.ACTION_VIEW)
+            intent2.setData(Uri.parse(urlPath))
+            startActivity(intent2)
 
         }
 
