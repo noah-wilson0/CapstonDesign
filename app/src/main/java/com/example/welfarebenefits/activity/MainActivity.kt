@@ -1,8 +1,14 @@
 package com.example.welfarebenefits.activity
 
+import android.Manifest
+import android.app.AlertDialog
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Typeface
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
@@ -11,15 +17,16 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.welfarebenefits.R
 import com.example.welfarebenefits.adapter.RecyclerViewAdapter
 import com.example.welfarebenefits.databinding.ActivityMainBinding
-
 import com.example.welfarebenefits.entity.User
 import com.example.welfarebenefits.entity.WelfareCategoryMap
 import com.example.welfarebenefits.entity.WelfareData
 import com.example.welfarebenefits.util.ActivityStarter
+import com.example.welfarebenefits.util.AlarmTest
 import com.example.welfarebenefits.util.CallBackWelfareData
 import com.example.welfarebenefits.util.OnUserInfoClickListener
 import com.example.welfarebenefits.util.ToolbarMenuItemClickListener
@@ -31,9 +38,12 @@ import com.google.firebase.auth.auth
 
 class MainActivity : AppCompatActivity(), View.OnClickListener, OnItemClickListener {
     private var mBinding: ActivityMainBinding?=null
-//    private lateinit var recyclerViewAdapter: RecyclerViewAdapter
+    private val NOTIFICATION_PERMISSION_REQUEST_CODE = 1
+
+
     private val binding get() = mBinding!!
     private var id:String=""
+    private lateinit var welfareDataList:List<WelfareData>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,12 +59,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, OnItemClickListe
             id= intent.getStringExtra("id")!!
         }
         Log.e("MAIN",id)
-        //임시 로그아웃 구현
-        binding.logout.setOnClickListener {
-            Firebase.auth.signOut()
-            intent= Intent(this,LogInActivity::class.java)
-            startActivity(intent)
-            finish()
+        // 알림 권한 요청
+        requestNotificationPermission()
+        binding.alerm.setOnClickListener {
+            Log.e("MAIN","알림시작")
+            AlarmTest(id,this).deliverNotification(welfareDataList[(welfareDataList.indices).random()])
         }
 
         binding.toolbar.setOnMenuItemClickListener(object : Toolbar.OnMenuItemClickListener {
@@ -79,11 +88,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, OnItemClickListe
                         val listener = ToolbarMenuItemClickListener()
                         listener.setOnUserInfoClickListener(object : OnUserInfoClickListener {
                             override fun onUserInfoClick(user: User) {
-                                ActivityStarter.startNextActivity(this@MainActivity,UserInfoActivity::class.java,user)
+                                ActivityStarter.startNextActivityNotFinish(this@MainActivity,UserInfoActivity::class.java,user)
                             }
 
                             override fun onUserInfoClick(id: String) {
-                                ActivityStarter.startNextActivity(this@MainActivity,UserInfoActivity::class.java,id)
+                                ActivityStarter.startNextActivityNotFinish(this@MainActivity,UserInfoActivity::class.java,id)
                             }
                         })
                         listener.onUserInfoImageClicked(id)
@@ -122,11 +131,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, OnItemClickListe
         binding.mainSort.setOnClickListener(this)
         binding.kAlphabetSort.setOnClickListener(this)
         binding.viewsSort.setOnClickListener(this)
-
         WelfareDataFetcher().getWelfareData(object : CallBackWelfareData {
             override fun getWelfareData(welfareDataList: List<WelfareData>) {
                 Log.e("MainActivity", "Received welfare data: ${welfareDataList.size} items")
-                val recyclerViewAdapter = RecyclerViewAdapter(welfareDataList, this@MainActivity)
+
+                val recyclerViewAdapter = RecyclerViewAdapter(welfareDataList)
+                this@MainActivity.welfareDataList=welfareDataList
+
                 binding.recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
                 binding.recyclerView.adapter = recyclerViewAdapter
             }
@@ -183,6 +194,52 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, OnItemClickListe
 
     }
 
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == NOTIFICATION_PERMISSION_REQUEST_CODE) {
+            if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                // 권한이 허용되었을 때 (필요시 추가 동작)
+                Log.d("MainActivity", "Notification permission granted")
+            } else {
+                // 권한이 거부되었을 때
+                Log.d("MainActivity", "Notification permission denied")
+                showPermissionDeniedDialog()
+            }
+        }
+    }
+    private fun showPermissionDeniedDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("알림 권한 필요")
+            .setMessage("이 기능을 사용하려면 알림 권한이 필요합니다. 설정에서 권한을 허용해 주세요.")
+            .setPositiveButton("설정으로 이동") { _, _ ->
+                val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                val uri = Uri.fromParts("package", packageName, null)
+                intent.data = uri
+                startActivity(intent)
+                Firebase.auth.signOut()
+//                ActivityStarter.startNextActivity(this,LogInActivity::class.java)
+                finish()
+            }
+            .setNegativeButton("취소") { _, _ ->
+                Firebase.auth.signOut()
+                ActivityStarter.startNextActivity(this,LogInActivity::class.java)
+            }
+            .show()
+    }
+
+    private fun requestNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+                NOTIFICATION_PERMISSION_REQUEST_CODE
+            )
+        }
+    }
 
 
 

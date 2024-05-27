@@ -13,4 +13,6 @@ class JsonConverter {
     fun jsonToUser(json: String):User {
         return gson.fromJson(json,User::class.java )
     }
+
+
 }
