@@ -20,6 +20,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.welfarebenefits.R
+import com.example.welfarebenefits.adapter.OnItemClickListener
 import com.example.welfarebenefits.adapter.RecyclerViewAdapter
 import com.example.welfarebenefits.databinding.ActivityMainBinding
 import com.example.welfarebenefits.entity.User
@@ -31,7 +32,6 @@ import com.example.welfarebenefits.util.CallBackWelfareData
 import com.example.welfarebenefits.util.OnUserInfoClickListener
 import com.example.welfarebenefits.util.ToolbarMenuItemClickListener
 import com.example.welfarebenefits.util.WelfareDataFetcher
-import com.example.welfarebenefits.adapter.OnItemClickListener
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 
@@ -135,7 +135,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, OnItemClickListe
             override fun getWelfareData(welfareDataList: List<WelfareData>) {
                 Log.e("MainActivity", "Received welfare data: ${welfareDataList.size} items")
 
-                val recyclerViewAdapter = RecyclerViewAdapter(welfareDataList)
+                val recyclerViewAdapter = RecyclerViewAdapter(welfareDataList,this@MainActivity)
                 this@MainActivity.welfareDataList=welfareDataList
 
                 binding.recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
