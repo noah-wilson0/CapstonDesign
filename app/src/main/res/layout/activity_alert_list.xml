@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.alertList">
+    tools:context=".activity.AlertListActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -54,6 +54,9 @@
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/alarmRecyclerView"
+        tools:listitem="@layout/recyclerview_item"
+        android:layout_marginTop="0dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

@@ -7,6 +7,8 @@ import com.example.welfarebenefits.entity.WelfareCategoryMap
 import com.example.welfarebenefits.entity.WelfareData
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 
 class WelfareDataFetcher {
@@ -65,7 +67,8 @@ class WelfareDataFetcher {
                                     welfareDataSnapshot["selectionCriteria"] as String? ?: "",
                                     welfareDataSnapshot["applicationDeadline"] as String? ?: "",
                                     welfareDataSnapshot["applicationMethod"] as String? ?: "",
-                                    supportContent
+                                    supportContent,
+                                    welfareDataSnapshot["agencyName"] as String? ?:""
                                 )
                                 welfareDataList.add(welfareData)
                                 categoryList.add(welfareData)
@@ -106,7 +109,8 @@ class WelfareDataFetcher {
                                 welfareDataSnapshot["selectionCriteria"] as String ?: "",
                                 welfareDataSnapshot["applicationDeadline"] as String ?: "",
                                 welfareDataSnapshot["applicationMethod"] as String ?: "",
-                                welfareDataSnapshot["supportContent"] as String ?: ""
+                                welfareDataSnapshot["supportContent"] as String ?: "",
+                                welfareDataSnapshot["agencyName"] as String? ?:""
                             )
                             welfareDataList.add(welfareData)
                             categoryList.add(welfareData)
@@ -122,6 +126,80 @@ class WelfareDataFetcher {
 
             }
         }
+    }
+    fun getWelfareDataGUEST(callback:CallBackWelfareData){
+        var welfareDataList: MutableList<WelfareData> = mutableListOf()
+        database = Firebase.database.reference.child("data")
+        var categoryMap: MutableMap<String, MutableList<WelfareData>> = mutableMapOf()
+        database.get().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val dataSnapshot = task.result
+                if (dataSnapshot.exists()) {
+                    for(category in dataSnapshot.children){
+                        val categoryName = category.key ?: ""
+                        val categoryList: MutableList<WelfareData> = mutableListOf()
+                        for(name in category.children){
+                            val welfareDataSnapshot=name.value as HashMap<String,*>
+                            val welfareData = WelfareData(
+                                welfareDataSnapshot["detailURL"] as String ?: "",
+                                welfareDataSnapshot["serviceID"] as String ?: "",
+                                welfareDataSnapshot["serviceName"] as String ?: "",
+                                welfareDataSnapshot["serviceSummary"] as String ?: "",
+                                welfareDataSnapshot["selectionCriteria"] as String ?: "",
+                                welfareDataSnapshot["applicationDeadline"] as String ?: "",
+                                welfareDataSnapshot["applicationMethod"] as String ?: "",
+                                welfareDataSnapshot["supportContent"] as String ?: "",
+                                welfareDataSnapshot["agencyName"] as String? ?:""
+                            )
+                            welfareDataList.add(welfareData)
+                            categoryList.add(welfareData)
+                        }
+                        categoryMap[categoryName] = categoryList
+                    }
+                }
+                categoryMap["전체(맞춤)"]=welfareDataList
+                WelfareCategoryMap.setCategoryMap(categoryMap)
+                callback.getWelfareData(welfareDataList.toList())
+            } else { // 실패햇을 경우 처리하기
+                Log.e("TAG", "db에서 데이터 가져오기 실패", task.exception)
+
+            }
+        }
+    }
+
+    fun getAlarmData(context: Context,id:String,callback:CallBackWelfareData){
+        database=FirebaseDatabase.getInstance().reference
+        var welfareDataList: MutableList<WelfareData> = mutableListOf()
+        database.child(id).child(context.resources.getString(R.string.alarm)).get().addOnCompleteListener { task ->
+            if (task.isSuccessful){
+                val dataSnapshot=task.result
+                if (dataSnapshot.exists()){
+                    val alarmListFromDatabase = dataSnapshot.value as List<HashMap<String,*>>
+                    for(alarmMap in alarmListFromDatabase){
+                    val welfareData = WelfareData(
+                        alarmMap["detailURL"] as String ?: "",
+                        alarmMap["serviceID"] as String ?: "",
+                        alarmMap["serviceName"] as String ?: "",
+                        alarmMap["serviceSummary"] as String ?: "",
+                        alarmMap["selectionCriteria"] as String ?: "",
+                        alarmMap["applicationDeadline"] as String ?: "",
+                        alarmMap["applicationMethod"] as String ?: "",
+                        alarmMap["supportContent"] as String ?: "",
+                        alarmMap["agencyName"] as String? ?:""
+                    )
+                        welfareDataList.add(welfareData)
+                    }
+
+                    callback.getWelfareData(welfareDataList)
+
+                } else{
+                    Log.e("getAlarmData", "No alarm data available")
+                }
+            }else{
+                Log.e("getAlarmData", "Error getting alarm data")
+            }
+        }
+
     }
 
 }
