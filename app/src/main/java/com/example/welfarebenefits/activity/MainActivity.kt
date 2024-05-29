@@ -27,7 +27,8 @@ import com.example.welfarebenefits.entity.User
 import com.example.welfarebenefits.entity.WelfareCategoryMap
 import com.example.welfarebenefits.entity.WelfareData
 import com.example.welfarebenefits.util.ActivityStarter
-import com.example.welfarebenefits.util.AlarmTest
+import com.example.welfarebenefits.util.Alarm
+import com.example.welfarebenefits.util.AlarmScheduler
 import com.example.welfarebenefits.util.CallBackWelfareData
 import com.example.welfarebenefits.util.OnUserInfoClickListener
 import com.example.welfarebenefits.util.ToolbarMenuItemClickListener
@@ -49,22 +50,55 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, OnItemClickListe
         super.onCreate(savedInstanceState)
         mBinding= ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        // 알림 권한 요청
+        requestNotificationPermission()
         var intent=Intent()
         intent=getIntent()
         if(intent.getStringExtra("id").isNullOrEmpty()){
             id="guest"
-        }
+            WelfareDataFetcher().getWelfareDataGUEST(object : CallBackWelfareData {
+                override fun getWelfareData(welfareDataList: List<WelfareData>) {
+                    Log.e("MainActivity", "Received welfare data: ${welfareDataList.size} items")
 
+                    val recyclerViewAdapter = RecyclerViewAdapter(welfareDataList,this@MainActivity)
+                    this@MainActivity.welfareDataList=welfareDataList
+
+                    binding.recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
+                    binding.recyclerView.adapter = recyclerViewAdapter
+
+                    val alarmScheduler = AlarmScheduler(this@MainActivity)
+                    welfareDataList.let {
+                        alarmScheduler.scheduleDailyAlarm( resources.getInteger(R.integer.hour), resources.getInteger(R.integer.minute),id,welfareDataList[(welfareDataList.indices).random()])
+                        alarmScheduler.scheduleDailyAlarm(12, 15,id,welfareDataList[(welfareDataList.indices).random()])
+                    }
+                }
+            })
+        }
         else{
             id= intent.getStringExtra("id")!!
+            WelfareDataFetcher().getWelfareData(this,id,object : CallBackWelfareData {
+                override fun getWelfareData(welfareDataList: List<WelfareData>) {
+                    Log.e("MainActivity", "Received welfare data: ${welfareDataList.size} items")
+
+                    val recyclerViewAdapter = RecyclerViewAdapter(welfareDataList,this@MainActivity)
+                    this@MainActivity.welfareDataList=welfareDataList
+                    binding.recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
+                    binding.recyclerView.adapter = recyclerViewAdapter
+
+                    val alarmScheduler = AlarmScheduler(this@MainActivity)
+                    welfareDataList.let {
+                        alarmScheduler.scheduleDailyAlarm( resources.getInteger(R.integer.hour), resources.getInteger(R.integer.minute),id,welfareDataList[(welfareDataList.indices).random()])
+                        alarmScheduler.scheduleDailyAlarm(12, 15,id,welfareDataList[(welfareDataList.indices).random()])
+                    }
+                }
+            })
         }
         Log.e("MAIN",id)
-        // 알림 권한 요청
-        requestNotificationPermission()
         binding.alerm.setOnClickListener {
             Log.e("MAIN","알림시작")
-            AlarmTest(id,this).deliverNotification(welfareDataList[(welfareDataList.indices).random()])
+            Alarm(id,this).deliverNotification(welfareDataList[(welfareDataList.indices).random()])
         }
+
 
         binding.toolbar.setOnMenuItemClickListener(object : Toolbar.OnMenuItemClickListener {
             override fun onMenuItemClick(item: MenuItem): Boolean {
@@ -78,9 +112,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, OnItemClickListe
 
                     R.id.alertImage -> {
 
-                        // 알림 이미지를 클릭한 경우의 동작
-                        Toast.makeText(this@MainActivity, "알림 이미지를 클릭했습니다.", Toast.LENGTH_SHORT)
-                            .show()
+                        ActivityStarter.startNextActivityNotFinish(this@MainActivity,AlertListActivity::class.java,id)
                         return true
                     }
 
@@ -131,17 +163,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, OnItemClickListe
         binding.mainSort.setOnClickListener(this)
         binding.kAlphabetSort.setOnClickListener(this)
         binding.viewsSort.setOnClickListener(this)
-        WelfareDataFetcher().getWelfareData(this,id,object : CallBackWelfareData {
-            override fun getWelfareData(welfareDataList: List<WelfareData>) {
-                Log.e("MainActivity", "Received welfare data: ${welfareDataList.size} items")
-
-                val recyclerViewAdapter = RecyclerViewAdapter(welfareDataList,this@MainActivity)
-                this@MainActivity.welfareDataList=welfareDataList
-
-                binding.recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
-                binding.recyclerView.adapter = recyclerViewAdapter
-            }
-        })
 
 
     }
@@ -166,7 +187,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, OnItemClickListe
         }
     }
 
-        override fun onClick(v: View?) {
+    override fun onButtonClick(position: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onClick(v: View?) {
             when (v?.id) {
                 R.id.main_sort -> {
                     Toast.makeText(this, "Main Sort 버튼 클릭", Toast.LENGTH_SHORT).show()

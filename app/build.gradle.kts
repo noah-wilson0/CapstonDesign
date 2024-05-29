@@ -42,6 +42,7 @@ android {
 }
 
 dependencies {
+    implementation ("androidx.work:work-runtime-ktx:2.7.1")
     implementation("androidx.fragment:fragment-ktx:1.3.5")
     implementation ("com.google.code.gson:gson:2.8.6")
     implementation("androidx.core:core-ktx:1.12.0")
