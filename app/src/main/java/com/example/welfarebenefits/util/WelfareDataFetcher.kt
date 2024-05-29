@@ -7,6 +7,7 @@ import com.example.welfarebenefits.entity.WelfareCategoryMap
 import com.example.welfarebenefits.entity.WelfareData
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.GenericTypeIndicator
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
@@ -23,8 +24,8 @@ class WelfareDataFetcher {
                 val snapshot = task.result
                 if (snapshot.exists()) {
                     val userInfo = snapshot.value as HashMap<String, *>
-                    val residence = userInfo["residence"] as String ?: ""
-                    val gender = userInfo["gender"] as String ?: ""
+                    val residence = userInfo["residence"] as String
+                    val gender = userInfo["gender"] as String
                     val significant = userInfo["significant"]?: listOf<String>()
                     Log.e("getWelfareData", "Residence: $residence, Gender: $gender, Significant: $significant")
 
@@ -102,14 +103,14 @@ class WelfareDataFetcher {
                         for(name in category.children){
                             val welfareDataSnapshot=name.value as HashMap<String,*>
                             val welfareData = WelfareData(
-                                welfareDataSnapshot["detailURL"] as String ?: "",
-                                welfareDataSnapshot["serviceID"] as String ?: "",
-                                welfareDataSnapshot["serviceName"] as String ?: "",
-                                welfareDataSnapshot["serviceSummary"] as String ?: "",
-                                welfareDataSnapshot["selectionCriteria"] as String ?: "",
-                                welfareDataSnapshot["applicationDeadline"] as String ?: "",
-                                welfareDataSnapshot["applicationMethod"] as String ?: "",
-                                welfareDataSnapshot["supportContent"] as String ?: "",
+                                welfareDataSnapshot["detailURL"] as String,
+                                welfareDataSnapshot["serviceID"] as String,
+                                welfareDataSnapshot["serviceName"] as String,
+                                welfareDataSnapshot["serviceSummary"] as String,
+                                welfareDataSnapshot["selectionCriteria"] as String,
+                                welfareDataSnapshot["applicationDeadline"] as String,
+                                welfareDataSnapshot["applicationMethod"] as String,
+                                welfareDataSnapshot["supportContent"] as String,
                                 welfareDataSnapshot["agencyName"] as String? ?:""
                             )
                             welfareDataList.add(welfareData)
@@ -140,15 +141,16 @@ class WelfareDataFetcher {
                         val categoryList: MutableList<WelfareData> = mutableListOf()
                         for(name in category.children){
                             val welfareDataSnapshot=name.value as HashMap<String,*>
+
                             val welfareData = WelfareData(
-                                welfareDataSnapshot["detailURL"] as String ?: "",
-                                welfareDataSnapshot["serviceID"] as String ?: "",
-                                welfareDataSnapshot["serviceName"] as String ?: "",
-                                welfareDataSnapshot["serviceSummary"] as String ?: "",
-                                welfareDataSnapshot["selectionCriteria"] as String ?: "",
-                                welfareDataSnapshot["applicationDeadline"] as String ?: "",
-                                welfareDataSnapshot["applicationMethod"] as String ?: "",
-                                welfareDataSnapshot["supportContent"] as String ?: "",
+                                welfareDataSnapshot["detailURL"] as String,
+                                welfareDataSnapshot["serviceID"] as String,
+                                welfareDataSnapshot["serviceName"] as String,
+                                welfareDataSnapshot["serviceSummary"] as String,
+                                welfareDataSnapshot["selectionCriteria"] as String,
+                                welfareDataSnapshot["applicationDeadline"] as String,
+                                welfareDataSnapshot["applicationMethod"] as String,
+                                welfareDataSnapshot["supportContent"] as String,
                                 welfareDataSnapshot["agencyName"] as String? ?:""
                             )
                             welfareDataList.add(welfareData)
@@ -174,20 +176,25 @@ class WelfareDataFetcher {
             if (task.isSuccessful){
                 val dataSnapshot=task.result
                 if (dataSnapshot.exists()){
-                    val alarmListFromDatabase = dataSnapshot.value as List<HashMap<String,*>>
-                    for(alarmMap in alarmListFromDatabase){
-                    val welfareData = WelfareData(
-                        alarmMap["detailURL"] as String ?: "",
-                        alarmMap["serviceID"] as String ?: "",
-                        alarmMap["serviceName"] as String ?: "",
-                        alarmMap["serviceSummary"] as String ?: "",
-                        alarmMap["selectionCriteria"] as String ?: "",
-                        alarmMap["applicationDeadline"] as String ?: "",
-                        alarmMap["applicationMethod"] as String ?: "",
-                        alarmMap["supportContent"] as String ?: "",
-                        alarmMap["agencyName"] as String? ?:""
-                    )
-                        welfareDataList.add(welfareData)
+//                    val alarmListFromDatabase = dataSnapshot.value as List<HashMap<String,*>>
+                    val alarmListFromDatabase = dataSnapshot.getValue(object :
+                        GenericTypeIndicator<List<HashMap<String, *>>>
+                        () {})
+                    if (alarmListFromDatabase != null) {
+                        for(alarmMap in alarmListFromDatabase){
+                            val welfareData = WelfareData(
+                                alarmMap["detailURL"] as String,
+                                alarmMap["serviceID"] as String,
+                                alarmMap["serviceName"] as String,
+                                alarmMap["serviceSummary"] as String,
+                                alarmMap["selectionCriteria"] as String,
+                                alarmMap["applicationDeadline"] as String,
+                                alarmMap["applicationMethod"] as String,
+                                alarmMap["supportContent"] as String,
+                                alarmMap["agencyName"] as String? ?:""
+                            )
+                            welfareDataList.add(welfareData)
+                        }
                     }
 
                     callback.getWelfareData(welfareDataList)
