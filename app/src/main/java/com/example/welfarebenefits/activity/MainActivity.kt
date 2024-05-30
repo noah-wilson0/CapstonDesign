@@ -18,32 +18,31 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.welfarebenefits.R
-import com.example.welfarebenefits.adapter.OnItemClickListener
-import com.example.welfarebenefits.adapter.RecyclerViewAdapter
 import com.example.welfarebenefits.databinding.ActivityMainBinding
 import com.example.welfarebenefits.entity.User
-import com.example.welfarebenefits.entity.WelfareCategoryMap
+import com.example.welfarebenefits.entity.WelfareCentralAgencyList
 import com.example.welfarebenefits.entity.WelfareData
+import com.example.welfarebenefits.fragment.CentralAgencyRecyclerviewFragment
+import com.example.welfarebenefits.fragment.WelfareUserMatchRecyclerviewFragment
 import com.example.welfarebenefits.util.ActivityStarter
 import com.example.welfarebenefits.util.Alarm
-import com.example.welfarebenefits.util.AlarmScheduler
-import com.example.welfarebenefits.util.CallBackWelfareData
 import com.example.welfarebenefits.util.OnUserInfoClickListener
 import com.example.welfarebenefits.util.ToolbarMenuItemClickListener
-import com.example.welfarebenefits.util.WelfareDataFetcher
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 
-
-class MainActivity : AppCompatActivity(), View.OnClickListener, OnItemClickListener {
+/**
+ * 프래그먼트 수정완료 그에 따라 알림도 수정해야 될듯
+ */
+class MainActivity : AppCompatActivity(), View.OnClickListener {
     private var mBinding: ActivityMainBinding?=null
-    private val NOTIFICATION_PERMISSION_REQUEST_CODE = 1
-
-
     private val binding get() = mBinding!!
+    private val NOTIFICATION_PERMISSION_REQUEST_CODE = 1
+    private val bundle = Bundle()
+
     private var id:String=""
+    private var spinneritem:String=""
     private lateinit var welfareDataList:List<WelfareData>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,47 +55,20 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, OnItemClickListe
         intent=getIntent()
         if(intent.getStringExtra("id").isNullOrEmpty()){
             id="guest"
-            WelfareDataFetcher().getWelfareDataGUEST(object : CallBackWelfareData {
-                override fun getWelfareData(welfareDataList: List<WelfareData>) {
-                    Log.e("MainActivity", "Received welfare data: ${welfareDataList.size} items")
-
-                    val recyclerViewAdapter = RecyclerViewAdapter(welfareDataList,this@MainActivity)
-                    this@MainActivity.welfareDataList=welfareDataList
-
-                    binding.recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
-                    binding.recyclerView.adapter = recyclerViewAdapter
-
-                    val alarmScheduler = AlarmScheduler(this@MainActivity)
-                    welfareDataList.let {
-                        alarmScheduler.scheduleDailyAlarm( resources.getInteger(R.integer.hour), resources.getInteger(R.integer.minute),id,welfareDataList[(welfareDataList.indices).random()])
-                        alarmScheduler.scheduleDailyAlarm(12, 15,id,welfareDataList[(welfareDataList.indices).random()])
-                    }
-                }
-            })
         }
         else{
             id= intent.getStringExtra("id")!!
-            WelfareDataFetcher().getWelfareData(this,id,object : CallBackWelfareData {
-                override fun getWelfareData(welfareDataList: List<WelfareData>) {
-                    Log.e("MainActivity", "Received welfare data: ${welfareDataList.size} items")
-
-                    val recyclerViewAdapter = RecyclerViewAdapter(welfareDataList,this@MainActivity)
-                    this@MainActivity.welfareDataList=welfareDataList
-                    binding.recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
-                    binding.recyclerView.adapter = recyclerViewAdapter
-
-                    val alarmScheduler = AlarmScheduler(this@MainActivity)
-                    welfareDataList.let {
-                        alarmScheduler.scheduleDailyAlarm( resources.getInteger(R.integer.hour), resources.getInteger(R.integer.minute),id,welfareDataList[(welfareDataList.indices).random()])
-                        alarmScheduler.scheduleDailyAlarm(12, 15,id,welfareDataList[(welfareDataList.indices).random()])
-                    }
-                }
-            })
         }
         Log.e("MAIN",id)
+
         binding.alerm.setOnClickListener {
             Log.e("MAIN","알림시작")
-            Alarm(id,this).deliverNotification(welfareDataList[(welfareDataList.indices).random()])
+            val welfareList = WelfareCentralAgencyList.getWelfareCentralAgencyList()
+            if (welfareList.isNotEmpty()) {
+                Alarm(id, this).deliverNotification(welfareList.random())
+            } else {
+                Log.e("MAIN", "빈 리스트입니다. 알림을 보낼 수 없습니다.")
+            }
         }
 
 
@@ -141,18 +113,19 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, OnItemClickListe
         binding.mainListSelectSpinner.adapter = spinnerAdapter
 
         binding.mainListSelectSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id2: Long) {
                 val selectedItem = sortingCriteriaArray[position]
                 Log.e("MainActivitymainListSelectSpinner",selectedItem)
-                val recyclerViewAdapter = WelfareCategoryMap.getCategoryMap(selectedItem)
-                    ?.let { RecyclerViewAdapter(it, this@MainActivity) }
-                Log.e("MainActivitymainListSelectSpinner", recyclerViewAdapter?.itemCount.toString())
-                recyclerViewAdapter?.notifyDataSetChanged()
-                binding.recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
-                binding.recyclerView.adapter = recyclerViewAdapter
-
-
-
+                position?.let {
+                    spinneritem=selectedItem
+                }
+                bundle.putString("id", id)
+                bundle.putString("spinnerItem",spinneritem)
+                val fragment = CentralAgencyRecyclerviewFragment()
+                fragment.arguments = bundle
+                supportFragmentManager.beginTransaction()
+                    .replace(binding.frameLayout.id, fragment) // 수정된 부분: 프래그먼트 변경
+                    .commit()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -160,57 +133,44 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, OnItemClickListe
             }
         }
 
-        binding.mainSort.setOnClickListener(this)
-        binding.kAlphabetSort.setOnClickListener(this)
-        binding.viewsSort.setOnClickListener(this)
-
-
-    }
-    override fun onItemClick(position: Int) {
-        val clickedItem = binding.recyclerView.adapter?.let { adapter ->
-            if (adapter is RecyclerViewAdapter) {
-                adapter.getItem(position)
-            } else null
-        }
-        clickedItem?.let {
-            val intent = Intent(this, SubListActivity::class.java).apply {
-                putExtra("SERVICE_URL", it.detailURL)
-                putExtra("SERVICE_ID", it.serviceID)
-                putExtra("SERVICE_NAME", it.serviceName)
-                putExtra("SERVICE_SUMMARY", it.serviceSummary)
-                putExtra("SERVICE_CRITERIA", it.selectionCriteria)
-                putExtra("SERVICE_DEADLINE", it.applicationDeadline)
-                putExtra("SERVICE_METHOD", it.applicationMethod)
-                putExtra("SERVICE_CONTENT", it.supportContent)
-            }
-            startActivity(intent)
-        }
+        binding.main.setOnClickListener(this)
+        binding.fit.setOnClickListener(this)
+        binding.main.setTypeface(null, Typeface.BOLD)
+        binding.fit.setTypeface(null, Typeface.NORMAL)
     }
 
-    override fun onButtonClick(position: Int) {
-        TODO("Not yet implemented")
-    }
 
     override fun onClick(v: View?) {
             when (v?.id) {
-                R.id.main_sort -> {
-                    Toast.makeText(this, "Main Sort 버튼 클릭", Toast.LENGTH_SHORT).show()
-                    binding.mainSort.setTypeface(null, Typeface.BOLD)
-                    binding.kAlphabetSort.setTypeface(null, Typeface.NORMAL)
-                    binding.viewsSort.setTypeface(null, Typeface.NORMAL)
+                R.id.main -> {
+                    binding.main.setTypeface(null, Typeface.BOLD)
+                    binding.fit.setTypeface(null, Typeface.NORMAL)
+                    Log.e("MAINmain", id)
+                    Log.e("MAINmain", spinneritem)
+                    bundle.putString("id", id)
+                    bundle.putString("spinnerItem", spinneritem)
+                    val fragment = CentralAgencyRecyclerviewFragment()
+                    fragment.arguments = bundle
+
+                    supportFragmentManager.beginTransaction()
+                        .replace(binding.frameLayout.id, fragment)
+                        .commit()
                 }
-                R.id.k_alphabet_sort -> {
-                    Toast.makeText(this, "가나다순 정렬 버튼 클릭", Toast.LENGTH_SHORT).show()
-                    binding.mainSort.setTypeface(null, Typeface.NORMAL)
-                    binding.kAlphabetSort.setTypeface(null, Typeface.BOLD)
-                    binding.viewsSort.setTypeface(null, Typeface.NORMAL)
+                R.id.fit -> {
+                    binding.main.setTypeface(null, Typeface.NORMAL)
+                    binding.fit.setTypeface(null, Typeface.BOLD)
+                    Log.e("MAINfit",id)
+                    Log.e("MAINfit",spinneritem)
+                    bundle.putString("id", id)
+                    bundle.putString("spinnerItem", spinneritem)
+                    val fragment = WelfareUserMatchRecyclerviewFragment()
+                    fragment.arguments = bundle
+
+                    supportFragmentManager.beginTransaction()
+                        .replace(binding.frameLayout.id, fragment)
+                        .commit()
                 }
-                R.id.views_sort -> {
-                    Toast.makeText(this, "조회수 정렬 버튼 클릭", Toast.LENGTH_SHORT).show()
-                    binding.mainSort.setTypeface(null, Typeface.NORMAL)
-                    binding.kAlphabetSort.setTypeface(null, Typeface.NORMAL)
-                    binding.viewsSort.setTypeface(null, Typeface.BOLD)
-                }
+
                 else -> {
                     // 다른 뷰 클릭 시 처리
                 }
@@ -246,7 +206,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, OnItemClickListe
                 intent.data = uri
                 startActivity(intent)
                 Firebase.auth.signOut()
-//                ActivityStarter.startNextActivity(this,LogInActivity::class.java)
                 finish()
             }
             .setNegativeButton("취소") { _, _ ->

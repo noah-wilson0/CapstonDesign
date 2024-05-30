@@ -4,6 +4,8 @@ import android.content.Context
 import android.util.Log
 import com.example.welfarebenefits.R
 import com.example.welfarebenefits.entity.WelfareCategoryMap
+import com.example.welfarebenefits.entity.WelfareCentralAgencyList
+import com.example.welfarebenefits.entity.WelfareCentralAgencyMap
 import com.example.welfarebenefits.entity.WelfareData
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -17,7 +19,7 @@ class WelfareDataFetcher {
 
     fun getWelfareData(context: Context,id:String, callback: CallBackWelfareData) {
         database = FirebaseDatabase.getInstance().reference
-
+        Log.e("getWelfareData",  id)
         // Step 1: Get user info including residence, gender, and significant
         database.child(id).child(context.getString(R.string.UserInfo)).get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
@@ -31,10 +33,10 @@ class WelfareDataFetcher {
 
                     fetchWelfareData(residence, gender, significant as List<String>, callback)
                 } else {
-                    Log.e("Fetcher", "No user info available")
+                    Log.e("getWelfareData", "No user info available")
                 }
             } else {
-                Log.e("Fetcher", "Error getting user info", task.exception)
+                Log.e("getWelfareData", "Error getting user info", task.exception)
             }
         }
     }
@@ -57,6 +59,7 @@ class WelfareDataFetcher {
                             val serviceName=welfareDataSnapshot["serviceName"] as String? ?: ""
                             val serviceSummary=welfareDataSnapshot["serviceSummary"] as String? ?: ""
                             val supportContent = welfareDataSnapshot["supportContent"] as String? ?: ""
+                            val agencyName=welfareDataSnapshot["agencyName"] as String? ?:""
                             if (supportContent.contains(residence) || supportContent.contains(gender) || significant.any { supportContent.contains(it) }
                                 || serviceName.contains(residence) || serviceName.contains(gender) || significant.any { serviceName.contains(it) }
                                 || serviceSummary.contains(residence) || serviceSummary.contains(gender) || significant.any { serviceSummary.contains(it) }){
@@ -69,7 +72,7 @@ class WelfareDataFetcher {
                                     welfareDataSnapshot["applicationDeadline"] as String? ?: "",
                                     welfareDataSnapshot["applicationMethod"] as String? ?: "",
                                     supportContent,
-                                    welfareDataSnapshot["agencyName"] as String? ?:""
+                                    agencyName
                                 )
                                 welfareDataList.add(welfareData)
                                 categoryList.add(welfareData)
@@ -81,10 +84,58 @@ class WelfareDataFetcher {
                     WelfareCategoryMap.setCategoryMap(categoryMap)
                     callback.getWelfareData(welfareDataList.toList())
                 } else {
-                    Log.e("TAG", "No data available")
+                    Log.e("fetchWelfareData", "No data available")
                 }
             } else {
-                Log.e("TAG", "Error getting data", task.exception)
+                Log.e("fetchWelfareData", "Error getting data", task.exception)
+            }
+        }
+    }
+
+    /**
+     * 정부기관만 저장하는 리스트와 Map 클래스를 따로 만들어야할듯
+     */
+    fun fetchCentralAgencyWelfareData( callback: CallBackWelfareData) {
+        database = FirebaseDatabase.getInstance().reference
+        database.child("data").get().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val dataSnapshot = task.result
+                if (dataSnapshot.exists()) {
+                    val welfareDataList: MutableList<WelfareData> = mutableListOf()
+                    val categoryMap: MutableMap<String, MutableList<WelfareData>> = mutableMapOf()
+                    for (category in dataSnapshot.children) {
+                        val categoryName = category.key ?: ""
+                        val categoryList: MutableList<WelfareData> = mutableListOf()
+                        for (name in category.children) {
+                            val welfareDataSnapshot = name.value as HashMap<String, *>
+                            val agencyName=welfareDataSnapshot["agencyName"] as String? ?:""
+                            if (agencyName=="중앙행정기관"){
+                                val welfareData = WelfareData(
+                                    welfareDataSnapshot["detailURL"] as String? ?: "",
+                                    welfareDataSnapshot["serviceID"] as String? ?: "",
+                                    welfareDataSnapshot["serviceName"] as String? ?: "",
+                                    welfareDataSnapshot["serviceSummary"] as String? ?: "",
+                                    welfareDataSnapshot["selectionCriteria"] as String? ?: "",
+                                    welfareDataSnapshot["applicationDeadline"] as String? ?: "",
+                                    welfareDataSnapshot["applicationMethod"] as String? ?: "",
+                                    welfareDataSnapshot["supportContent"] as String? ?: "",
+                                    agencyName
+                                )
+                                welfareDataList.add(welfareData)
+                                categoryList.add(welfareData)
+                                WelfareCentralAgencyList.addWelfareCentralAgencyList(welfareData)
+                            }
+                        }
+                        categoryMap[categoryName] = categoryList
+                    }
+                    categoryMap["전체(맞춤)"] = welfareDataList
+                    WelfareCentralAgencyMap.setCategoryMap(categoryMap)
+                    callback.getWelfareData(welfareDataList.toList())
+                } else {
+                    Log.e("fetchCentralAgencyWelfareData", "No data available")
+                }
+            } else {
+                Log.e("fetchCentralAgencyWelfareData", "Error getting data", task.exception)
             }
         }
     }
@@ -163,7 +214,7 @@ class WelfareDataFetcher {
                 WelfareCategoryMap.setCategoryMap(categoryMap)
                 callback.getWelfareData(welfareDataList.toList())
             } else { // 실패햇을 경우 처리하기
-                Log.e("TAG", "db에서 데이터 가져오기 실패", task.exception)
+                Log.e("getWelfareDataGUEST", "db에서 데이터 가져오기 실패", task.exception)
 
             }
         }
