@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import com.example.welfarebenefits.R
 import com.example.welfarebenefits.entity.WelfareCategoryMap
+import com.example.welfarebenefits.entity.WelfareCentralAgencyList
 import com.example.welfarebenefits.entity.WelfareCentralAgencyMap
 import com.example.welfarebenefits.entity.WelfareData
 import com.google.firebase.database.DatabaseReference
@@ -122,6 +123,7 @@ class WelfareDataFetcher {
                                 )
                                 welfareDataList.add(welfareData)
                                 categoryList.add(welfareData)
+                                WelfareCentralAgencyList.addWelfareCentralAgencyList(welfareData)
                             }
                         }
                         categoryMap[categoryName] = categoryList

@@ -21,6 +21,7 @@ import androidx.core.app.ActivityCompat
 import com.example.welfarebenefits.R
 import com.example.welfarebenefits.databinding.ActivityMainBinding
 import com.example.welfarebenefits.entity.User
+import com.example.welfarebenefits.entity.WelfareCentralAgencyList
 import com.example.welfarebenefits.entity.WelfareData
 import com.example.welfarebenefits.fragment.CentralAgencyRecyclerviewFragment
 import com.example.welfarebenefits.fragment.WelfareUserMatchRecyclerviewFragment
@@ -62,7 +63,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         binding.alerm.setOnClickListener {
             Log.e("MAIN","알림시작")
-            Alarm(id,this).deliverNotification(welfareDataList[(welfareDataList.indices).random()])
+            val welfareList = WelfareCentralAgencyList.getWelfareCentralAgencyList()
+            if (welfareList.isNotEmpty()) {
+                Alarm(id, this).deliverNotification(welfareList.random())
+            } else {
+                Log.e("MAIN", "빈 리스트입니다. 알림을 보낼 수 없습니다.")
+            }
         }
 
 
@@ -120,12 +126,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 supportFragmentManager.beginTransaction()
                     .replace(binding.frameLayout.id, fragment) // 수정된 부분: 프래그먼트 변경
                     .commit()
-//                val recyclerViewAdapter = WelfareCategoryMap.getCategoryMap(selectedItem)
-//                    ?.let { RecyclerViewAdapter(it, this@MainActivity) }
-//                Log.e("MainActivitymainListSelectSpinner", recyclerViewAdapter?.itemCount.toString())
-//                recyclerViewAdapter?.notifyDataSetChanged()
-//                binding.recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
-//                binding.recyclerView.adapter = recyclerViewAdapter
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -135,14 +135,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         binding.main.setOnClickListener(this)
         binding.fit.setOnClickListener(this)
-
+        binding.main.setTypeface(null, Typeface.BOLD)
+        binding.fit.setTypeface(null, Typeface.NORMAL)
     }
 
 
     override fun onClick(v: View?) {
             when (v?.id) {
                 R.id.main -> {
-                    Toast.makeText(this, "행정구역 버튼 클릭", Toast.LENGTH_SHORT).show()
                     binding.main.setTypeface(null, Typeface.BOLD)
                     binding.fit.setTypeface(null, Typeface.NORMAL)
                     Log.e("MAINmain", id)
@@ -157,7 +157,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                         .commit()
                 }
                 R.id.fit -> {
-                    Toast.makeText(this, "맞춤 버튼 클릭", Toast.LENGTH_SHORT).show()
                     binding.main.setTypeface(null, Typeface.NORMAL)
                     binding.fit.setTypeface(null, Typeface.BOLD)
                     Log.e("MAINfit",id)

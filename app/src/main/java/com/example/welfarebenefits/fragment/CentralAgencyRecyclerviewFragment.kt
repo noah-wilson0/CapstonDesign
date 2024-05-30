@@ -51,9 +51,8 @@ class CentralAgencyRecyclerviewFragment : Fragment(), OnItemClickListener {
 
                 val alarmScheduler = AlarmScheduler(requireContext())
                 welfareDataList.let {
-                    alarmScheduler.scheduleDailyAlarm( resources.getInteger(R.integer.hour), resources.getInteger(
-                        R.integer.minute),id,welfareDataList[(welfareDataList.indices).random()])
-                    alarmScheduler.scheduleDailyAlarm(12, 15,id,welfareDataList[(welfareDataList.indices).random()])
+                    alarmScheduler.scheduleDailyAlarm( resources.getInteger(R.integer.agencyHour), resources.getInteger(
+                        R.integer.agencyMinute),id,welfareDataList[(welfareDataList.indices).random()])
                 }
             }
 

@@ -52,8 +52,8 @@ class WelfareUserMatchRecyclerviewFragment : Fragment(), OnItemClickListener {
 
                     val alarmScheduler = AlarmScheduler(requireContext())
                     welfareDataList.let {
-                        alarmScheduler.scheduleDailyAlarm( resources.getInteger(R.integer.hour), resources.getInteger(R.integer.minute),id,welfareDataList[(welfareDataList.indices).random()])
-                        alarmScheduler.scheduleDailyAlarm(12, 15,id,welfareDataList[(welfareDataList.indices).random()])
+                        alarmScheduler.scheduleDailyAlarm( resources.getInteger(R.integer.userFitHour),
+                            resources.getInteger(R.integer.userFitMinute),id,welfareDataList[(welfareDataList.indices).random()])
                     }
                 }
             })
@@ -75,15 +75,9 @@ class WelfareUserMatchRecyclerviewFragment : Fragment(), OnItemClickListener {
                     val alarmScheduler = AlarmScheduler(requireContext())
                     welfareDataList.let {
                         alarmScheduler.scheduleDailyAlarm(
-                            resources.getInteger(R.integer.hour), resources.getInteger(
-                                R.integer.minute
+                            resources.getInteger(R.integer.userFitHour), resources.getInteger(
+                                R.integer.userFitMinute
                             ), id, welfareDataList[(welfareDataList.indices).random()]
-                        )
-                        alarmScheduler.scheduleDailyAlarm(
-                            12,
-                            15,
-                            id,
-                            welfareDataList[(welfareDataList.indices).random()]
                         )
                     }
                 }
