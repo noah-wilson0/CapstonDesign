@@ -11,6 +11,9 @@ class JsonConverter {
     fun userToJson(obj:Any):String {
         return gson.toJson(obj)
     }
+    fun dataToJson(obj:Any):String {
+        return gson.toJson(obj)
+    }
     fun jsonToUser(json: String):User {
         return gson.fromJson(json,User::class.java )
     }

@@ -21,11 +21,17 @@ import androidx.core.app.ActivityCompat
 import com.example.welfarebenefits.R
 import com.example.welfarebenefits.databinding.ActivityMainBinding
 import com.example.welfarebenefits.entity.User
+import com.example.welfarebenefits.entity.WelfareBookmarkList
+import com.example.welfarebenefits.entity.WelfareCategoryMap
 import com.example.welfarebenefits.entity.WelfareCentralAgencyList
 import com.example.welfarebenefits.entity.WelfareData
 import com.example.welfarebenefits.fragment.CentralAgencyRecyclerviewFragment
 import com.example.welfarebenefits.fragment.WelfareUserMatchRecyclerviewFragment
 import com.example.welfarebenefits.util.ActivityStarter
+import com.example.welfarebenefits.util.AlarmTest
+import com.example.welfarebenefits.util.BookmarkUpdater
+import com.example.welfarebenefits.util.CallBackWelfareData
+import com.example.welfarebenefits.util.JsonConverter
 import com.example.welfarebenefits.util.Alarm
 import com.example.welfarebenefits.util.OnUserInfoClickListener
 import com.example.welfarebenefits.util.ToolbarMenuItemClickListener
@@ -39,8 +45,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private var mBinding: ActivityMainBinding?=null
     private val binding get() = mBinding!!
     private val NOTIFICATION_PERMISSION_REQUEST_CODE = 1
+    //private var recyclerViewAdapter: RecyclerViewAdapter? = null
     private val bundle = Bundle()
-
     private var id:String=""
     private var spinneritem:String=""
     private lateinit var welfareDataList:List<WelfareData>
@@ -85,6 +91,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     R.id.alertImage -> {
 
                         ActivityStarter.startNextActivityNotFinish(this@MainActivity,AlertListActivity::class.java,id)
+                        return true
+                    }
+                    R.id.bookmarkImage -> {
+                        ActivityStarter.startNextActivityNotFinish(this@MainActivity,Bookmark_listActivity::class.java,id)
                         return true
                     }
 
@@ -132,12 +142,42 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 // 아무것도 선택되지 않았을 때의 이벤트
             }
         }
-
         binding.main.setOnClickListener(this)
         binding.fit.setOnClickListener(this)
         binding.main.setTypeface(null, Typeface.BOLD)
         binding.fit.setTypeface(null, Typeface.NORMAL)
     }
+
+//     override fun onResume(){
+//         super.onResume()
+//         Log.e("onResumeMainActivity", "메인액티비티 resume")
+//         recyclerViewAdapter?.notifyDataSetChanged()
+//     }
+//     override fun onItemClick(position: Int) {
+//         val clickedItem = binding.recyclerView.adapter?.let { adapter ->
+//             if (adapter is RecyclerViewAdapter) {
+//                 adapter.getItem(position)
+//             } else null
+//         }
+//         clickedItem?.let {
+//             val intent = Intent(this, SubListActivity::class.java).apply {
+//                 putExtra("DATA", JsonConverter().dataToJson(it))
+//             }
+//             startActivity(intent)
+//         }
+//      }
+      
+    
+//     override fun onButtonClick(position: Int) {
+//         val clickedBtn = binding.recyclerView.adapter?.let { adapter ->
+//             if (adapter is RecyclerViewAdapter) {
+//                 adapter.getItem(position)
+//             } else null
+//         }
+//         clickedBtn?.let {
+//             BookmarkUpdater().updateBookmark(id,it)
+//         }
+//     }
 
 
     override fun onClick(v: View?) {

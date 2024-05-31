@@ -3,6 +3,7 @@ package com.example.welfarebenefits.util
 import android.content.Context
 import android.util.Log
 import com.example.welfarebenefits.R
+import com.example.welfarebenefits.entity.WelfareBookmarkList
 import com.example.welfarebenefits.entity.WelfareCategoryMap
 import com.example.welfarebenefits.entity.WelfareCentralAgencyList
 import com.example.welfarebenefits.entity.WelfareCentralAgencyMap
@@ -19,6 +20,19 @@ class WelfareDataFetcher {
 
     fun getWelfareData(context: Context,id:String, callback: CallBackWelfareData) {
         database = FirebaseDatabase.getInstance().reference
+        database.child(id).child(context.getString(R.string.Bookmarks)).get().addOnCompleteListener { task ->
+            if(task.isSuccessful){
+                val snapshot = task.result
+                if(snapshot.exists()){
+                    WelfareBookmarkList.setBookmarkList(snapshot.value as MutableList<String>)
+                }
+                else{
+                    Log.e("Bookmark","북마크정보 불러오기 실패")
+                }
+            }else{
+                Log.e("Bookmark","북마크정보 불러오기 실패!!")
+            }
+        }
         Log.e("getWelfareData",  id)
         // Step 1: Get user info including residence, gender, and significant
         database.child(id).child(context.getString(R.string.UserInfo)).get().addOnCompleteListener { task ->
@@ -140,42 +154,43 @@ class WelfareDataFetcher {
         }
     }
 
-    fun getWelfareData(bookmarkList:Array<*>,callback:CallBackWelfareData) {
-        var welfareDataList: MutableList<WelfareData> = mutableListOf()
-        database = Firebase.database.reference.child("data")
-        var categoryMap: MutableMap<String, MutableList<WelfareData>> = mutableMapOf()
-        database.get().addOnCompleteListener { task ->
+    fun getBookmarkData(callback: CallBackWelfareDataByBookmark) {
+        database = FirebaseDatabase.getInstance().reference
+        database.child("data").get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                val dataSnapshot = task.result
-                if (dataSnapshot.exists()) {
-                    for(category in dataSnapshot.children){
-                        val categoryName = category.key ?: ""
-                        val categoryList: MutableList<WelfareData> = mutableListOf()
-                        for(name in category.children){
-                            val welfareDataSnapshot=name.value as HashMap<String,*>
-                            val welfareData = WelfareData(
-                                welfareDataSnapshot["detailURL"] as String,
-                                welfareDataSnapshot["serviceID"] as String,
-                                welfareDataSnapshot["serviceName"] as String,
-                                welfareDataSnapshot["serviceSummary"] as String,
-                                welfareDataSnapshot["selectionCriteria"] as String,
-                                welfareDataSnapshot["applicationDeadline"] as String,
-                                welfareDataSnapshot["applicationMethod"] as String,
-                                welfareDataSnapshot["supportContent"] as String,
-                                welfareDataSnapshot["agencyName"] as String? ?:""
-                            )
-                            welfareDataList.add(welfareData)
-                            categoryList.add(welfareData)
+                val datasnapshot = task.result
+                if (datasnapshot.exists()) {
+                    val welfareDataList: MutableList<WelfareData> = mutableListOf()
+                    val bookmarkList = WelfareBookmarkList.getBookmarkList()
+                    for (category in datasnapshot.children) {
+                        for (data in category.children) {
+                            val welfareData = data.value as HashMap<String, *>
+                            if (bookmarkList.isEmpty()){
+                                break
+                            }
+                            if(bookmarkList.contains(welfareData["serviceName"])){
+                                val welfareData = WelfareData(
+                                    welfareData["detailURL"] as String,            //상세조회URL
+                                    welfareData["serviceID"] as String,            //서비스ID
+                                    welfareData["serviceName"] as String,          //서비스명
+                                    welfareData["serviceSummary"] as String,       //서비스목적요약
+                                    welfareData["selectionCriteria"] as String,    //선정기준
+                                    welfareData["applicationDeadline"] as String,  //신청기한
+                                    welfareData["applicationMethod"] as String,    //신청방법
+                                    welfareData["supportContent"] as String,       //지원내용
+                                )
+                                welfareDataList.add(welfareData)
+                                bookmarkList.remove(welfareData.serviceName)
+                            }
                         }
-                        categoryMap[categoryName] = categoryList
                     }
+                    callback.getBookmarkData(welfareDataList.toList())
+                    Log.e("123", "성공")
+                } else {
+                    Log.e("123", "ERROR")
                 }
-                categoryMap["전체(맞춤)"]=welfareDataList
-                WelfareCategoryMap.setCategoryMap(categoryMap)
-                callback.getWelfareData(welfareDataList.toList())
-            } else { // 실패햇을 경우 처리하기
-                Log.e("TAG", "db에서 데이터 가져오기 실패", task.exception)
-
+            } else {
+                Log.e("123", "Error", task.exception)
             }
         }
     }
