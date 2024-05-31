@@ -16,7 +16,7 @@ class SubListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySubListBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val dataString = intent.getStringExtra("data")
+        val dataString = intent.getStringExtra("DATA")
         val dataJson = JsonConverter().jsonToData(dataString!!)
         binding.servicenameTV.text = dataJson.serviceName
         binding.summaryTV.text = dataJson.serviceSummary

@@ -24,11 +24,14 @@ import com.example.welfarebenefits.adapter.OnItemClickListener
 import com.example.welfarebenefits.adapter.RecyclerViewAdapter
 import com.example.welfarebenefits.databinding.ActivityMainBinding
 import com.example.welfarebenefits.entity.User
+import com.example.welfarebenefits.entity.WelfareBookmarkList
 import com.example.welfarebenefits.entity.WelfareCategoryMap
 import com.example.welfarebenefits.entity.WelfareData
 import com.example.welfarebenefits.util.ActivityStarter
 import com.example.welfarebenefits.util.AlarmTest
+import com.example.welfarebenefits.util.BookmarkUpdater
 import com.example.welfarebenefits.util.CallBackWelfareData
+import com.example.welfarebenefits.util.JsonConverter
 import com.example.welfarebenefits.util.OnUserInfoClickListener
 import com.example.welfarebenefits.util.ToolbarMenuItemClickListener
 import com.example.welfarebenefits.util.WelfareDataFetcher
@@ -39,7 +42,7 @@ import com.google.firebase.auth.auth
 class MainActivity : AppCompatActivity(), View.OnClickListener, OnItemClickListener {
     private var mBinding: ActivityMainBinding?=null
     private val NOTIFICATION_PERMISSION_REQUEST_CODE = 1
-
+    private var recyclerViewAdapter: RecyclerViewAdapter? = null
 
     private val binding get() = mBinding!!
     private var id:String=""
@@ -83,6 +86,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, OnItemClickListe
                             .show()
                         return true
                     }
+                    R.id.bookmarkImage -> {
+                        ActivityStarter.startNextActivityNotFinish(this@MainActivity,Bookmark_listActivity::class.java,id)
+                        return true
+                    }
 
                     R.id.userInfoImage -> {
                         val listener = ToolbarMenuItemClickListener()
@@ -112,7 +119,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, OnItemClickListe
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val selectedItem = sortingCriteriaArray[position]
                 Log.e("MainActivitymainListSelectSpinner",selectedItem)
-                val recyclerViewAdapter = WelfareCategoryMap.getCategoryMap(selectedItem)
+                recyclerViewAdapter = WelfareCategoryMap.getCategoryMap(selectedItem)
                     ?.let { RecyclerViewAdapter(it, this@MainActivity) }
                 Log.e("MainActivitymainListSelectSpinner", recyclerViewAdapter?.itemCount.toString())
                 recyclerViewAdapter?.notifyDataSetChanged()
@@ -135,7 +142,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, OnItemClickListe
             override fun getWelfareData(welfareDataList: List<WelfareData>) {
                 Log.e("MainActivity", "Received welfare data: ${welfareDataList.size} items")
 
-                val recyclerViewAdapter = RecyclerViewAdapter(welfareDataList,this@MainActivity)
+                recyclerViewAdapter = RecyclerViewAdapter(welfareDataList,this@MainActivity)
                 this@MainActivity.welfareDataList=welfareDataList
 
                 binding.recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
@@ -145,6 +152,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, OnItemClickListe
 
 
     }
+
+    override fun onResume(){
+        super.onResume()
+        Log.e("onResumeMainActivity", "메인액티비티 resume")
+        recyclerViewAdapter?.notifyDataSetChanged()
+    }
     override fun onItemClick(position: Int) {
         val clickedItem = binding.recyclerView.adapter?.let { adapter ->
             if (adapter is RecyclerViewAdapter) {
@@ -153,20 +166,23 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, OnItemClickListe
         }
         clickedItem?.let {
             val intent = Intent(this, SubListActivity::class.java).apply {
-                putExtra("SERVICE_URL", it.detailURL)
-                putExtra("SERVICE_ID", it.serviceID)
-                putExtra("SERVICE_NAME", it.serviceName)
-                putExtra("SERVICE_SUMMARY", it.serviceSummary)
-                putExtra("SERVICE_CRITERIA", it.selectionCriteria)
-                putExtra("SERVICE_DEADLINE", it.applicationDeadline)
-                putExtra("SERVICE_METHOD", it.applicationMethod)
-                putExtra("SERVICE_CONTENT", it.supportContent)
+                putExtra("DATA", JsonConverter().dataToJson(it))
             }
             startActivity(intent)
         }
     }
+    override fun onButtonClick(position: Int) {
+        val clickedBtn = binding.recyclerView.adapter?.let { adapter ->
+            if (adapter is RecyclerViewAdapter) {
+                adapter.getItem(position)
+            } else null
+        }
+        clickedBtn?.let {
+            BookmarkUpdater().updateBookmark(id,it)
+        }
+    }
 
-        override fun onClick(v: View?) {
+    override fun onClick(v: View?) {
             when (v?.id) {
                 R.id.main_sort -> {
                     Toast.makeText(this, "Main Sort 버튼 클릭", Toast.LENGTH_SHORT).show()

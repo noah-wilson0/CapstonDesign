@@ -3,4 +3,5 @@
     <string name="makeEmailTemplate">\@gmail.com</string>
     <string name="alarm">alarm</string>
     <string name="UserInfo">UserInfo</string>
+    <string name="Bookmarks">bookmarks</string>
 </resources>
