@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="agencyHour">12</integer>
+    <integer name="agencyMinute">0</integer>
+    <integer name="userFitHour">17</integer>
+    <integer name="userFitMinute">0</integer>
+</resources>

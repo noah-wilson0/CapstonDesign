@@ -42,6 +42,7 @@ android {
 }
 
 dependencies {
+    implementation ("androidx.work:work-runtime-ktx:2.7.1")
     implementation("androidx.fragment:fragment-ktx:1.3.5")
     implementation ("com.google.code.gson:gson:2.8.6")
     implementation("androidx.core:core-ktx:1.12.0")
@@ -51,6 +52,7 @@ dependencies {
     implementation("com.android.car.ui:car-ui-lib:2.6.0")
     implementation("com.google.firebase:firebase-database:20.3.1")
     implementation("com.google.firebase:firebase-auth-ktx:22.3.1")
+    implementation("androidx.recyclerview:recyclerview:1.3.2")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")

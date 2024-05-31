@@ -1,20 +1,18 @@
 package com.example.welfarebenefits.util.database
 
 
-import com.google.gson.Gson
-import com.google.gson.JsonArray
-import com.google.gson.JsonObject
-import java.io.BufferedReader
-import java.io.InputStreamReader
-import java.net.HttpURLConnection
-import java.net.URL
 import com.example.welfarebenefits.entity.WelfareData
 import com.google.gson.GsonBuilder
+import com.google.gson.JsonArray
 import com.google.gson.JsonElement
+import com.google.gson.JsonObject
+import java.io.BufferedReader
 import java.io.BufferedWriter
 import java.io.File
 import java.io.FileWriter
-import java.io.PrintWriter
+import java.io.InputStreamReader
+import java.net.HttpURLConnection
+import java.net.URL
 
 fun main() {
     var welfareData:WelfareData     // 읽어온 데이터에서 필요한 데이터만 객체화
@@ -68,6 +66,7 @@ fun main() {
                     jsonObject["신청기한"].asString,
                     jsonObject["신청방법"].asString,
                     jsonObject["지원내용"].asString,
+                    jsonObject["소관기관명"].asString,
                     //(if(jsonObject["소관기관유형"].asString.equals("중앙행정기관")) jsonObject["소관기관유형"].asString else jsonObject["소관기관명"].asString)
                 )
                 serviceName = jsonObject["서비스명"].asString        // key값 저장

@@ -2,7 +2,6 @@ package com.example.welfarebenefits.adapter.viewholder
 
 import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
-import com.example.welfarebenefits.R
 import com.example.welfarebenefits.databinding.RecyclerviewItemBinding
 import com.example.welfarebenefits.entity.WelfareBookmarkList
 import com.example.welfarebenefits.entity.WelfareData

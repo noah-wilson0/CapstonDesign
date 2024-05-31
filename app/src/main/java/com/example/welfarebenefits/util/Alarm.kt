@@ -15,12 +15,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-/**
- * NewUser에서 mutableList("")를 하니깐 db에 저장될떄 0:""이렇게 저장되어 시작함
- * guest User일때 id가 "guest"로 겹치는데 동적으로 게스트들의 id를 guest1,guest2,...로 하던가
- * huest는 알림을 지원하지말아야할듯 => id가 "guest", "userid"인지에 따라 알림 기능을 막아야할듯
- */
-class AlarmTest(private val id:String,private val context: Context) {
+
+class Alarm(private val id:String, private val context: Context) {
     private var notificationManager: NotificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     private lateinit var auth: FirebaseAuth
     init {
