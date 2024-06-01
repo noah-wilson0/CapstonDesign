@@ -20,19 +20,6 @@ class WelfareDataFetcher {
 
     fun getWelfareData(context: Context,id:String, callback: CallBackWelfareData) {
         database = FirebaseDatabase.getInstance().reference
-        database.child(id).child(context.getString(R.string.Bookmarks)).get().addOnCompleteListener { task ->
-            if(task.isSuccessful){
-                val snapshot = task.result
-                if(snapshot.exists()){
-                    WelfareBookmarkList.setBookmarkList(snapshot.value as MutableList<String>)
-                }
-                else{
-                    Log.e("Bookmark","북마크정보 불러오기 실패")
-                }
-            }else{
-                Log.e("Bookmark","북마크정보 불러오기 실패!!")
-            }
-        }
         Log.e("getWelfareData",  id)
         // Step 1: Get user info including residence, gender, and significant
         database.child(id).child(context.getString(R.string.UserInfo)).get().addOnCompleteListener { task ->
@@ -162,6 +149,7 @@ class WelfareDataFetcher {
                 if (datasnapshot.exists()) {
                     val welfareDataList: MutableList<WelfareData> = mutableListOf()
                     val bookmarkList = WelfareBookmarkList.getBookmarkList()
+                    Log.e("BookmarkList", bookmarkList.toString())
                     for (category in datasnapshot.children) {
                         for (data in category.children) {
                             val welfareData = data.value as HashMap<String, *>
@@ -178,6 +166,7 @@ class WelfareDataFetcher {
                                     welfareData["applicationDeadline"] as String,  //신청기한
                                     welfareData["applicationMethod"] as String,    //신청방법
                                     welfareData["supportContent"] as String,       //지원내용
+                                    welfareData["agencyName"] as String
                                 )
                                 welfareDataList.add(welfareData)
                                 bookmarkList.remove(welfareData.serviceName)
@@ -191,6 +180,27 @@ class WelfareDataFetcher {
                 }
             } else {
                 Log.e("123", "Error", task.exception)
+            }
+        }
+    }
+    fun getBookmarkDataList(id:String, context:Context){
+        if(id=="guest"){
+        }
+        else{
+            database = FirebaseDatabase.getInstance().reference
+            database.child(id).child(context.getString(R.string.Bookmarks)).get().addOnCompleteListener { task ->
+                if(task.isSuccessful){
+                    val snapshot = task.result
+                    if(snapshot.exists()){
+                        WelfareBookmarkList.setBookmarkList(snapshot.value as MutableList<String>)
+                        Log.e("BookmarkList","북마크정보 불러오기 성공")
+                    }
+                    else{
+                        Log.e("Bookmark","북마크정보 불러오기 실패")
+                    }
+                }else{
+                    Log.e("Bookmark","북마크정보 불러오기 실패!!")
+                }
             }
         }
     }

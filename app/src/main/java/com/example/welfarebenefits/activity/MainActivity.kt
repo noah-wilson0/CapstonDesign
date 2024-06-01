@@ -14,27 +14,21 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import com.example.welfarebenefits.R
 import com.example.welfarebenefits.databinding.ActivityMainBinding
 import com.example.welfarebenefits.entity.User
-import com.example.welfarebenefits.entity.WelfareBookmarkList
-import com.example.welfarebenefits.entity.WelfareCategoryMap
 import com.example.welfarebenefits.entity.WelfareCentralAgencyList
 import com.example.welfarebenefits.entity.WelfareData
 import com.example.welfarebenefits.fragment.CentralAgencyRecyclerviewFragment
 import com.example.welfarebenefits.fragment.WelfareUserMatchRecyclerviewFragment
 import com.example.welfarebenefits.util.ActivityStarter
-import com.example.welfarebenefits.util.AlarmTest
-import com.example.welfarebenefits.util.BookmarkUpdater
-import com.example.welfarebenefits.util.CallBackWelfareData
-import com.example.welfarebenefits.util.JsonConverter
 import com.example.welfarebenefits.util.Alarm
 import com.example.welfarebenefits.util.OnUserInfoClickListener
 import com.example.welfarebenefits.util.ToolbarMenuItemClickListener
+import com.example.welfarebenefits.util.WelfareDataFetcher
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 
@@ -45,7 +39,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private var mBinding: ActivityMainBinding?=null
     private val binding get() = mBinding!!
     private val NOTIFICATION_PERMISSION_REQUEST_CODE = 1
-    //private var recyclerViewAdapter: RecyclerViewAdapter? = null
     private val bundle = Bundle()
     private var id:String=""
     private var spinneritem:String=""
@@ -67,6 +60,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
         Log.e("MAIN",id)
 
+        WelfareDataFetcher().getBookmarkDataList(id,this)
+
         binding.alerm.setOnClickListener {
             Log.e("MAIN","알림시작")
             val welfareList = WelfareCentralAgencyList.getWelfareCentralAgencyList()
@@ -81,13 +76,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         binding.toolbar.setOnMenuItemClickListener(object : Toolbar.OnMenuItemClickListener {
             override fun onMenuItemClick(item: MenuItem): Boolean {
                 return when (item.itemId) {
-                    R.id.searchImage -> {
-                        // 검색 이미지를 클릭한 경우의 동작
-                        Toast.makeText(this@MainActivity, "검색 이미지를 클릭했습니다.", Toast.LENGTH_SHORT)
-                            .show()
-                        return true
-                    }
-
+//                    R.id.searchImage -> {
+//                        // 검색 이미지를 클릭한 경우의 동작
+//                        Toast.makeText(this@MainActivity, "검색 이미지를 클릭했습니다.", Toast.LENGTH_SHORT)
+//                            .show()
+//                        return true
+//                    }
                     R.id.alertImage -> {
 
                         ActivityStarter.startNextActivityNotFinish(this@MainActivity,AlertListActivity::class.java,id)
@@ -147,37 +141,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         binding.main.setTypeface(null, Typeface.BOLD)
         binding.fit.setTypeface(null, Typeface.NORMAL)
     }
-
-//     override fun onResume(){
-//         super.onResume()
-//         Log.e("onResumeMainActivity", "메인액티비티 resume")
-//         recyclerViewAdapter?.notifyDataSetChanged()
-//     }
-//     override fun onItemClick(position: Int) {
-//         val clickedItem = binding.recyclerView.adapter?.let { adapter ->
-//             if (adapter is RecyclerViewAdapter) {
-//                 adapter.getItem(position)
-//             } else null
-//         }
-//         clickedItem?.let {
-//             val intent = Intent(this, SubListActivity::class.java).apply {
-//                 putExtra("DATA", JsonConverter().dataToJson(it))
-//             }
-//             startActivity(intent)
-//         }
-//      }
-      
-    
-//     override fun onButtonClick(position: Int) {
-//         val clickedBtn = binding.recyclerView.adapter?.let { adapter ->
-//             if (adapter is RecyclerViewAdapter) {
-//                 adapter.getItem(position)
-//             } else null
-//         }
-//         clickedBtn?.let {
-//             BookmarkUpdater().updateBookmark(id,it)
-//         }
-//     }
 
 
     override fun onClick(v: View?) {
