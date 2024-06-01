@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item
-        android:id="@+id/searchImage"
-        app:showAsAction="always"
-        android:enabled="true"
-        android:icon="@drawable/search"
-        android:title="search"/>
+<!--    <item-->
+<!--        android:id="@+id/searchImage"-->
+<!--        app:showAsAction="always"-->
+<!--        android:enabled="true"-->
+<!--        android:icon="@drawable/search"-->
+<!--        android:title="search"/>-->
     <item
         android:id="@+id/alertImage"
         app:showAsAction="always"
@@ -18,7 +18,7 @@
         app:showAsAction="always"
         android:enabled="true"
         android:icon="@drawable/bookmark"
-        android:title="alert"/>
+        android:title="bookmarks"/>
     <item
         android:id="@+id/userInfoImage"
         app:showAsAction="always"

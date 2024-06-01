@@ -16,7 +16,9 @@ import com.example.welfarebenefits.databinding.FragmentCentralAgencyRecyclerview
 import com.example.welfarebenefits.entity.WelfareCentralAgencyMap
 import com.example.welfarebenefits.entity.WelfareData
 import com.example.welfarebenefits.util.AlarmScheduler
+import com.example.welfarebenefits.util.BookmarkUpdater
 import com.example.welfarebenefits.util.CallBackWelfareData
+import com.example.welfarebenefits.util.JsonConverter
 import com.example.welfarebenefits.util.WelfareDataFetcher
 
 class CentralAgencyRecyclerviewFragment : Fragment(), OnItemClickListener {
@@ -24,9 +26,9 @@ class CentralAgencyRecyclerviewFragment : Fragment(), OnItemClickListener {
     private val binding get() = mBinding!!
     private var id:String=""
     private var spinnerItem: String=""
+    private var recyclerViewAdapter: RecyclerViewAdapter? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        var recyclerViewAdapter: RecyclerViewAdapter? = null
 
         arguments?.let { bundle ->
             id= bundle.getString("id")!!
@@ -58,6 +60,11 @@ class CentralAgencyRecyclerviewFragment : Fragment(), OnItemClickListener {
 
         })
     }
+     override fun onResume(){
+         super.onResume()
+         Log.e("onResumeMainActivity", "메인액티비티 resume")
+         recyclerViewAdapter?.notifyDataSetChanged()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -69,28 +76,28 @@ class CentralAgencyRecyclerviewFragment : Fragment(), OnItemClickListener {
 
     }
     override fun onItemClick(position: Int) {
-        val clickedItem = binding.recyclerView.adapter?.let { adapter ->
-            if (adapter is RecyclerViewAdapter) {
-                adapter.getItem(position)
-            } else null
-        }
-        clickedItem?.let {
-            val intent = Intent(requireActivity(), SubListActivity::class.java).apply {
-                putExtra("SERVICE_URL", it.detailURL)
-                putExtra("SERVICE_ID", it.serviceID)
-                putExtra("SERVICE_NAME", it.serviceName)
-                putExtra("SERVICE_SUMMARY", it.serviceSummary)
-                putExtra("SERVICE_CRITERIA", it.selectionCriteria)
-                putExtra("SERVICE_DEADLINE", it.applicationDeadline)
-                putExtra("SERVICE_METHOD", it.applicationMethod)
-                putExtra("SERVICE_CONTENT", it.supportContent)
-            }
-            startActivity(intent)
-        }
-    }
+         val clickedItem = binding.recyclerView.adapter?.let { adapter ->
+             if (adapter is RecyclerViewAdapter) {
+                 adapter.getItem(position)
+             } else null
+         }
+         clickedItem?.let {
+             val intent = Intent(requireActivity(), SubListActivity::class.java).apply {
+                 putExtra("DATA", JsonConverter().dataToJson(it))
+             }
+             startActivity(intent)
+         }
+      }
 
-    override fun onButtonClick(position: Int) {
-        TODO("Not yet implemented")
-    }
+         override fun onButtonClick(position: Int) {
+         val clickedBtn = binding.recyclerView.adapter?.let { adapter ->
+             if (adapter is RecyclerViewAdapter) {
+                 adapter.getItem(position)
+             } else null
+         }
+         clickedBtn?.let {
+             BookmarkUpdater().updateBookmark(id,it)
+         }
+     }
 
 }
