@@ -32,9 +32,7 @@ import com.example.welfarebenefits.util.WelfareDataFetcher
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 
-/**
- * 프래그먼트 수정완료 그에 따라 알림도 수정해야 될듯
- */
+
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     private var mBinding: ActivityMainBinding?=null
     private val binding get() = mBinding!!
