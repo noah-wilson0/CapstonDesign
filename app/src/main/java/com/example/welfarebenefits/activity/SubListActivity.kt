@@ -2,13 +2,13 @@ package com.example.welfarebenefits.activity
 
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import com.google.android.material.tabs.TabLayout
-import com.example.welfarebenefits.R
+import androidx.appcompat.app.AppCompatActivity
 import com.example.welfarebenefits.databinding.ActivitySubListBinding
 import com.example.welfarebenefits.util.JsonConverter
+import com.google.android.material.tabs.TabLayout
 
 class SubListActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySubListBinding
@@ -17,10 +17,11 @@ class SubListActivity : AppCompatActivity() {
         binding = ActivitySubListBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val dataString = intent.getStringExtra("DATA")
+        Log.e("TESt", dataString.toString())
         val dataJson = JsonConverter().jsonToData(dataString!!)
         binding.servicenameTV.text = dataJson.serviceName
         binding.summaryTV.text = dataJson.serviceSummary
-        if(dataJson.selectionCriteria.equals("")){
+        if(dataJson.selectionCriteria == ""){
             binding.criterionTV.text = "지원 내용 참조"
         }else{
             binding.criterionTV.text = dataJson.selectionCriteria

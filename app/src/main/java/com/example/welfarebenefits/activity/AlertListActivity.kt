@@ -11,6 +11,7 @@ import com.example.welfarebenefits.databinding.ActivityAlertListBinding
 import com.example.welfarebenefits.entity.WelfareData
 import com.example.welfarebenefits.util.ActivityStarter
 import com.example.welfarebenefits.util.CallBackWelfareData
+import com.example.welfarebenefits.util.JsonConverter
 import com.example.welfarebenefits.util.WelfareDataFetcher
 
 class AlertListActivity : AppCompatActivity(), OnItemClickListener {
@@ -42,7 +43,17 @@ class AlertListActivity : AppCompatActivity(), OnItemClickListener {
     }
 
     override fun onItemClick(position: Int) {
-        TODO("Not yet implemented")
+        val clickedItem = binding.alarmRecyclerView.adapter?.let { adapter ->
+            if (adapter is RecyclerViewAdapter) {
+                adapter.getItem(position)
+            } else null
+        }
+        clickedItem?.let {
+            val intent = Intent(this, SubListActivity::class.java).apply {
+                putExtra("DATA", JsonConverter().dataToJson(it))
+            }
+            startActivity(intent)
+        }
     }
 
     override fun onButtonClick(position: Int) {
