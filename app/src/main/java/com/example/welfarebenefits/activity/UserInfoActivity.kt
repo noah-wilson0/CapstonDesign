@@ -49,8 +49,14 @@ class UserInfoActivity : AppCompatActivity() {
         }
 
         binding.backArrowImgInfo.setOnClickListener {
-            ActivityStarter.startNextActivityNotFinish(this,MainActivity::class.java,user!!.id)
+            finish()
+            //ActivityStarter.startNextActivityNotFinish(this,MainActivity::class.java,user!!.id)
         }
+
+        binding.updateInfoBtn.setOnClickListener{
+            ActivityStarter.startNextActivity(this,UserInfoUpdateActivity::class.java, user!!)
+        }
+
         binding.logout.setOnClickListener {
             Firebase.auth.signOut()
             val sharedPreferences:SharedPreferences=getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
