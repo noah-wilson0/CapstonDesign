@@ -20,13 +20,12 @@ import androidx.core.app.ActivityCompat
 import com.example.welfarebenefits.R
 import com.example.welfarebenefits.databinding.ActivityMainBinding
 import com.example.welfarebenefits.entity.User
-import com.example.welfarebenefits.entity.WelfareCentralAgencyList
 import com.example.welfarebenefits.entity.WelfareData
 import com.example.welfarebenefits.fragment.CentralAgencyRecyclerviewFragment
 import com.example.welfarebenefits.fragment.WelfareUserMatchRecyclerviewFragment
 import com.example.welfarebenefits.util.ActivityStarter
-import com.example.welfarebenefits.util.Alarm
 import com.example.welfarebenefits.util.OnUserInfoClickListener
+import com.example.welfarebenefits.util.ShowAlertDialog
 import com.example.welfarebenefits.util.ToolbarMenuItemClickListener
 import com.example.welfarebenefits.util.WelfareDataFetcher
 import com.google.firebase.Firebase
@@ -59,16 +58,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         Log.e("MAIN",id)
 
         WelfareDataFetcher().getBookmarkDataList(id,this)
-
-        binding.alerm.setOnClickListener {
-            Log.e("MAIN","알림시작")
-            val welfareList = WelfareCentralAgencyList.getWelfareCentralAgencyList()
-            if (welfareList.isNotEmpty()) {
-                Alarm(id, this).deliverNotification(welfareList.random())
-            } else {
-                Log.e("MAIN", "빈 리스트입니다. 알림을 보낼 수 없습니다.")
-            }
-        }
 
 
         binding.toolbar.setOnMenuItemClickListener(object : Toolbar.OnMenuItemClickListener {
@@ -134,10 +123,21 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 // 아무것도 선택되지 않았을 때의 이벤트
             }
         }
-        binding.main.setOnClickListener(this)
-        binding.fit.setOnClickListener(this)
-        binding.main.setTypeface(null, Typeface.BOLD)
-        binding.fit.setTypeface(null, Typeface.NORMAL)
+        if (id!="guest") {
+            binding.main.setOnClickListener(this)
+            binding.fit.setOnClickListener(this)
+            binding.main.setTypeface(null, Typeface.BOLD)
+            binding.fit.setTypeface(null, Typeface.NORMAL)
+        }
+        else {
+            binding.main.setOnClickListener {
+                ShowAlertDialog(this, "에러", "로그인을 하셔야 이용할 수 있는 기능입니다.","확인").showAlertDialog()
+            }
+            binding.fit.setOnClickListener {
+                ShowAlertDialog(this, "에러", "로그인을 하셔야 이용할 수 있는 기능입니다.","확인").showAlertDialog()
+            }
+        }
+
     }
 
 

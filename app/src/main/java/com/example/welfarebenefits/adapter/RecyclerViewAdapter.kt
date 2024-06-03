@@ -1,10 +1,7 @@
 package com.example.welfarebenefits.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
 import com.example.welfarebenefits.R
 import com.example.welfarebenefits.adapter.viewholder.RecyclerViewHolder
