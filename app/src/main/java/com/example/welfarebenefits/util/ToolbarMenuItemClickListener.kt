@@ -46,7 +46,7 @@ class ToolbarMenuItemClickListener():ToolbarMenuItemClickListeners,OnUserInfoCli
                         val password = userData["password"] as String ?: ""
                         val name = userData["name"] as String ?: ""
                         val gender = userData["gender"] as String ?: ""
-                        val residence = userData["residence"] as String ?: ""
+                        val residence = (userData["residence"] as List<String>)
                         val significantData = userData["significant"]  //[1인가구, 국가보훈대상] =List
                         val significant = mutableListOf<String?>()  // 혹은 원하는 타입으로 선언
                         if (significantData is List<*>) {

@@ -3,6 +3,7 @@ package com.example.welfarebenefits.activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.welfarebenefits.adapter.OnItemClickListener
@@ -28,9 +29,16 @@ class AlertListActivity : AppCompatActivity(), OnItemClickListener {
             override fun getWelfareData(welfareDataList: List<WelfareData>) {
                 Log.e("AlertListActivity",welfareDataList.size.toString())
                 val recyclerViewAdapter = RecyclerViewAdapter(welfareDataList,this@AlertListActivity)
-                binding.alarmRecyclerView.adapter=recyclerViewAdapter
-                binding.alarmRecyclerView.layoutManager = LinearLayoutManager(this@AlertListActivity)
-                binding.alarmRecyclerView.adapter = recyclerViewAdapter
+                if (recyclerViewAdapter.itemCount==0){
+                    binding.alarmRecyclerView.visibility= View.GONE
+                }
+                else {
+                    binding.mosaicText.visibility=View.GONE
+                    binding.alarmRecyclerView.adapter = recyclerViewAdapter
+                    binding.alarmRecyclerView.layoutManager =
+                        LinearLayoutManager(this@AlertListActivity)
+                    binding.alarmRecyclerView.adapter = recyclerViewAdapter
+                }
             }
 
         })
