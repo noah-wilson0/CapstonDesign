@@ -38,7 +38,7 @@ class SignUp (val signUpActivity: SignUpActivity, private val binding: ActivityS
                 password = binding.inputPSET.text.toString().trim(),
                 name = name,
                 gender = gender,
-                residence = binding.residenceTV.text.toString().trim(),
+                residence = binding.residenceTV.text.toString().split(" "),
                 significant =  CheckedTextExtractor(
                     mutableListOf(
                         binding.singleHouseholdCHK,

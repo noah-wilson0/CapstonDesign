@@ -44,7 +44,7 @@ class UserInfoActivity : AppCompatActivity() {
             binding.passwordInfo.text = user!!.password
             binding.nameInfo.text = user!!.name
             binding.genderInfo.text=user!!.gender
-            binding.residencInfo.text = user!!.residence
+            binding.residencInfo.text = user!!.residence.joinToString(" ")
             binding.significantInfo.text = user!!.significant.joinToString(", ")
         }
 

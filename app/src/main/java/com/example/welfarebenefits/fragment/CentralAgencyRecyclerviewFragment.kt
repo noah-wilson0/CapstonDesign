@@ -90,14 +90,20 @@ class CentralAgencyRecyclerviewFragment : Fragment(), OnItemClickListener {
       }
 
          override fun onButtonClick(position: Int) {
-         val clickedBtn = binding.recyclerView.adapter?.let { adapter ->
-             if (adapter is RecyclerViewAdapter) {
-                 adapter.getItem(position)
-             } else null
+            if(id=="guest"){
+//                recyclerViewAdapter.hol
+            }else{
+                val clickedBtn = binding.recyclerView.adapter?.let { adapter ->
+                    if (adapter is RecyclerViewAdapter) {
+                        adapter.getItem(position)
+                    } else null
+                }
+                clickedBtn?.let {
+                    BookmarkUpdater().updateBookmark(id, it)
+                }
+            }
+
          }
-         clickedBtn?.let {
-             BookmarkUpdater().updateBookmark(id,it)
-         }
-     }
+
 
 }

@@ -6,16 +6,15 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import com.example.welfarebenefits.R
 import com.example.welfarebenefits.databinding.ActivitySignUpBinding
 import com.example.welfarebenefits.entity.User
 import com.example.welfarebenefits.util.ActivityStarter
 import com.example.welfarebenefits.util.JsonConverter
 import com.example.welfarebenefits.util.ShowAlertDialog
-import com.example.welfarebenefits.util.SignUp
 import com.example.welfarebenefits.util.UserInfoUpdater
 import com.example.welfarebenefits.util.UserInfoValidator
 import com.google.firebase.Firebase
@@ -41,9 +40,15 @@ class UserInfoUpdateActivity : AppCompatActivity() {
         binding.inputIDET.isEnabled = false
         binding.inputPSET.setText(user!!.password)
         binding.inputNameET.setText(user!!.name)
-        binding.residenceTV.setText(user!!.residence)
-        if(user!!.gender.equals("남성")) binding.male.isChecked = true
-        else binding.female.isChecked = true
+        binding.residenceTV.setText(user!!.residence.joinToString(" "))
+        if(user!!.gender.equals("남성")) {
+            binding.male.isChecked = true
+            gender = "남성"
+        }
+        else {
+            binding.female.isChecked = true
+            gender = "여성"
+        }
         if(user!!.significant.contains(binding.singleHouseholdCHK.text)) binding.singleHouseholdCHK.isChecked = true
         if(user!!.significant.contains(binding.singleFamilyCHK.text)) binding.singleFamilyCHK.isChecked = true
         if(user!!.significant.contains(binding.multiChildFamilyCHK.text)) binding.multiChildFamilyCHK.isChecked = true

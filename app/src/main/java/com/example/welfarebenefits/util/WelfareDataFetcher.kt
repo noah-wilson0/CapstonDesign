@@ -10,7 +10,6 @@ import com.example.welfarebenefits.entity.WelfareCentralAgencyMap
 import com.example.welfarebenefits.entity.WelfareData
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.GenericTypeIndicator
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
@@ -27,7 +26,7 @@ class WelfareDataFetcher {
                 val snapshot = task.result
                 if (snapshot.exists()) {
                     val userInfo = snapshot.value as HashMap<String, *>
-                    val residence = userInfo["residence"] as String
+                    val residence = (userInfo["residence"] as List<String>)
                     val gender = userInfo["gender"] as String
                     val significant = userInfo["significant"]?: listOf<String>()
                     Log.e("getWelfareData", "Residence: $residence, Gender: $gender, Significant: $significant")
@@ -42,7 +41,7 @@ class WelfareDataFetcher {
         }
     }
 
-    private fun fetchWelfareData(residence: String, gender:String, significant: List<String>, callback: CallBackWelfareData) {
+    private fun fetchWelfareData(residence: List<String>, gender:String, significant: List<String>, callback: CallBackWelfareData) {
 
         database.child("data").get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
@@ -61,9 +60,9 @@ class WelfareDataFetcher {
                             val serviceSummary=welfareDataSnapshot["serviceSummary"] as String? ?: ""
                             val supportContent = welfareDataSnapshot["supportContent"] as String? ?: ""
                             val agencyName=welfareDataSnapshot["agencyName"] as String? ?:""
-                            if (supportContent.contains(residence) || supportContent.contains(gender) || significant.any { supportContent.contains(it) }
-                                || serviceName.contains(residence) || serviceName.contains(gender) || significant.any { serviceName.contains(it) }
-                                || serviceSummary.contains(residence) || serviceSummary.contains(gender) || significant.any { serviceSummary.contains(it) }){
+                            if ((supportContent.contains(residence[0]) && supportContent.contains(residence[1]))|| supportContent.contains(gender) || significant.any { supportContent.contains(it) }
+                                || (supportContent.contains(residence[0]) && supportContent.contains(residence[1])) || serviceName.contains(gender) || significant.any { serviceName.contains(it) }
+                                || (supportContent.contains(residence[0]) && supportContent.contains(residence[1])) || serviceSummary.contains(gender) || significant.any { serviceSummary.contains(it) }){
                                 val welfareData = WelfareData(
                                     welfareDataSnapshot["detailURL"] as String? ?: "",
                                     welfareDataSnapshot["serviceID"] as String? ?: "",
@@ -244,46 +243,52 @@ class WelfareDataFetcher {
             }
         }
     }
+fun getAlarmData(context: Context, id: String, callback: CallBackWelfareData) {
+    database = FirebaseDatabase.getInstance().reference
+    val welfareDataList: MutableList<WelfareData> = mutableListOf()
 
-    fun getAlarmData(context: Context,id:String,callback:CallBackWelfareData){
-        database=FirebaseDatabase.getInstance().reference
-        var welfareDataList: MutableList<WelfareData> = mutableListOf()
-        database.child(id).child(context.resources.getString(R.string.alarm)).get().addOnCompleteListener { task ->
-            if (task.isSuccessful){
-                val dataSnapshot=task.result
-                if (dataSnapshot.exists()){
-//                    val alarmListFromDatabase = dataSnapshot.value as List<HashMap<String,*>>
-                    val alarmListFromDatabase = dataSnapshot.getValue(object :
-                        GenericTypeIndicator<List<HashMap<String, *>>>
-                        () {})
-                    if (alarmListFromDatabase != null) {
-                        for(alarmMap in alarmListFromDatabase){
-                            val welfareData = WelfareData(
-                                alarmMap["detailURL"] as String,
-                                alarmMap["serviceID"] as String,
-                                alarmMap["serviceName"] as String,
-                                alarmMap["serviceSummary"] as String,
-                                alarmMap["selectionCriteria"] as String,
-                                alarmMap["applicationDeadline"] as String,
-                                alarmMap["applicationMethod"] as String,
-                                alarmMap["supportContent"] as String,
-                                alarmMap["agencyName"] as String? ?:""
-                            )
-                            welfareDataList.add(welfareData)
+    database.child(id).child(context.resources.getString(R.string.alarm)).get().addOnCompleteListener { task ->
+        if (task.isSuccessful) {
+            val dataSnapshot = task.result
+            if (dataSnapshot.exists()) {
+                val value = dataSnapshot.value
+                if (value is String) {
+                    // 문자열인 경우 처리하지 않음
+                    return@addOnCompleteListener
+                } else if (value is List<*>) {
+                    // 리스트인 경우만 처리
+                    val alarmListFromDatabase = value as List<*>
+                    for (alarmItem in alarmListFromDatabase) {
+                        if (alarmItem is HashMap<*, *>) {
+                            val alarmMap = alarmItem as HashMap<String, *>
+                            if (alarmMap.values.all { it is String }) {
+                                val welfareData = WelfareData(
+                                    alarmMap["detailURL"] as String,
+                                    alarmMap["serviceID"] as String,
+                                    alarmMap["serviceName"] as String,
+                                    alarmMap["serviceSummary"] as String,
+                                    alarmMap["selectionCriteria"] as String,
+                                    alarmMap["applicationDeadline"] as String,
+                                    alarmMap["applicationMethod"] as String,
+                                    alarmMap["supportContent"] as String,
+                                    alarmMap["agencyName"] as String? ?: ""
+                                )
+                                welfareDataList.add(welfareData)
+                            }
                         }
                     }
-
                     callback.getWelfareData(welfareDataList)
-
-                } else{
-                    Log.e("getAlarmData", "No alarm data available")
                 }
-            }else{
-                Log.e("getAlarmData", "Error getting alarm data")
+            } else {
+                Log.e("getAlarmData", "No alarm data available")
             }
+        } else {
+            Log.e("getAlarmData", "Error getting alarm data")
         }
-
     }
+}
+
+
 
 }
 
