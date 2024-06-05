@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.Button
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.welfarebenefits.R
+import com.example.welfarebenefits.activity.MainActivity
 import com.example.welfarebenefits.adapter.viewholder.RecyclerViewHolder
 import com.example.welfarebenefits.databinding.RecyclerviewItemBinding
 import com.example.welfarebenefits.entity.WelfareBookmarkList
@@ -38,12 +40,16 @@ class RecyclerViewAdapter(private val welfareDataList:List<WelfareData>, private
             listener.onItemClick(position)
         }
         holder.bookmarkBtn.setOnClickListener{
-            if(WelfareBookmarkList.checkBookmarkList(currentItem)){
-                holder.bookmarkBtn.setBackgroundResource(R.drawable.bookmark_remove)
+            if(WelfareBookmarkList.getBookmarkList().contains("guest")){
+
             }else{
-                holder.bookmarkBtn.setBackgroundResource(R.drawable.bookmark_add)
+                if(WelfareBookmarkList.checkBookmarkList(currentItem)){
+                    holder.bookmarkBtn.setBackgroundResource(R.drawable.bookmark_remove)
+                }else{
+                    holder.bookmarkBtn.setBackgroundResource(R.drawable.bookmark_add)
+                }
+                listener.onButtonClick(position)
             }
-            listener.onButtonClick(position)
         }
     }
 
