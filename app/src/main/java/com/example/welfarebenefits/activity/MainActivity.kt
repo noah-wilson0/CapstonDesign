@@ -20,6 +20,8 @@ import androidx.core.app.ActivityCompat
 import com.example.welfarebenefits.R
 import com.example.welfarebenefits.databinding.ActivityMainBinding
 import com.example.welfarebenefits.entity.User
+import com.example.welfarebenefits.entity.WelfareBookmarkList
+import com.example.welfarebenefits.entity.WelfareCentralAgencyList
 import com.example.welfarebenefits.entity.WelfareData
 import com.example.welfarebenefits.fragment.CentralAgencyRecyclerviewFragment
 import com.example.welfarebenefits.fragment.WelfareUserMatchRecyclerviewFragment
@@ -51,13 +53,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         intent=getIntent()
         if(intent.getStringExtra("id").isNullOrEmpty()){
             id="guest"
+            WelfareBookmarkList.setBookmarkList(mutableListOf("guest"))
         }
         else{
             id= intent.getStringExtra("id")!!
+            WelfareDataFetcher().getBookmarkDataList(id,this)
         }
         Log.e("MAIN",id)
 
-        WelfareDataFetcher().getBookmarkDataList(id,this)
 
 
         binding.toolbar.setOnMenuItemClickListener(object : Toolbar.OnMenuItemClickListener {
