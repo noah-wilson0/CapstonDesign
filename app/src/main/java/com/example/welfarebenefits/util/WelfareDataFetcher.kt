@@ -60,22 +60,27 @@ class WelfareDataFetcher {
                             val serviceSummary=welfareDataSnapshot["serviceSummary"] as String? ?: ""
                             val supportContent = welfareDataSnapshot["supportContent"] as String? ?: ""
                             val agencyName=welfareDataSnapshot["agencyName"] as String? ?:""
-                            if ((supportContent.contains(residence[0]) && supportContent.contains(residence[1]))|| supportContent.contains(gender) || significant.any { supportContent.contains(it) }
+                            if (supportContent.contains(residence[0]) && supportContent.contains(residence[1])){
+                                    if( supportContent.contains(gender) || significant.any { supportContent.contains(it) }
                                 || (supportContent.contains(residence[0]) && supportContent.contains(residence[1])) || serviceName.contains(gender) || significant.any { serviceName.contains(it) }
                                 || (supportContent.contains(residence[0]) && supportContent.contains(residence[1])) || serviceSummary.contains(gender) || significant.any { serviceSummary.contains(it) }){
-                                val welfareData = WelfareData(
-                                    welfareDataSnapshot["detailURL"] as String? ?: "",
-                                    welfareDataSnapshot["serviceID"] as String? ?: "",
-                                    serviceName,
-                                    serviceSummary,
-                                    welfareDataSnapshot["selectionCriteria"] as String? ?: "",
-                                    welfareDataSnapshot["applicationDeadline"] as String? ?: "",
-                                    welfareDataSnapshot["applicationMethod"] as String? ?: "",
-                                    supportContent,
-                                    agencyName
-                                )
-                                welfareDataList.add(welfareData)
-                                categoryList.add(welfareData)
+                                        val welfareData = WelfareData(
+                                            welfareDataSnapshot["detailURL"] as String? ?: "",
+                                            welfareDataSnapshot["serviceID"] as String? ?: "",
+                                            serviceName,
+                                            serviceSummary,
+                                            welfareDataSnapshot["selectionCriteria"] as String?
+                                                ?: "",
+                                            welfareDataSnapshot["applicationDeadline"] as String?
+                                                ?: "",
+                                            welfareDataSnapshot["applicationMethod"] as String?
+                                                ?: "",
+                                            supportContent,
+                                            agencyName
+                                        )
+                                        welfareDataList.add(welfareData)
+                                        categoryList.add(welfareData)
+                                    }
                             }
                         }
                         categoryMap[categoryName] = categoryList

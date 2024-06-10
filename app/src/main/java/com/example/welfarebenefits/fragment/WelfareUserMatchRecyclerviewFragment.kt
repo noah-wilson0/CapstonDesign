@@ -76,11 +76,13 @@ class WelfareUserMatchRecyclerviewFragment : Fragment(), OnItemClickListener {
 
                     val alarmScheduler = AlarmScheduler(requireContext())
                     welfareDataList.let {
-                        alarmScheduler.scheduleDailyAlarm(
-                            resources.getInteger(R.integer.userFitHour), resources.getInteger(
-                                R.integer.userFitMinute
-                            ), id, welfareDataList[(welfareDataList.indices).random()]
-                        )
+                        if (welfareDataList.isNotEmpty()) {
+                            alarmScheduler.scheduleDailyAlarm(
+                                resources.getInteger(R.integer.userFitHour), resources.getInteger(
+                                    R.integer.userFitMinute
+                                ), id, welfareDataList[(welfareDataList.indices).random()]
+                            )
+                        }
                     }
                 }
             })
