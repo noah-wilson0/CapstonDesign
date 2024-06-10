@@ -2,10 +2,8 @@ package com.example.welfarebenefits.util
 
 import android.content.Context
 import android.util.Log
-import androidx.core.app.GrammaticalInflectionManagerCompat.GrammaticalGender
 import com.example.welfarebenefits.R
 import com.example.welfarebenefits.databinding.ActivitySignUpBinding
-import com.example.welfarebenefits.databinding.ActivityUserInfoBinding
 import com.example.welfarebenefits.entity.User
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
@@ -35,7 +33,7 @@ class UserInfoUpdater(private val binding:ActivitySignUpBinding) {
             password = binding.inputPSET.text.toString().trim(),
             name = name,
             gender = gender,
-            residence = binding.residenceTV.text.toString().trim(),
+            residence = binding.residenceTV.text.split(" "),
             significant =  CheckedTextExtractor(
                 mutableListOf(
                     binding.singleHouseholdCHK,

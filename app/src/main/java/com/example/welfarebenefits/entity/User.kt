@@ -6,6 +6,6 @@ data class User(
     var password: String,
     var name: String,
     var gender: String,
-    var residence: String,
+    var residence: List<String>,
     var significant: MutableList<String?>
 )

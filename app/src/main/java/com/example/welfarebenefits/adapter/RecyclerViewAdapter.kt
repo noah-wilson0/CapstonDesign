@@ -1,6 +1,5 @@
 package com.example.welfarebenefits.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.AdapterView

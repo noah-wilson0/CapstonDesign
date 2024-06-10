@@ -10,6 +10,7 @@ import androidx.core.app.NotificationCompat
 import com.example.welfarebenefits.R
 import com.example.welfarebenefits.activity.LogInActivity
 import com.example.welfarebenefits.activity.MainActivity
+import com.example.welfarebenefits.activity.SubListActivity
 import com.example.welfarebenefits.entity.WelfareData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -38,10 +39,16 @@ class Alarm(private val id:String, private val context: Context) {
     fun deliverNotification(welfareData: WelfareData) {
         Log.d("Alerm", "Delivering notification")
         auth = Firebase.auth
-        val intent:Intent
+        var intent:Intent
 
         if(auth.currentUser!=null){
-            intent = Intent(context, MainActivity::class.java)
+            intent = welfareData?.let {
+                Intent(context, SubListActivity::class.java).apply {
+                    putExtra("DATA", JsonConverter().dataToJson(it))
+                }
+            } ?: run {
+                Intent(context, MainActivity::class.java)
+            }
         }else{
             intent = Intent(context, LogInActivity::class.java)
         }

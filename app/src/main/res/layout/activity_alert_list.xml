@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".activity.AlertListActivity">
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="50dp">
@@ -53,6 +52,20 @@
             app:layout_constraintStart_toEndOf="@+id/back_arrowImg_alert_list"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/mosaic_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:background="#E0808080"
+            android:text="알람이 없습니다."
+            android:textColor="@color/black"
+            android:textSize="32sp"
+            android:textStyle="bold"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/alarmRecyclerView"
         tools:listitem="@layout/recyclerview_item"
@@ -62,4 +75,5 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 
+</FrameLayout>
 </LinearLayout>
